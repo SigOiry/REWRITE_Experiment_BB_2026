@@ -1,0 +1,30 @@
+/* css styles */
+
+#experiment-site-map,
+#site-selection-map {
+  border: 1px solid #d7d7d7;
+  border-radius: 6px;
+}
+
+.site-map-views {
+  background: white;
+  padding: 4px;
+}
+
+.site-map-views button {
+  display: block;
+  width: 100%;
+  border: 0;
+  background: white;
+  color: #263238;
+  padding: 6px 10px;
+  text-align: left;
+  font: 13px/1.3 sans-serif;
+  cursor: pointer;
+}
+
+.site-map-views button:hover,
+.site-map-views button:focus-visible {
+  background: #edf2f5;
+  outline: 2px solid #0072b2;
+}

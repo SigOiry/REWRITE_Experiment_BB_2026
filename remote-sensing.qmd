@@ -1,0 +1,34 @@
+---
+title: "Remote sensing results"
+subtitle: "REWRITE · BB Experiment"
+---
+
+This page will present the results obtained from remote sensing. Acquisition and processing protocols are described in the [materials and methods](index.qmd#remote-sensing-methods).
+
+::: callout-note
+## Results in preparation
+
+No results have been reported on this page yet. The sections below are placeholders for the analyses and figures.
+:::
+
+## Data coverage and quality
+
+**To add:** A summary of the available acquisitions, coverage of experimental units, and quality checks. Report missing or excluded observations and their reasons.
+
+## Maps and imagery
+
+**To add:** Maps and processed imagery showing the experimental area and spatial patterns. Include acquisition dates, legends, units, scale bars, and plot identifiers.
+
+## Derived measurements
+
+**To add:** Figures and tables summarizing the remote sensing variables for each treatment and campaign. Define units, sample sizes, and uncertainty measures in the captions.
+
+## Treatment comparisons and changes over time
+
+**To add:** The comparisons that address the study hypotheses, with effect estimates and uncertainty. Describe temporal changes where repeated acquisitions are available.
+
+## Interpretation and limitations
+
+**To add:** The main findings, their relation to the study objectives, and limitations associated with data coverage, resolution, and processing.
+
+Compare these observations with the [sampling results](sampling.qmd).

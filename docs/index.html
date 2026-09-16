@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Materials and methods – REWRITE | BB Experiment</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-bcaea1afbde5c3fcfe46a7eae4a52071.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+
+<link href="site_libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+
+<script src="site_libs/leaflet-1.3.1/leaflet.js"></script>
+
+<link href="site_libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+
+<script src="site_libs/proj4-2.6.2/proj4.min.js"></script>
+
+<script src="site_libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+
+<link href="site_libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+
+<script src="site_libs/leaflet-binding-2.2.3/leaflet.js"></script>
+
+<script src="site_libs/leaflet-providers-3.0.0/leaflet-providers.js"></script>
+
+<script src="site_libs/leaflet-providers-plugin-2.2.3/leaflet-providers-plugin.js"></script>
+
+<link href="site_libs/leaflet-minimap-3.3.1/Control.MiniMap.min.css" rel="stylesheet">
+
+<script src="site_libs/leaflet-minimap-3.3.1/Control.MiniMap.min.js"></script>
+
+<script src="site_libs/leaflet-minimap-3.3.1/Minimap-binding.js"></script>
+
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">REWRITE | BB Experiment</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="./index.html" aria-current="page"> 
+<span class="menu-text">Materials and methods</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./remote-sensing.html"> 
+<span class="menu-text">Remote sensing results</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./sampling.html"> 
+<span class="menu-text">Sampling results</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#study-objectives" id="toc-study-objectives" class="nav-link" data-scroll-target="#study-objectives">Study objectives</a></li>
+  <li><a href="#study-site-and-timeline" id="toc-study-site-and-timeline" class="nav-link" data-scroll-target="#study-site-and-timeline">Study site and timeline</a>
+  <ul class="collapse">
+  <li><a href="#site-selection" id="toc-site-selection" class="nav-link" data-scroll-target="#site-selection">Site selection</a></li>
+  <li><a href="#experimental-timeline" id="toc-experimental-timeline" class="nav-link" data-scroll-target="#experimental-timeline">Experimental timeline</a></li>
+  </ul></li>
+  <li><a href="#experimental-design" id="toc-experimental-design" class="nav-link" data-scroll-target="#experimental-design">Experimental design</a>
+  <ul class="collapse">
+  <li><a href="#spatial-arrangement-and-pairing" id="toc-spatial-arrangement-and-pairing" class="nav-link" data-scroll-target="#spatial-arrangement-and-pairing">Spatial arrangement and pairing</a></li>
+  <li><a href="#bivalve-collection-and-treatment-preparation" id="toc-bivalve-collection-and-treatment-preparation" class="nav-link" data-scroll-target="#bivalve-collection-and-treatment-preparation">Bivalve collection and treatment preparation</a></li>
+  <li><a href="#enclosure-installation-and-density-manipulation" id="toc-enclosure-installation-and-density-manipulation" class="nav-link" data-scroll-target="#enclosure-installation-and-density-manipulation">Enclosure installation and density manipulation</a></li>
+  </ul></li>
+  <li><a href="#remote-sensing-methods" id="toc-remote-sensing-methods" class="nav-link" data-scroll-target="#remote-sensing-methods">Remote sensing methods</a>
+  <ul class="collapse">
+  <li><a href="#baseline-and-repeated-multispectral-surveys" id="toc-baseline-and-repeated-multispectral-surveys" class="nav-link" data-scroll-target="#baseline-and-repeated-multispectral-surveys">Baseline and repeated multispectral surveys</a></li>
+  <li><a href="#multispectral-image-processing" id="toc-multispectral-image-processing" class="nav-link" data-scroll-target="#multispectral-image-processing">Multispectral image processing</a></li>
+  <li><a href="#baseline-lidar-elevation-survey" id="toc-baseline-lidar-elevation-survey" class="nav-link" data-scroll-target="#baseline-lidar-elevation-survey">Baseline LiDAR elevation survey</a></li>
+  <li><a href="#derived-measurements" id="toc-derived-measurements" class="nav-link" data-scroll-target="#derived-measurements">Derived measurements</a></li>
+  </ul></li>
+  <li><a href="#sampling-methods" id="toc-sampling-methods" class="nav-link" data-scroll-target="#sampling-methods">Sampling methods</a>
+  <ul class="collapse">
+  <li><a href="#temperature-monitoring" id="toc-temperature-monitoring" class="nav-link" data-scroll-target="#temperature-monitoring">Temperature monitoring</a></li>
+  <li><a href="#monthly-sediment-sulfide-measurements" id="toc-monthly-sediment-sulfide-measurements" class="nav-link" data-scroll-target="#monthly-sediment-sulfide-measurements">Monthly sediment sulfide measurements</a></li>
+  <li><a href="#final-harvest-and-separation-of-sample-fractions" id="toc-final-harvest-and-separation-of-sample-fractions" class="nav-link" data-scroll-target="#final-harvest-and-separation-of-sample-fractions">Final harvest and separation of sample fractions</a></li>
+  <li><a href="#inner-core-bivalve-composition-and-seagrass-biomass" id="toc-inner-core-bivalve-composition-and-seagrass-biomass" class="nav-link" data-scroll-target="#inner-core-bivalve-composition-and-seagrass-biomass">Inner-core bivalve composition and seagrass biomass</a></li>
+  <li><a href="#outer-core-bivalve-recovery-and-seagrass-tissue-sampling" id="toc-outer-core-bivalve-recovery-and-seagrass-tissue-sampling" class="nav-link" data-scroll-target="#outer-core-bivalve-recovery-and-seagrass-tissue-sampling">Outer-core bivalve recovery and seagrass tissue sampling</a></li>
+  </ul></li>
+  <li><a href="#data-processing-and-statistical-analysis" id="toc-data-processing-and-statistical-analysis" class="nav-link" data-scroll-target="#data-processing-and-statistical-analysis">Data processing and statistical analysis</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Materials and methods</h1>
+<p class="subtitle lead">REWRITE · BB Experiment</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>This site brings together the methods and results of the REWRITE BB experiment for collaborators. This landing page describes the experimental design and protocols; the results are presented on two dedicated pages.</p>
+<ul>
+<li><a href="./remote-sensing.html">Remote sensing results</a>: imagery, derived measurements, and spatial patterns.</li>
+<li><a href="./sampling.html">Sampling results</a>: field and laboratory measurements.</li>
+</ul>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Seagrass growth is closely coupled to biogeochemical processes in the surrounding sediment. The decomposition of organic matter through microbial sulfate reduction generates sulfide in anoxic sediments, while oxygen released by seagrass roots can promote its oxidation in the rhizosphere. These opposing processes create spatially heterogeneous conditions: in <em>Zostera marina</em> sediments, sulfide concentrations were elevated around buried leaf detritus but reduced near roots <span class="citation" data-cites="Simpson2018">(<a href="#ref-Simpson2018" role="doc-biblioref">Simpson et al. 2018</a>)</span>.</p>
+<p>Sulfide accumulation represents a potential constraint on seagrass performance. Sulfide is phytotoxic and can interfere with electron transport in respiration and photosynthesis; its entry into plant tissues is favored when oxygen availability is insufficient to maintain protective oxidation processes <span class="citation" data-cites="Frederiksen2008">(<a href="#ref-Frederiksen2008" role="doc-biblioref">Frederiksen et al. 2008</a>)</span>. However, sulfide exposure does not necessarily produce an immediate reduction in growth. Experiments with <em>Z. marina</em> and <em>Posidonia oceanica</em> demonstrated sulfide intrusion and sulfur accumulation in plant tissues without significant short-term effects on growth or mortality, whereas prolonged exposure in <em>P. oceanica</em> was associated with indications of reduced growth and increased mortality <span class="citation" data-cites="Frederiksen2008">(<a href="#ref-Frederiksen2008" role="doc-biblioref">Frederiksen et al. 2008</a>)</span>. These findings emphasize the need to distinguish exposure to sulfide from its consequences for plant performance.</p>
+<p>Lucinid bivalves offer a biological pathway through which sedimentary sulfide may be removed. <em>Loripes orbiculatus</em> is a member of the Lucinidae, a family characterized by intracellular sulfur-oxidizing bacterial symbionts housed in specialized gill epithelial cells, named bacteriocytes <span class="citation" data-cites="Anderson1995 Lim2019">(<a href="#ref-Anderson1995" role="doc-biblioref">Anderson 1995</a>; <a href="#ref-Lim2019" role="doc-biblioref">Lim et al. 2019</a>)</span>. These bacteria perform chemolithoautotrophy: they use energy obtained from the oxidation of reduced sulfur compounds to fix inorganic carbon, thereby contributing to host nutrition <span class="citation" data-cites="Anderson1995 Lim2019">(<a href="#ref-Anderson1995" role="doc-biblioref">Anderson 1995</a>; <a href="#ref-Lim2019" role="doc-biblioref">Lim et al. 2019</a>)</span>. Sulfide thus acts both as a potential stressor for seagrasses and as an energy substrate for the bivalve’s bacterial symbionts.</p>
+<p>This metabolic association provides the basis for a proposed facilitative interaction among seagrasses, lucinid bivalves, and sulfur-oxidizing bacteria. Seagrass-derived oxygen can support the association, while symbiont-mediated sulfide oxidation can alleviate sulfide stress in the surrounding root environment <span class="citation" data-cites="Lim2019">(<a href="#ref-Lim2019" role="doc-biblioref">Lim et al. 2019</a>)</span>. Within this framework, the density of <em>L. orbiculatus</em> is a candidate driver of variation in seagrass performance. Whether differences in bivalve density translate into measurable changes in an intertidal meadow is the central question addressed by the present experiment.</p>
+</section>
+<section id="study-objectives" class="level2">
+<h2 class="anchored" data-anchor-id="study-objectives">Study objectives</h2>
+<p>The objective of this experiment is to test <strong>in situ whether the density of <em>Loripes orbiculatus</em> influences the growth, biomass and morphological characteristics of the intertidal seagrass <em>Zostera noltei</em>.</strong></p>
+<p>The working hypothesis is that higher <em>L. orbiculatus</em> density enhances seagrass performance by increasing sulfide removal through the activity of its bacterial endosymbionts. Under conditions in which sulfide stress limits plant performance, this hypothesis predicts greater growth, shoot density, and biomass at higher bivalve densities. This prediction applies the facilitation framework described above to the present study system; it is not an established outcome of the experiment. Changes in plant performance alone would not establish sulfide removal as the causal mechanism.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Methods in preparation
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The methods describe the experimental procedures documented to date. Unresolved quantities are denoted by <span class="math inline">\(X\)</span> and <span class="math inline">\(X_2\)</span>, and LogicielX denotes image-analysis software whose name remains to be confirmed. Outstanding protocol details are marked <strong>Details pending</strong>.</p>
+</div>
+</div>
+</section>
+<section id="study-site-and-timeline" class="level2">
+<h2 class="anchored" data-anchor-id="study-site-and-timeline">Study site and timeline</h2>
+<section id="site-selection" class="level3">
+<h3 class="anchored" data-anchor-id="site-selection">Site selection</h3>
+<p>The experiment was established on 20 May 2026 in intertidal <em>Zostera noltei</em> meadows in Bourgneuf Bay, adjacent to Noirmoutier Island on the Atlantic coast of France. Two meadow areas were selected to contrast in the temporal persistence of seagrass cover, while exhibiting similar mean bathymetric elevation and within-area variability in elevation.</p>
+<section id="temporal-persistence-of-seagrass-cover" class="level4">
+<h4 class="anchored" data-anchor-id="temporal-persistence-of-seagrass-cover">Temporal persistence of seagrass cover</h4>
+<p>Site selection used a Sentinel-2 time series beginning in 2017. For each year, the image acquired closest to the annual maximum in seagrass biomass was selected; these acquisitions frequently occurred in September. The normalized difference vegetation index (NDVI) was calculated from near-infrared and red reflectance, and converted to seagrass percentage cover (<span class="math inline">\(C\)</span>) using the empirical relationship applied by <span class="citation" data-cites="Zoffoli2021">Zoffoli et al. (<a href="#ref-Zoffoli2021" role="doc-biblioref">2021</a>)</span> (their equation 2), originally developed for intertidal <em>Z. noltei</em>-dominated meadows by <span class="citation" data-cites="Zoffoli2020">Zoffoli et al. (<a href="#ref-Zoffoli2020" role="doc-biblioref">2020</a>)</span>:</p>
+<p><span class="math display">\[
+\mathrm{NDVI} = \frac{R_{\mathrm{NIR}}-R_{\mathrm{Red}}}{R_{\mathrm{NIR}}+R_{\mathrm{Red}}},
+\qquad C\;(\%) = 172.06\,\mathrm{NDVI}-22.18.
+\]</span></p>
+<p>The resulting annual cover estimates were reclassified at each pixel using a common threshold:</p>
+<p><span class="math display">\[
+B_{p,t} =
+\begin{cases}
+1, &amp; C_{p,t} \geq 50\%,\\
+0, &amp; C_{p,t} &lt; 50\%.
+\end{cases}
+\]</span></p>
+<p>Temporal persistence was then expressed as the percentage of classified observations in which the pixel attained at least 50% seagrass cover:</p>
+<p><span class="math display">\[
+F_p = 100\,\frac{n_{1,p}}{n_{1,p}+n_{0,p}},
+\]</span></p>
+<p>where <span class="math inline">\(n_{1,p}\)</span> and <span class="math inline">\(n_{0,p}\)</span> denote the numbers of observations classified as 1 and 0, respectively. Thus, <span class="math inline">\(F_p\)</span> describes the frequency of meeting the cover threshold through time; the 50% threshold applies to each annual cover estimate. The area designated as the <strong>stable meadow</strong> maintained cover of at least 50% in most observations, whereas the <strong>unstable meadow</strong> met this threshold less consistently.</p>
+</section>
+<section id="bathymetric-matching" class="level4">
+<h4 class="anchored" data-anchor-id="bathymetric-matching">Bathymetric matching</h4>
+<p>Litto3D elevation data were obtained at an initial spatial resolution of 1 m and subsequently resampled. The two polygons were selected to have similar mean elevations and standard deviations, while retaining a marked contrast in temporal cover persistence. Both rasters supplied for the comparisons below have a cell size of 19.9 × 19.9 m and use the RGF93 / Lambert-93 coordinate reference system (EPSG:2154). The selected area boundaries and experimental core locations are shown in <a href="#fig-study-sites" class="quarto-xref">Figure&nbsp;1</a>.</p>
+<div class="cell">
+<div id="fig-study-sites" class="cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-study-sites-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div id="experiment-site-map" style="width:100%;height:560px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="experiment-site-map">{"x":{"options":{"maxZoom":22,"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}},"scrollWheelZoom":false},"calls":[{"method":"addProviderTiles","args":["OpenStreetMap",null,"Map",{"errorTileUrl":"","noWrap":false,"detectRetina":false,"maxZoom":22,"maxNativeZoom":19}]},{"method":"addProviderTiles","args":["Esri.WorldImagery",null,"Satellite",{"errorTileUrl":"","noWrap":false,"detectRetina":false,"maxZoom":22,"maxNativeZoom":19}]},{"method":"addPolygons","args":[[[[{"lng":[-2.178902087964893,-2.180084166699358,-2.179965958825911,-2.17872858931193,-2.178902087964893],"lat":[46.96134593817514,46.96146795920579,46.96198845516466,46.96169102890246,46.96134593817514]}]],[[{"lng":[-2.172393028610922,-2.172137547077989,-2.17100122623002,-2.171195697247627,-2.172393028610922],"lat":[46.9597034207078,46.96002753907048,46.95952038916181,46.95923821552843,46.9597034207078]}]]],null,"Meadow areas",{"interactive":true,"className":"","stroke":true,"color":["#D55E00","#0072B2"],"weight":2,"opacity":0.5,"fill":true,"fillColor":["#D55E00","#0072B2"],"fillOpacity":0.16,"smoothFactor":1,"noClip":false},["<strong>Unstable meadow<\/strong><br>Seagrass cover reached at least 50% inconsistently through the Sentinel-2 time series.","<strong>Stable meadow<\/strong><br>Seagrass cover reached at least 50% in most observations of the Sentinel-2 time series."],null,["Unstable meadow","Stable meadow"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addCircleMarkers","args":[[46.95983356,46.95981844,46.95984133,46.95985525,46.95973292,46.9597249,46.95963084,46.95964147,46.95946362,46.95947471,46.95934435,46.95935788,46.96140081,46.96141214,46.9614822,46.96149194,46.96164254,46.96163528,46.96166669,46.96167572,46.96172779,46.96173793,46.96182282,46.96180951],[-2.17207558,-2.17207044,-2.17196299,-2.17195368,-2.17166456,-2.1716786,-2.17183497,-2.17181964,-2.1714427,-2.17143175,-2.17136803,-2.17135731,-2.17926391,-2.17926461,-2.17932463,-2.17931724,-2.17946273,-2.1794675,-2.17949774,-2.17948881,-2.17962051,-2.17961659,-2.17972377,-2.17972505],5,null,"Cores",{"interactive":true,"className":"","stroke":true,"color":"#ffffff","weight":1,"opacity":0.5,"fill":true,"fillColor":["#0072B2","#0072B2","#0072B2","#0072B2","#0072B2","#0072B2","#0072B2","#0072B2","#0072B2","#0072B2","#0072B2","#0072B2","#D55E00","#D55E00","#D55E00","#D55E00","#D55E00","#D55E00","#D55E00","#D55E00","#D55E00","#D55E00","#D55E00","#D55E00"],"fillOpacity":1},null,null,["<strong>1NS<\/strong><br>Stable meadow<br>Experimental core<br>Latitude: 46.959834<br>Longitude: -2.172076","<strong>1AS<\/strong><br>Stable meadow<br>Experimental core<br>Latitude: 46.959818<br>Longitude: -2.172070","<strong>2NS<\/strong><br>Stable meadow<br>Experimental core<br>Latitude: 46.959841<br>Longitude: -2.171963","<strong>2AS<\/strong><br>Stable meadow<br>Experimental core<br>Latitude: 46.959855<br>Longitude: -2.171954","<strong>3NS<\/strong><br>Stable meadow<br>Experimental core<br>Latitude: 46.959733<br>Longitude: -2.171665","<strong>3AS<\/strong><br>Stable meadow<br>Experimental core<br>Latitude: 46.959725<br>Longitude: -2.171679","<strong>4NS<\/strong><br>Stable meadow<br>Experimental core<br>Latitude: 46.959631<br>Longitude: -2.171835","<strong>4AS<\/strong><br>Stable meadow<br>Experimental core<br>Latitude: 46.959641<br>Longitude: -2.171820","<strong>5AS<\/strong><br>Stable meadow<br>Experimental core<br>Latitude: 46.959464<br>Longitude: -2.171443","<strong>5NS<\/strong><br>Stable meadow<br>Experimental core<br>Latitude: 46.959475<br>Longitude: -2.171432","<strong>6NS<\/strong><br>Stable meadow<br>Experimental core<br>Latitude: 46.959344<br>Longitude: -2.171368","<strong>6AS<\/strong><br>Stable meadow<br>Experimental core<br>Latitude: 46.959358<br>Longitude: -2.171357","<strong>1AU<\/strong><br>Unstable meadow<br>Experimental core<br>Latitude: 46.961401<br>Longitude: -2.179264","<strong>1NU<\/strong><br>Unstable meadow<br>Experimental core<br>Latitude: 46.961412<br>Longitude: -2.179265","<strong>2NU<\/strong><br>Unstable meadow<br>Experimental core<br>Latitude: 46.961482<br>Longitude: -2.179325","<strong>2AU<\/strong><br>Unstable meadow<br>Experimental core<br>Latitude: 46.961492<br>Longitude: -2.179317","<strong>3NU<\/strong><br>Unstable meadow<br>Experimental core<br>Latitude: 46.961643<br>Longitude: -2.179463","<strong>3AU<\/strong><br>Unstable meadow<br>Experimental core<br>Latitude: 46.961635<br>Longitude: -2.179467","<strong>4NU<\/strong><br>Unstable meadow<br>Experimental core<br>Latitude: 46.961667<br>Longitude: -2.179498","<strong>4AU<\/strong><br>Unstable meadow<br>Experimental core<br>Latitude: 46.961676<br>Longitude: -2.179489","<strong>5AU<\/strong><br>Unstable meadow<br>Experimental core<br>Latitude: 46.961728<br>Longitude: -2.179621<br><em>This identifier occurs at more than one location in the source file.<\/em>","<strong>5NU<\/strong><br>Unstable meadow<br>Experimental core<br>Latitude: 46.961738<br>Longitude: -2.179617<br><em>This identifier occurs at more than one location in the source file.<\/em>","<strong>5AU<\/strong><br>Unstable meadow<br>Experimental core<br>Latitude: 46.961823<br>Longitude: -2.179724<br><em>This identifier occurs at more than one location in the source file.<\/em>","<strong>5NU<\/strong><br>Unstable meadow<br>Experimental core<br>Latitude: 46.961810<br>Longitude: -2.179725<br><em>This identifier occurs at more than one location in the source file.<\/em>"],null,["Stable | 1NS","Stable | 1AS","Stable | 2NS","Stable | 2AS","Stable | 3NS","Stable | 3AS","Stable | 4NS","Stable | 4AS","Stable | 5AS","Stable | 5NS","Stable | 6NS","Stable | 6AS","Unstable | 1AU","Unstable | 1NU","Unstable | 2NU","Unstable | 2AU","Unstable | 3NU","Unstable | 3AU","Unstable | 4NU","Unstable | 4AU","Unstable | 5AU","Unstable | 5NU","Unstable | 5AU","Unstable | 5NU"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addLayersControl","args":[["Map","Satellite"],["Meadow areas","Cores"],{"collapsed":true,"autoZIndex":true,"position":"topright"}]},{"method":"addLegend","args":[{"colors":["#0072B2","#D55E00"],"labels":["Stable meadow","Unstable meadow"],"na_color":null,"na_label":"NA","opacity":1,"position":"bottomleft","type":"unknown","title":"Meadow cover persistence","extra":null,"layerId":null,"className":"info legend","group":null}]},{"method":"addScaleBar","args":[{"maxWidth":100,"metric":true,"imperial":false,"updateWhenIdle":true,"position":"bottomleft"}]},{"method":"addMiniMap","args":[null,"OpenStreetMap","bottomright",150,120,19,19,-5,9,false,false,true,false,false,{"color":"#ff7800","weight":1,"clickable":false},{"color":"#000000","weight":1,"clickable":false,"opacity":0,"fillOpacity":0},{"hideText":"Hide MiniMap","showText":"Show MiniMap"},[]]}],"limits":{"lat":[46.95923821552843,46.96198845516466],"lng":[-2.180084166699358,-2.17100122623002]},"fitBounds":[46.95923821552843,-2.180084166699358,46.96198845516466,-2.17100122623002,[]]},"evals":[],"jsHooks":{"render":[{"code":"function(el, x, data) {\n  return (function(el, x, data) {\n    var map = this;\n    el.setAttribute('role', 'region');\n    el.setAttribute('aria-label', 'Interactive map of the Bourgneuf Bay experimental sites');\n    var control = L.control({position: 'topleft'});\n    control.onAdd = function() {\n      var box = L.DomUtil.create('div', 'site-map-views leaflet-bar');\n      L.DomEvent.disableClickPropagation(box);\n      L.DomEvent.disableScrollPropagation(box);\n      [['Both sites', data.all], ['Stable', data.stable], ['Unstable', data.unstable],\n       ['Bay overview', null]].forEach(function(item) {\n        var button = L.DomUtil.create('button', '', box);\n        button.type = 'button';\n        button.textContent = item[0];\n        button.setAttribute('aria-label', 'Show ' + item[0]);\n        button.onclick = function() {\n          if (item[1]) map.fitBounds(item[1], {padding: [30, 30]});\n          else map.setView(data.center, 10);\n        };\n      });\n      return box;\n    };\n    control.addTo(map);\n  }).call(this.getMap(), el, x, data);\n}","data":{"all":[[46.95923821552843,-2.180084166699358],[46.96198845516466,-2.17100122623002]],"stable":[[46.95923821552843,-2.172393028610922],[46.96002753907048,-2.17100122623002]],"unstable":[[46.96134593817514,-2.180084166699358],[46.96198845516466,-2.17872858931193]],"center":[46.96061333534655,-2.17554269646469]}}]}}</script>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-study-sites-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Location of the two experimental meadow areas in Bourgneuf Bay. Blue and orange polygons delimit the stable and unstable areas, respectively; filled circles indicate individual experimental cores (12 per area). Site boundaries and core coordinates are drawn from the supplied shapefiles and transformed to WGS84 for display. Core symbols indicate positions and are not drawn to scale. Basemap imagery provides geographic context and was not used to classify meadow stability.
+</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<section id="spatial-comparison-of-the-selection-metrics" class="level4">
+<h4 class="anchored" data-anchor-id="spatial-comparison-of-the-selection-metrics">Spatial comparison of the selection metrics</h4>
+<p>Raster values were extracted separately for each polygon on the native grid of each supplied file. Each cell was included when its centre lay inside the polygon, and each included cell received equal weight. Non-finite values were excluded from numerical summaries and counted separately. No interpolation or numerical outlier filtering was applied before calculating the distributions, means, or sample standard deviations. These summaries describe spatial variation within the selected areas; raster cells are not independent experimental replicates.</p>
+<div class="cell">
+<div id="fig-selection-metrics" class="cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-selection-metrics-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div id="site-selection-map" style="width:100%;height:560px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="site-selection-map">{"x":{"options":{"maxZoom":22,"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}},"scrollWheelZoom":false},"calls":[{"method":"addProviderTiles","args":["OpenStreetMap",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false,"maxZoom":22,"maxNativeZoom":19}]},{"method":"addRasterImage","args":["data:image/png;base64,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",[[46.9931994624033,-2.235990217944938],[46.91358626907969,-2.128259665043025]],null,"Cover persistence (%)",{"tileSize":256,"zIndex":1,"minZoom":0,"opacity":0.85}]},{"method":"addRasterImage","args":["data:image/png;base64,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",[[46.99319946207665,-2.235990217801304],[46.91358626875316,-2.128259664900228]],null,"Elevation (full range)",{"tileSize":256,"zIndex":1,"minZoom":0,"opacity":0.85}]},{"method":"addRasterImage","args":["data:image/png;base64,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",[[46.99319946207665,-2.235990217801304],[46.91358626875316,-2.128259664900228]],null,"Elevation (site contrast)",{"tileSize":256,"zIndex":1,"minZoom":0,"opacity":0.85}]},{"method":"addPolygons","args":[[[[{"lng":[-2.178902087964893,-2.180084166699358,-2.179965958825911,-2.17872858931193,-2.178902087964893],"lat":[46.96134593817514,46.96146795920579,46.96198845516466,46.96169102890246,46.96134593817514]}]],[[{"lng":[-2.172393028610922,-2.172137547077989,-2.17100122623002,-2.171195697247627,-2.172393028610922],"lat":[46.9597034207078,46.96002753907048,46.95952038916181,46.95923821552843,46.9597034207078]}]]],null,"Study polygons",{"interactive":true,"className":"","stroke":true,"color":["#D55E00","#0072B2"],"weight":3,"opacity":0.5,"fill":false,"fillColor":["#D55E00","#0072B2"],"fillOpacity":0.2,"smoothFactor":1,"noClip":false},["<strong>Unstable meadow<\/strong><br>Cover persistence: 35.0 &plusmn; 8.2%<br>Elevation: -0.100 &plusmn; 0.038 (source units)<br>Valid cells: 13 stability; 13 elevation<br>Values are mean &plusmn; SD.","<strong>Stable meadow<\/strong><br>Cover persistence: 81.5 &plusmn; 2.2%<br>Elevation: -0.118 &plusmn; 0.055 (source units)<br>Valid cells: 10 stability; 10 elevation<br>Values are mean &plusmn; SD."],null,["Unstable meadow","Stable meadow"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addLegend","args":[{"colors":["#440154 , #440154 0%, #414487 20%, #2A788E 40%, #22A884 60%, #7AD151 80%, #FDE725 100%, #FDE725 "],"labels":["0","20","40","60","80","100"],"na_color":null,"na_label":"NA","opacity":0.5,"position":"bottomright","type":"numeric","title":"Cover persistence (%)","extra":{"p_1":0,"p_n":1},"layerId":null,"className":"info legend selection-legend-stability","group":null}]},{"method":"addLegend","args":[{"colors":["#FFFFD9 , #F6FBC4 6.58310965495271%, #C6E8B4 25.2661134748392%, #63C1C0 43.9491172947257%, #1D90C0 62.6321211146121%, #26499E 81.3151249344986%, #081D58 99.9981287543851%, #081D58 "],"labels":["-50,000","-40,000","-30,000","-20,000","-10,000","0"],"na_color":null,"na_label":"NA","opacity":0.5,"position":"bottomright","type":"numeric","title":"Elevation: full range<br>(source units)","extra":{"p_1":0.06583109654952711,"p_n":0.9999812875438512},"layerId":null,"className":"info legend selection-legend-elevation-full","group":null}]},{"method":"addLegend","args":[{"colors":["#FFFFD9","#C7E9B4","#41B6C4","#225EA8","#081D58"],"labels":["&le; -0.189","-0.151","-0.112","-0.073","&ge; -0.034"],"na_color":null,"na_label":"NA","opacity":0.85,"position":"bottomright","type":"unknown","title":"Elevation: site contrast<br>(source units; saturated)","extra":null,"layerId":null,"className":"info legend selection-legend-elevation-detail","group":null}]},{"method":"addLegend","args":[{"colors":["#0072B2","#D55E00"],"labels":["Stable meadow","Unstable meadow"],"na_color":null,"na_label":"NA","opacity":0.5,"position":"bottomleft","type":"unknown","title":"Study polygons","extra":null,"layerId":null,"className":"info legend","group":null}]},{"method":"addScaleBar","args":[{"maxWidth":100,"metric":true,"imperial":false,"updateWhenIdle":true,"position":"bottomleft"}]},{"method":"addLayersControl","args":[["Cover persistence (%)","Elevation (full range)","Elevation (site contrast)"],"Study polygons",{"collapsed":false,"autoZIndex":true,"position":"topright"}]},{"method":"hideGroup","args":["Elevation (full range)"]},{"method":"hideGroup","args":["Elevation (site contrast)"]}],"limits":{"lat":[46.91358626875316,46.9931994624033],"lng":[-2.235990217944938,-2.128259664900228]},"fitBounds":[46.91358626875317,-2.235990217944938,46.9931994624033,-2.128259664900228,[]]},"evals":[],"jsHooks":{"render":[{"code":"function(el, x, data) {\n  return (function(el, x, data) {\n    var map = this;\n    el.setAttribute('role', 'region');\n    el.setAttribute('aria-label', 'Site-selection metrics: cover persistence and elevation');\n    var control = L.control({position:'topleft'});\n    control.onAdd = function() {\n      var box = L.DomUtil.create('div', 'site-map-views leaflet-bar');\n      L.DomEvent.disableClickPropagation(box);\n      L.DomEvent.disableScrollPropagation(box);\n      [['Full raster extent', data.extent], ['Both areas', data.all], ['Stable area', data.stable], ['Unstable area', data.unstable]].forEach(function(item) {\n        var button = L.DomUtil.create('button', '', box);\n        button.type = 'button'; button.textContent = item[0];\n        button.onclick = function() {map.fitBounds(item[1], {padding:[35,35]});};\n      });\n      return box;\n    };\n    control.addTo(map);\n    var legends = ['selection-legend-stability', 'selection-legend-elevation-full', 'selection-legend-elevation-detail'];\n    function showLegend(name) {\n      legends.forEach(function(cls, i) {\n        el.querySelector('.' + cls).style.display = data.groups[i] === name ? '' : 'none';\n      });\n      el.querySelectorAll('.leaflet-image-layer').forEach(function(img) {img.style.imageRendering = 'pixelated';});\n    }\n    map.on('baselayerchange', function(e) {showLegend(e.name);});\n    showLegend(data.groups[0]);\n    el.querySelectorAll('.leaflet-image-layer').forEach(function(img) {img.style.imageRendering = 'pixelated';});\n  }).call(this.getMap(), el, x, data);\n}","data":{"extent":[[46.91358626875317,-2.235990217944938],[46.9931994624033,-2.128259664900228]],"groups":["Cover persistence (%)","Elevation (full range)","Elevation (site contrast)"],"all":[[46.95923821552843,-2.180084166699358],[46.96198845516466,-2.17100122623002]],"stable":[[46.95923821552843,-2.172393028610922],[46.96002753907048,-2.17100122623002]],"unstable":[[46.96134593817514,-2.180084166699358],[46.96198845516466,-2.17872858931193]]}}]}}</script>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-selection-metrics-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Full spatial extent of the supplied cover-persistence and elevation rasters, with the stable (blue) and unstable (orange) study polygons superimposed. Cover persistence is the percentage of classified observations with cover ≥50%. Elevation can be displayed with its full colour range or with a colour scale emphasizing the site values. Both options retain the entire raster. Nearest-neighbour reprojection is used only for web display; statistics use the original values within the polygons.
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-selection-distributions" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Two box-plot panels compare cover persistence and elevation between stable and unstable meadow polygons. Individual raster-cell values and group means are shown.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-selection-distributions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-selection-distributions-1.png" class="img-fluid figure-img" alt="Two box-plot panels compare cover persistence and elevation between stable and unstable meadow polygons. Individual raster-cell values and group means are shown." width="2400">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-selection-distributions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Distributions of native raster-cell values within each study polygon. Boxes span the first to third quartiles, horizontal lines indicate medians, and whiskers extend to the most extreme values within 1.5 times the interquartile range. Dots show every valid cell, with horizontal jitter only; white diamonds indicate means. Sample sizes refer to raster cells. The two panels have separate vertical scales.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div id="tbl-selection-summary" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-selection-summary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Native-grid summaries within each study polygon. SD denotes the sample standard deviation.
+</figcaption>
+<div aria-describedby="tbl-selection-summary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="cell caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 26%">
+<col style="width: 9%">
+<col style="width: 12%">
+<col style="width: 14%">
+<col style="width: 7%">
+<col style="width: 6%">
+<col style="width: 7%">
+<col style="width: 8%">
+<col style="width: 8%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Metric</th>
+<th style="text-align: left;">Meadow</th>
+<th style="text-align: right;">Valid cells</th>
+<th style="text-align: right;">Missing cells</th>
+<th style="text-align: right;">Mean</th>
+<th style="text-align: right;">SD</th>
+<th style="text-align: right;">Median</th>
+<th style="text-align: right;">Minimum</th>
+<th style="text-align: right;">Maximum</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Elevation (source units)</td>
+<td style="text-align: left;">Stable</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-0.118</td>
+<td style="text-align: right;">0.055</td>
+<td style="text-align: right;">-0.122</td>
+<td style="text-align: right;">-0.189</td>
+<td style="text-align: right;">-0.034</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Cover persistence (%)</td>
+<td style="text-align: left;">Stable</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">81.52</td>
+<td style="text-align: right;">2.24</td>
+<td style="text-align: right;">81.82</td>
+<td style="text-align: right;">78.79</td>
+<td style="text-align: right;">84.85</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Elevation (source units)</td>
+<td style="text-align: left;">Unstable</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-0.100</td>
+<td style="text-align: right;">0.038</td>
+<td style="text-align: right;">-0.098</td>
+<td style="text-align: right;">-0.158</td>
+<td style="text-align: right;">-0.038</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Cover persistence (%)</td>
+<td style="text-align: left;">Unstable</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">34.97</td>
+<td style="text-align: right;">8.17</td>
+<td style="text-align: right;">33.33</td>
+<td style="text-align: right;">21.21</td>
+<td style="text-align: right;">48.48</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>Mean cover persistence was 81.5% in the stable area and 35.0% in the unstable area. The elevation distributions and their means and standard deviations are reported alongside this contrast to document the degree of bathymetric matching at the supplied raster resolution.</p>
+</section>
+</section>
+<section id="experimental-timeline" class="level3">
+<h3 class="anchored" data-anchor-id="experimental-timeline">Experimental timeline</h3>
+<p>Baseline aerial surveys preceded installation and documented the initial meadow condition and intertidal elevation of both study areas. <em>Loripes orbiculatus</em> individuals were collected on 18 May 2026 and prepared in the laboratory for addition to the treatment cores. The experiment was installed on 20 May 2026 and terminated by destructive sampling on 10 September 2026, with the final harvest timed to coincide with the seasonal maximum in meadow biomass. Multispectral surveys and sediment sulfide measurements were conducted monthly during the experiment, while sediment and air temperatures were recorded hourly.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Date or interval</th>
+<th style="text-align: left;">Experimental activity</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">16 May 2026</td>
+<td style="text-align: left;">Baseline multispectral imagery and LiDAR elevation surveys of both meadow areas.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">18 May 2026</td>
+<td style="text-align: left;">Collection of <em>L. orbiculatus</em>, followed by size sorting and preparation of 12 addition groups.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">20 May 2026</td>
+<td style="text-align: left;">Installation of paired control and treatment enclosures, bivalve additions, GNSS positioning, initial core photographs, and deployment of temperature loggers.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">During the experiment</td>
+<td style="text-align: left;">Monthly multispectral flights and sediment sulfide measurements; hourly sediment and air temperature records.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">10 September 2026</td>
+<td style="text-align: left;">Final harvest, with separate collection of inner-core and outer-core material.</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="experimental-design" class="level2">
+<h2 class="anchored" data-anchor-id="experimental-design">Experimental design</h2>
+<section id="spatial-arrangement-and-pairing" class="level3">
+<h3 class="anchored" data-anchor-id="spatial-arrangement-and-pairing">Spatial arrangement and pairing</h3>
+<p>An identical paired design was implemented in each meadow area. Six stations were distributed within each selected area, and each station comprised two experimental cores, each approximately 30 cm in diameter: one control and one treatment core. The experiment therefore comprised 12 stations and 24 cores in total, with six control cores and six treatment cores in each meadow area.</p>
+<p>Station locations were selected randomly within each meadow area, subject to placement criteria intended to span a broad range of initial seagrass cover and to maintain sufficient separation to minimize potential interactions between neighbouring stations. Interstation distances were consequently variable. Within each station, the control and treatment cores were positioned approximately 1 m apart in patches of comparable initial meadow condition.</p>
+<p>The station constituted the spatial pairing unit for the treatment-control comparison, with cores nested within stations and stations nested within meadow areas. This arrangement provides six paired treatment-control comparisons per area. Because each cover-persistence category was represented by a single meadow area, comparisons between the stable and unstable meadows are specific to these two sites; the stations provide replication within areas, rather than independent replication of the meadow categories.</p>
+</section>
+<section id="bivalve-collection-and-treatment-preparation" class="level3">
+<h3 class="anchored" data-anchor-id="bivalve-collection-and-treatment-preparation">Bivalve collection and treatment preparation</h3>
+<p>On 18 May 2026, a total of <span class="math inline">\(X\)</span> <em>L. orbiculatus</em> individuals were collected for the density manipulation. In the laboratory, individuals were sorted into size classes and distributed among 12 groups, with comparable numbers from each size class allocated to every group. Each group contained <span class="math inline">\(X_2\)</span> individuals and was assigned to one treatment core. This procedure standardized both the number and the size-class composition of the bivalves added across treatment cores.</p>
+<p><strong>Details pending — bivalve preparation:</strong> Total number collected (<span class="math inline">\(X\)</span>), number added per treatment core (<span class="math inline">\(X_2\)</span>), collection location and procedure, size-class boundaries, and holding conditions between collection and installation.</p>
+</section>
+<section id="enclosure-installation-and-density-manipulation" class="level3">
+<h3 class="anchored" data-anchor-id="enclosure-installation-and-density-manipulation">Enclosure installation and density manipulation</h3>
+<p>Circular enclosures were constructed from mesh bags used in oyster cultivation. The bags were cut transversely to form mesh rings approximately 30 cm in diameter and 20 cm in height. On 20 May 2026, one ring was inserted to a depth of 20 cm at each experimental core location, with its upper edge flush with the sediment surface. The mesh formed a lateral barrier intended to retain <em>L. orbiculatus</em> within the enclosed sediment during the experiment.</p>
+<p>Both control and treatment cores received the same type of mesh enclosure. In treatment cores, one prepared group of <span class="math inline">\(X_2\)</span> individuals was added to the resident <em>L. orbiculatus</em> population. Individuals were placed a few centimetres below the sediment surface at randomly selected positions distributed approximately evenly throughout the enclosure. The manipulation increased bivalve abundance by a standardized number of individuals per treatment core.</p>
+<p>Control cores retained their resident <em>L. orbiculatus</em> population and received no additional bivalves. Sediment in control cores was nevertheless manipulated in the same manner as in treatment cores to reproduce the physical disturbance associated with bivalve insertion. The control therefore accounted for both enclosure installation and sediment disturbance during the addition procedure.</p>
+<p>The position of each core was recorded using an Emlid Reach RS2+ GNSS receiver receiving real-time corrections from the TERIA network, providing centimetric positioning for subsequent relocation. Each core was photographed at installation, and initial seagrass percentage cover was estimated from these photographs using LogicielX.</p>
+</section>
+</section>
+<section id="remote-sensing-methods" class="level2">
+<h2 class="anchored" data-anchor-id="remote-sensing-methods">Remote sensing methods</h2>
+<section id="baseline-and-repeated-multispectral-surveys" class="level3">
+<h3 class="anchored" data-anchor-id="baseline-and-repeated-multispectral-surveys">Baseline and repeated multispectral surveys</h3>
+<p>Multispectral imagery of both meadow areas was acquired before installation using a DJI Mavic 3 Multispectral unmanned aerial vehicle to characterize the initial meadow condition. Subsequent surveys were conducted monthly using the same platform and the flight plan established during the baseline survey. The repeated acquisitions provide a temporal record for assessing changes in meadow condition over the experimental period.</p>
+<p>Flights were conducted at a nominal height of 20 m, with 80% forward overlap and 70% lateral overlap. Imagery was acquired around low tide under clear skies. The aircraft operated with real-time kinematic (RTK) positioning, and the poles delimiting each study area served as ground control points for image georeferencing.</p>
+</section>
+<section id="multispectral-image-processing" class="level3">
+<h3 class="anchored" data-anchor-id="multispectral-image-processing">Multispectral image processing</h3>
+<p>Overlapping images were processed in DJI Terra<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> to produce georeferenced multispectral orthomosaics. In the software’s multispectral reconstruction workflow, visible-light images support aerotriangulation, which estimates the spatial arrangement of the camera positions and imaged scene. This geometric solution is then used to align the multispectral imagery while accounting for the relative positions of the cameras <span class="citation" data-cites="DJITerra2024">(<a href="#ref-DJITerra2024" role="doc-biblioref">DJI 2024</a>)</span>. Orthorectification and mosaicking combine the overlapping acquisitions into spatially continuous image layers, providing the basis for mapping meadow condition within each survey.</p>
+<p>Radiometric correction used incident irradiance recorded by the aircraft’s onboard multispectral sunlight sensor to convert the image measurements to reflectance. This procedure accounts for illumination through the relationship between the reflected signal measured by each camera and the incident irradiance measured by the sunlight sensor <span class="citation" data-cites="DJIMavic3M2023">(<a href="#ref-DJIMavic3M2023" role="doc-biblioref">DJI 2023</a>)</span>.</p>
+</section>
+<section id="baseline-lidar-elevation-survey" class="level3">
+<h3 class="anchored" data-anchor-id="baseline-lidar-elevation-survey">Baseline LiDAR elevation survey</h3>
+<p>On the 16thof may, before installation, both areas were surveyed using a DJI Zenmuse L1 LiDAR sensor mounted on a DJI Matrice 300 aircraft to characterize intertidal surface elevation. This survey provided the initial topographic characterization of the experimental areas, complementing the resampled Litto3D data used for site selection.</p>
+</section>
+<section id="derived-measurements" class="level3">
+<h3 class="anchored" data-anchor-id="derived-measurements">Derived measurements</h3>
+<p>The multispectral time series will be used to quantify the temporal evolution of meadow condition in the two study areas. The specific spectral indices, cover-estimation relationships, spatial units of extraction, and procedures linking imagery to individual experimental cores remain to be specified.</p>
+</section>
+</section>
+<section id="sampling-methods" class="level2">
+<h2 class="anchored" data-anchor-id="sampling-methods">Sampling methods</h2>
+<section id="temperature-monitoring" class="level3">
+<h3 class="anchored" data-anchor-id="temperature-monitoring">Temperature monitoring</h3>
+<p>Temperature loggers manufactured by electricBlue were deployed at installation to record sediment temperature in the stable and unstable meadow areas, together with air temperature. All loggers were programmed at an hourly recording interval.</p>
+</section>
+<section id="monthly-sediment-sulfide-measurements" class="level3">
+<h3 class="anchored" data-anchor-id="monthly-sediment-sulfide-measurements">Monthly sediment sulfide measurements</h3>
+<p>Sediment sulfide levels were measured monthly during the experiment.</p>
+<p><strong>Protocol pending — Hélène:</strong> Sampling locations and depths, number of measurements per core or area, collection and preservation procedures, analytical method, sulfide species measured, calibration, detection limits, and reporting units.</p>
+</section>
+<section id="final-harvest-and-separation-of-sample-fractions" class="level3">
+<h3 class="anchored" data-anchor-id="final-harvest-and-separation-of-sample-fractions">Final harvest and separation of sample fractions</h3>
+<p>All control and treatment cores were harvested on 10 September 2026. At each location, an inner sediment core was collected using a PVC corer with a diameter of 20 cm, inserted to a depth of 20 cm. The sediment remaining between this inner core and the surrounding mesh enclosure was collected separately and designated as the outer core. The inner and outer fractions were kept distinct during subsequent processing because they served different analytical purposes.</p>
+<p>Sediment from each fraction was sieved, and bivalves and seagrass material were separated from the retained material. Inner cores provided the samples for bivalve community characterization and seagrass biomass measurements. Outer cores were used to recover the remaining <em>L. orbiculatus</em> individuals and to maximize the collection of seagrass apical shoots for tissue analyses.</p>
+</section>
+<section id="inner-core-bivalve-composition-and-seagrass-biomass" class="level3">
+<h3 class="anchored" data-anchor-id="inner-core-bivalve-composition-and-seagrass-biomass">Inner-core bivalve composition and seagrass biomass</h3>
+<p>Bivalves recovered from each inner core were identified to species and counted to characterize species composition and abundance. Seagrass material from the same fraction was separated into aboveground and belowground components, and biomass was determined separately for each component. These measurements were restricted to the standardized inner-core samples.</p>
+</section>
+<section id="outer-core-bivalve-recovery-and-seagrass-tissue-sampling" class="level3">
+<h3 class="anchored" data-anchor-id="outer-core-bivalve-recovery-and-seagrass-tissue-sampling">Outer-core bivalve recovery and seagrass tissue sampling</h3>
+<p>The outer-core fraction was examined to recover <em>L. orbiculatus</em> remaining outside the inner sampling core but within the enclosure. Seagrass apical shoots were collected from this fraction, with collection intended to maximize the material available for assessing sulfide accumulation in seagrass tissues. Outer-core material was not included in the inner-core estimates of bivalve community composition or seagrass biomass.</p>
+</section>
+</section>
+<section id="data-processing-and-statistical-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="data-processing-and-statistical-analysis">Data processing and statistical analysis</h2>
+<p><strong>Details pending:</strong> Data cleaning rules, handling of missing values, response variables, statistical models, treatment of paired and repeated measurements, spatial structure, and the correspondence between remote sensing and sampling observations.</p>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-Anderson1995" class="csl-entry" role="listitem">
+Anderson, Amy E. 1995. <span>“<span class="nocase">Metabolic Responses to Sulfur in Lucinid Bivalves</span>.”</span> <em>American Zoologist</em> 35 (2): 121–31. <a href="https://doi.org/10.1093/icb/35.2.121">https://doi.org/10.1093/icb/35.2.121</a>.
+</div>
+<div id="ref-DJIMavic3M2023" class="csl-entry" role="listitem">
+DJI. 2023. <em><span>Mavic 3M Image Processing Guide</span></em>. <a href="https://dl.djicdn.com/downloads/DJI_Mavic_3_Enterprise/20230829/Mavic_3M_Image_Processing_Guide_EN.pdf">https://dl.djicdn.com/downloads/DJI_Mavic_3_Enterprise/20230829/Mavic_3M_Image_Processing_Guide_EN.pdf</a>.
+</div>
+<div id="ref-DJITerra2024" class="csl-entry" role="listitem">
+DJI. 2024. <em><span>DJI Terra Operation Guide</span></em>. 4.2. <a href="https://dl.djicdn.com/downloads/dji-terra/20241008/DJI%20Terra%20Operation%20Guide%20v4.2.pdf">https://dl.djicdn.com/downloads/dji-terra/20241008/DJI%20Terra%20Operation%20Guide%20v4.2.pdf</a>.
+</div>
+<div id="ref-DJITerraDownloads2026" class="csl-entry" role="listitem">
+DJI. 2026. <span>“<span>DJI Terra Download Center</span>.”</span> <a href="https://www.dji.com/downloads/products/dji-terra">https://www.dji.com/downloads/products/dji-terra</a>.
+</div>
+<div id="ref-Frederiksen2008" class="csl-entry" role="listitem">
+Frederiksen, Morten S., Marianne Holmer, Marta Pérez, Olga Invers, Juan Manuel Ruiz, and Birgitte B. Knudsen. 2008. <span>“<span class="nocase">Effect of increased sediment sulfide concentrations on the composition of stable sulfur isotopes (δ³⁴S) and sulfur accumulation in the seagrasses <span><em>Zostera marina</em></span> and <span><em>Posidonia oceanica</em></span></span>.”</span> <em>Journal of Experimental Marine Biology and Ecology</em> 358: 98–109. <a href="https://doi.org/10.1016/j.jembe.2008.01.021">https://doi.org/10.1016/j.jembe.2008.01.021</a>.
+</div>
+<div id="ref-Lim2019" class="csl-entry" role="listitem">
+Lim, Shen Jean, Louie Alexander, Annette Summers Engel, Audrey T. Paterson, Laurie C. Anderson, and Barbara J. Campbell. 2019. <span>“<span class="nocase">Extensive Thioautotrophic Gill Endosymbiont Diversity within a Single <span><em>Ctena orbiculata</em></span> (<span>Bivalvia</span>: <span>Lucinidae</span>) Population and Implications for Defining Host-Symbiont Specificity and Species Recognition</span>.”</span> <em>mSystems</em> 4 (4): e00280–19. <a href="https://doi.org/10.1128/mSystems.00280-19">https://doi.org/10.1128/mSystems.00280-19</a>.
+</div>
+<div id="ref-Simpson2018" class="csl-entry" role="listitem">
+Simpson, Alexandra G., Laura Tripp, David H. Shull, and Sylvia Yang. 2018. <span>“<span class="nocase">Effects of <span><em>Zostera marina</em></span> rhizosphere and leaf detritus on the concentration and distribution of pore-water sulfide in marine sediments</span>.”</span> <em>Estuarine, Coastal and Shelf Science</em> 209: 160–68. <a href="https://doi.org/10.1016/j.ecss.2018.05.024">https://doi.org/10.1016/j.ecss.2018.05.024</a>.
+</div>
+<div id="ref-Zoffoli2021" class="csl-entry" role="listitem">
+Zoffoli, Maria Laura, Pierre Gernez, Laurent Godet, Steef Peters, Simon Oiry, and Laurent Barillé. 2021. <span>“<span class="nocase">Decadal increase in the ecological status of a North-Atlantic intertidal seagrass meadow observed with multi-mission satellite time-series</span>.”</span> <em>Ecological Indicators</em> 130: 108033. <a href="https://doi.org/10.1016/j.ecolind.2021.108033">https://doi.org/10.1016/j.ecolind.2021.108033</a>.
+</div>
+<div id="ref-Zoffoli2020" class="csl-entry" role="listitem">
+Zoffoli, Maria Laura, Pierre Gernez, Philippe Rosa, et al. 2020. <span>“<span class="nocase">Sentinel-2 remote sensing of <span><em>Zostera noltei</em></span>-dominated intertidal seagrass meadows</span>.”</span> <em>Remote Sensing of Environment</em> 251: 112020. <a href="https://doi.org/10.1016/j.rse.2020.112020">https://doi.org/10.1016/j.rse.2020.112020</a>.
+</div>
+</div>
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>As of 16 September 2026, the DJI download centre lists v5.3.5 as the latest available Terra release <span class="citation" data-cites="DJITerraDownloads2026">(<a href="#ref-DJITerraDownloads2026" role="doc-biblioref">DJI 2026</a>)</span>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>REWRITE · BB Experiment · Methods and results</p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

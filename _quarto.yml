@@ -1,0 +1,32 @@
+project:
+  type: website
+  output-dir: "docs"
+  render:
+    - index.qmd
+    - remote-sensing.qmd
+    - sampling.qmd
+  resources:
+    - .nojekyll
+
+website:
+  title: "REWRITE | BB Experiment"
+  description: "Methods and results of the REWRITE BB experiment."
+  navbar:
+    left:
+      - href: index.qmd
+        text: Materials and methods
+      - href: remote-sensing.qmd
+        text: Remote sensing results
+      - href: sampling.qmd
+        text: Sampling results
+  page-footer: "REWRITE · BB Experiment · Methods and results"
+format:
+  html:
+    theme:
+      - sandstone
+    css: styles.css
+    toc: true
+    toc-title: "On this page"
+
+editor: visual
+

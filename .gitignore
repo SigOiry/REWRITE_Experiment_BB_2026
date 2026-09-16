@@ -1,0 +1,9 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+.quarto/
+Data/MS_DRONE/*
+
+/.quarto/
+**/*.quarto_ipynb

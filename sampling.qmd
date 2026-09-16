@@ -1,0 +1,33 @@
+---
+title: "Sampling results"
+subtitle: "REWRITE · BB Experiment"
+---
+
+This page will present the results obtained from field sampling and laboratory measurements. Collection and measurement protocols are described in the [materials and methods](index.qmd#sampling-methods).
+
+::: {.callout-note}
+## Results in preparation
+No results have been reported on this page yet. The sections below are placeholders for the analyses and figures.
+:::
+
+## Sampling coverage and quality
+
+**To add:** A summary of sampling campaigns, experimental units, and the number of samples collected and analyzed. Report missing or excluded samples and their reasons.
+
+## Field observations
+
+**To add:** Field measurements and observations, organized by experimental unit and campaign. Include photographs or quadrat images where they help interpret the measurements.
+
+## Laboratory measurements
+
+**To add:** Figures and tables summarizing the measured variables. Define units, sample sizes, and uncertainty measures in the captions.
+
+## Treatment comparisons and changes over time
+
+**To add:** The comparisons that address the study hypotheses, with effect estimates and uncertainty. Describe temporal changes where repeated sampling is available.
+
+## Interpretation and limitations
+
+**To add:** The main findings, their relation to the study objectives, and limitations associated with sampling coverage and measurement procedures.
+
+Compare these observations with the [remote sensing results](remote-sensing.qmd).

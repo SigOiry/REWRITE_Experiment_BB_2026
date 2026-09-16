@@ -1,0 +1,156 @@
+[
+  {
+    "objectID": "sampling.html",
+    "href": "sampling.html",
+    "title": "Sampling results",
+    "section": "",
+    "text": "This page will present the results obtained from field sampling and laboratory measurements. Collection and measurement protocols are described in the materials and methods."
+  },
+  {
+    "objectID": "sampling.html#sampling-coverage-and-quality",
+    "href": "sampling.html#sampling-coverage-and-quality",
+    "title": "Sampling results",
+    "section": "Sampling coverage and quality",
+    "text": "Sampling coverage and quality\nTo add: A summary of sampling campaigns, experimental units, and the number of samples collected and analyzed. Report missing or excluded samples and their reasons."
+  },
+  {
+    "objectID": "sampling.html#field-observations",
+    "href": "sampling.html#field-observations",
+    "title": "Sampling results",
+    "section": "Field observations",
+    "text": "Field observations\nTo add: Field measurements and observations, organized by experimental unit and campaign. Include photographs or quadrat images where they help interpret the measurements."
+  },
+  {
+    "objectID": "sampling.html#laboratory-measurements",
+    "href": "sampling.html#laboratory-measurements",
+    "title": "Sampling results",
+    "section": "Laboratory measurements",
+    "text": "Laboratory measurements\nTo add: Figures and tables summarizing the measured variables. Define units, sample sizes, and uncertainty measures in the captions."
+  },
+  {
+    "objectID": "sampling.html#treatment-comparisons-and-changes-over-time",
+    "href": "sampling.html#treatment-comparisons-and-changes-over-time",
+    "title": "Sampling results",
+    "section": "Treatment comparisons and changes over time",
+    "text": "Treatment comparisons and changes over time\nTo add: The comparisons that address the study hypotheses, with effect estimates and uncertainty. Describe temporal changes where repeated sampling is available."
+  },
+  {
+    "objectID": "sampling.html#interpretation-and-limitations",
+    "href": "sampling.html#interpretation-and-limitations",
+    "title": "Sampling results",
+    "section": "Interpretation and limitations",
+    "text": "Interpretation and limitations\nTo add: The main findings, their relation to the study objectives, and limitations associated with sampling coverage and measurement procedures.\nCompare these observations with the remote sensing results."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Materials and methods",
+    "section": "",
+    "text": "This site brings together the methods and results of the REWRITE BB experiment for collaborators. This landing page describes the experimental design and protocols; the results are presented on two dedicated pages."
+  },
+  {
+    "objectID": "index.html#introduction",
+    "href": "index.html#introduction",
+    "title": "Materials and methods",
+    "section": "Introduction",
+    "text": "Introduction\nSeagrass growth is closely coupled to biogeochemical processes in the surrounding sediment. The decomposition of organic matter through microbial sulfate reduction generates sulfide in anoxic sediments, while oxygen released by seagrass roots can promote its oxidation in the rhizosphere. These opposing processes create spatially heterogeneous conditions: in Zostera marina sediments, sulfide concentrations were elevated around buried leaf detritus but reduced near roots (Simpson et al. 2018).\nSulfide accumulation represents a potential constraint on seagrass performance. Sulfide is phytotoxic and can interfere with electron transport in respiration and photosynthesis; its entry into plant tissues is favored when oxygen availability is insufficient to maintain protective oxidation processes (Frederiksen et al. 2008). However, sulfide exposure does not necessarily produce an immediate reduction in growth. Experiments with Z. marina and Posidonia oceanica demonstrated sulfide intrusion and sulfur accumulation in plant tissues without significant short-term effects on growth or mortality, whereas prolonged exposure in P. oceanica was associated with indications of reduced growth and increased mortality (Frederiksen et al. 2008). These findings emphasize the need to distinguish exposure to sulfide from its consequences for plant performance.\nLucinid bivalves offer a biological pathway through which sedimentary sulfide may be removed. Loripes orbiculatus is a member of the Lucinidae, a family characterized by intracellular sulfur-oxidizing bacterial symbionts housed in specialized gill epithelial cells, named bacteriocytes (Anderson 1995; Lim et al. 2019). These bacteria perform chemolithoautotrophy: they use energy obtained from the oxidation of reduced sulfur compounds to fix inorganic carbon, thereby contributing to host nutrition (Anderson 1995; Lim et al. 2019). Sulfide thus acts both as a potential stressor for seagrasses and as an energy substrate for the bivalve’s bacterial symbionts.\nThis metabolic association provides the basis for a proposed facilitative interaction among seagrasses, lucinid bivalves, and sulfur-oxidizing bacteria. Seagrass-derived oxygen can support the association, while symbiont-mediated sulfide oxidation can alleviate sulfide stress in the surrounding root environment (Lim et al. 2019). Within this framework, the density of L. orbiculatus is a candidate driver of variation in seagrass performance. Whether differences in bivalve density translate into measurable changes in an intertidal meadow is the central question addressed by the present experiment."
+  },
+  {
+    "objectID": "index.html#study-objectives",
+    "href": "index.html#study-objectives",
+    "title": "Materials and methods",
+    "section": "Study objectives",
+    "text": "Study objectives\nThe objective of this experiment is to test in situ whether the density of Loripes orbiculatus influences the growth, biomass and morphological characteristics of the intertidal seagrass Zostera noltei.\nThe working hypothesis is that higher L. orbiculatus density enhances seagrass performance by increasing sulfide removal through the activity of its bacterial endosymbionts. Under conditions in which sulfide stress limits plant performance, this hypothesis predicts greater growth, shoot density, and biomass at higher bivalve densities. This prediction applies the facilitation framework described above to the present study system; it is not an established outcome of the experiment. Changes in plant performance alone would not establish sulfide removal as the causal mechanism.\n\n\n\n\n\n\nNoteMethods in preparation\n\n\n\nThe methods describe the experimental procedures documented to date. Unresolved quantities are denoted by \\(X\\) and \\(X_2\\), and LogicielX denotes image-analysis software whose name remains to be confirmed. Outstanding protocol details are marked Details pending."
+  },
+  {
+    "objectID": "index.html#study-site-and-timeline",
+    "href": "index.html#study-site-and-timeline",
+    "title": "Materials and methods",
+    "section": "Study site and timeline",
+    "text": "Study site and timeline\n\nSite selection\nThe experiment was established on 20 May 2026 in intertidal Zostera noltei meadows in Bourgneuf Bay, adjacent to Noirmoutier Island on the Atlantic coast of France. Two meadow areas were selected to contrast in the temporal persistence of seagrass cover, while exhibiting similar mean bathymetric elevation and within-area variability in elevation.\n\nTemporal persistence of seagrass cover\nSite selection used a Sentinel-2 time series beginning in 2017. For each year, the image acquired closest to the annual maximum in seagrass biomass was selected; these acquisitions frequently occurred in September. The normalized difference vegetation index (NDVI) was calculated from near-infrared and red reflectance, and converted to seagrass percentage cover (\\(C\\)) using the empirical relationship applied by Zoffoli et al. (2021) (their equation 2), originally developed for intertidal Z. noltei-dominated meadows by Zoffoli et al. (2020):\n\\[\n\\mathrm{NDVI} = \\frac{R_{\\mathrm{NIR}}-R_{\\mathrm{Red}}}{R_{\\mathrm{NIR}}+R_{\\mathrm{Red}}},\n\\qquad C\\;(\\%) = 172.06\\,\\mathrm{NDVI}-22.18.\n\\]\nThe resulting annual cover estimates were reclassified at each pixel using a common threshold:\n\\[\nB_{p,t} =\n\\begin{cases}\n1, & C_{p,t} \\geq 50\\%,\\\\\n0, & C_{p,t} &lt; 50\\%.\n\\end{cases}\n\\]\nTemporal persistence was then expressed as the percentage of classified observations in which the pixel attained at least 50% seagrass cover:\n\\[\nF_p = 100\\,\\frac{n_{1,p}}{n_{1,p}+n_{0,p}},\n\\]\nwhere \\(n_{1,p}\\) and \\(n_{0,p}\\) denote the numbers of observations classified as 1 and 0, respectively. Thus, \\(F_p\\) describes the frequency of meeting the cover threshold through time; the 50% threshold applies to each annual cover estimate. The area designated as the stable meadow maintained cover of at least 50% in most observations, whereas the unstable meadow met this threshold less consistently.\n\n\nBathymetric matching\nLitto3D elevation data were obtained at an initial spatial resolution of 1 m and subsequently resampled. The two polygons were selected to have similar mean elevations and standard deviations, while retaining a marked contrast in temporal cover persistence. Both rasters supplied for the comparisons below have a cell size of 19.9 × 19.9 m and use the RGF93 / Lambert-93 coordinate reference system (EPSG:2154). The selected area boundaries and experimental core locations are shown in Figure 1.\n\n\n\n\n\n\n\n\nFigure 1: Location of the two experimental meadow areas in Bourgneuf Bay. Blue and orange polygons delimit the stable and unstable areas, respectively; filled circles indicate individual experimental cores (12 per area). Site boundaries and core coordinates are drawn from the supplied shapefiles and transformed to WGS84 for display. Core symbols indicate positions and are not drawn to scale. Basemap imagery provides geographic context and was not used to classify meadow stability.\n\n\n\n\n\n\nSpatial comparison of the selection metrics\nRaster values were extracted separately for each polygon on the native grid of each supplied file. Each cell was included when its centre lay inside the polygon, and each included cell received equal weight. Non-finite values were excluded from numerical summaries and counted separately. No interpolation or numerical outlier filtering was applied before calculating the distributions, means, or sample standard deviations. These summaries describe spatial variation within the selected areas; raster cells are not independent experimental replicates.\n\n\n\n\n\n\n\n\nFigure 2: Full spatial extent of the supplied cover-persistence and elevation rasters, with the stable (blue) and unstable (orange) study polygons superimposed. Cover persistence is the percentage of classified observations with cover ≥50%. Elevation can be displayed with its full colour range or with a colour scale emphasizing the site values. Both options retain the entire raster. Nearest-neighbour reprojection is used only for web display; statistics use the original values within the polygons.\n\n\n\n\n\n\n\n\n\n\n\n\nFigure 3: Distributions of native raster-cell values within each study polygon. Boxes span the first to third quartiles, horizontal lines indicate medians, and whiskers extend to the most extreme values within 1.5 times the interquartile range. Dots show every valid cell, with horizontal jitter only; white diamonds indicate means. Sample sizes refer to raster cells. The two panels have separate vertical scales.\n\n\n\n\n\n\n\n\n\nTable 1: Native-grid summaries within each study polygon. SD denotes the sample standard deviation.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMetric\nMeadow\nValid cells\nMissing cells\nMean\nSD\nMedian\nMinimum\nMaximum\n\n\n\n\nElevation (source units)\nStable\n10\n0\n-0.118\n0.055\n-0.122\n-0.189\n-0.034\n\n\nCover persistence (%)\nStable\n10\n0\n81.52\n2.24\n81.82\n78.79\n84.85\n\n\nElevation (source units)\nUnstable\n13\n0\n-0.100\n0.038\n-0.098\n-0.158\n-0.038\n\n\nCover persistence (%)\nUnstable\n13\n0\n34.97\n8.17\n33.33\n21.21\n48.48\n\n\n\n\n\n\n\n\nMean cover persistence was 81.5% in the stable area and 35.0% in the unstable area. The elevation distributions and their means and standard deviations are reported alongside this contrast to document the degree of bathymetric matching at the supplied raster resolution.\n\n\n\nExperimental timeline\nBaseline aerial surveys preceded installation and documented the initial meadow condition and intertidal elevation of both study areas. Loripes orbiculatus individuals were collected on 18 May 2026 and prepared in the laboratory for addition to the treatment cores. The experiment was installed on 20 May 2026 and terminated by destructive sampling on 10 September 2026, with the final harvest timed to coincide with the seasonal maximum in meadow biomass. Multispectral surveys and sediment sulfide measurements were conducted monthly during the experiment, while sediment and air temperatures were recorded hourly.\n\n\n\n\n\n\n\nDate or interval\nExperimental activity\n\n\n\n\n16 May 2026\nBaseline multispectral imagery and LiDAR elevation surveys of both meadow areas.\n\n\n18 May 2026\nCollection of L. orbiculatus, followed by size sorting and preparation of 12 addition groups.\n\n\n20 May 2026\nInstallation of paired control and treatment enclosures, bivalve additions, GNSS positioning, initial core photographs, and deployment of temperature loggers.\n\n\nDuring the experiment\nMonthly multispectral flights and sediment sulfide measurements; hourly sediment and air temperature records.\n\n\n10 September 2026\nFinal harvest, with separate collection of inner-core and outer-core material."
+  },
+  {
+    "objectID": "index.html#experimental-design",
+    "href": "index.html#experimental-design",
+    "title": "Materials and methods",
+    "section": "Experimental design",
+    "text": "Experimental design\n\nSpatial arrangement and pairing\nAn identical paired design was implemented in each meadow area. Six stations were distributed within each selected area, and each station comprised two experimental cores, each approximately 30 cm in diameter: one control and one treatment core. The experiment therefore comprised 12 stations and 24 cores in total, with six control cores and six treatment cores in each meadow area.\nStation locations were selected randomly within each meadow area, subject to placement criteria intended to span a broad range of initial seagrass cover and to maintain sufficient separation to minimize potential interactions between neighbouring stations. Interstation distances were consequently variable. Within each station, the control and treatment cores were positioned approximately 1 m apart in patches of comparable initial meadow condition.\nThe station constituted the spatial pairing unit for the treatment-control comparison, with cores nested within stations and stations nested within meadow areas. This arrangement provides six paired treatment-control comparisons per area. Because each cover-persistence category was represented by a single meadow area, comparisons between the stable and unstable meadows are specific to these two sites; the stations provide replication within areas, rather than independent replication of the meadow categories.\n\n\nBivalve collection and treatment preparation\nOn 18 May 2026, a total of \\(X\\) L. orbiculatus individuals were collected for the density manipulation. In the laboratory, individuals were sorted into size classes and distributed among 12 groups, with comparable numbers from each size class allocated to every group. Each group contained \\(X_2\\) individuals and was assigned to one treatment core. This procedure standardized both the number and the size-class composition of the bivalves added across treatment cores.\nDetails pending — bivalve preparation: Total number collected (\\(X\\)), number added per treatment core (\\(X_2\\)), collection location and procedure, size-class boundaries, and holding conditions between collection and installation.\n\n\nEnclosure installation and density manipulation\nCircular enclosures were constructed from mesh bags used in oyster cultivation. The bags were cut transversely to form mesh rings approximately 30 cm in diameter and 20 cm in height. On 20 May 2026, one ring was inserted to a depth of 20 cm at each experimental core location, with its upper edge flush with the sediment surface. The mesh formed a lateral barrier intended to retain L. orbiculatus within the enclosed sediment during the experiment.\nBoth control and treatment cores received the same type of mesh enclosure. In treatment cores, one prepared group of \\(X_2\\) individuals was added to the resident L. orbiculatus population. Individuals were placed a few centimetres below the sediment surface at randomly selected positions distributed approximately evenly throughout the enclosure. The manipulation increased bivalve abundance by a standardized number of individuals per treatment core.\nControl cores retained their resident L. orbiculatus population and received no additional bivalves. Sediment in control cores was nevertheless manipulated in the same manner as in treatment cores to reproduce the physical disturbance associated with bivalve insertion. The control therefore accounted for both enclosure installation and sediment disturbance during the addition procedure.\nThe position of each core was recorded using an Emlid Reach RS2+ GNSS receiver receiving real-time corrections from the TERIA network, providing centimetric positioning for subsequent relocation. Each core was photographed at installation, and initial seagrass percentage cover was estimated from these photographs using LogicielX."
+  },
+  {
+    "objectID": "index.html#remote-sensing-methods",
+    "href": "index.html#remote-sensing-methods",
+    "title": "Materials and methods",
+    "section": "Remote sensing methods",
+    "text": "Remote sensing methods\n\nBaseline and repeated multispectral surveys\nMultispectral imagery of both meadow areas was acquired before installation using a DJI Mavic 3 Multispectral unmanned aerial vehicle to characterize the initial meadow condition. Subsequent surveys were conducted monthly using the same platform and the flight plan established during the baseline survey. The repeated acquisitions provide a temporal record for assessing changes in meadow condition over the experimental period.\nFlights were conducted at a nominal height of 20 m, with 80% forward overlap and 70% lateral overlap. Imagery was acquired around low tide under clear skies. The aircraft operated with real-time kinematic (RTK) positioning, and the poles delimiting each study area served as ground control points for image georeferencing.\n\n\nMultispectral image processing\nOverlapping images were processed in DJI Terra1 to produce georeferenced multispectral orthomosaics. In the software’s multispectral reconstruction workflow, visible-light images support aerotriangulation, which estimates the spatial arrangement of the camera positions and imaged scene. This geometric solution is then used to align the multispectral imagery while accounting for the relative positions of the cameras (DJI 2024). Orthorectification and mosaicking combine the overlapping acquisitions into spatially continuous image layers, providing the basis for mapping meadow condition within each survey.\nRadiometric correction used incident irradiance recorded by the aircraft’s onboard multispectral sunlight sensor to convert the image measurements to reflectance. This procedure accounts for illumination through the relationship between the reflected signal measured by each camera and the incident irradiance measured by the sunlight sensor (DJI 2023).\n\n\nBaseline LiDAR elevation survey\nOn the 16thof may, before installation, both areas were surveyed using a DJI Zenmuse L1 LiDAR sensor mounted on a DJI Matrice 300 aircraft to characterize intertidal surface elevation. This survey provided the initial topographic characterization of the experimental areas, complementing the resampled Litto3D data used for site selection.\n\n\nDerived measurements\nThe multispectral time series will be used to quantify the temporal evolution of meadow condition in the two study areas. The specific spectral indices, cover-estimation relationships, spatial units of extraction, and procedures linking imagery to individual experimental cores remain to be specified."
+  },
+  {
+    "objectID": "index.html#sampling-methods",
+    "href": "index.html#sampling-methods",
+    "title": "Materials and methods",
+    "section": "Sampling methods",
+    "text": "Sampling methods\n\nTemperature monitoring\nTemperature loggers manufactured by electricBlue were deployed at installation to record sediment temperature in the stable and unstable meadow areas, together with air temperature. All loggers were programmed at an hourly recording interval.\n\n\nMonthly sediment sulfide measurements\nSediment sulfide levels were measured monthly during the experiment.\nProtocol pending — Hélène: Sampling locations and depths, number of measurements per core or area, collection and preservation procedures, analytical method, sulfide species measured, calibration, detection limits, and reporting units.\n\n\nFinal harvest and separation of sample fractions\nAll control and treatment cores were harvested on 10 September 2026. At each location, an inner sediment core was collected using a PVC corer with a diameter of 20 cm, inserted to a depth of 20 cm. The sediment remaining between this inner core and the surrounding mesh enclosure was collected separately and designated as the outer core. The inner and outer fractions were kept distinct during subsequent processing because they served different analytical purposes.\nSediment from each fraction was sieved, and bivalves and seagrass material were separated from the retained material. Inner cores provided the samples for bivalve community characterization and seagrass biomass measurements. Outer cores were used to recover the remaining L. orbiculatus individuals and to maximize the collection of seagrass apical shoots for tissue analyses.\n\n\nInner-core bivalve composition and seagrass biomass\nBivalves recovered from each inner core were identified to species and counted to characterize species composition and abundance. Seagrass material from the same fraction was separated into aboveground and belowground components, and biomass was determined separately for each component. These measurements were restricted to the standardized inner-core samples.\n\n\nOuter-core bivalve recovery and seagrass tissue sampling\nThe outer-core fraction was examined to recover L. orbiculatus remaining outside the inner sampling core but within the enclosure. Seagrass apical shoots were collected from this fraction, with collection intended to maximize the material available for assessing sulfide accumulation in seagrass tissues. Outer-core material was not included in the inner-core estimates of bivalve community composition or seagrass biomass."
+  },
+  {
+    "objectID": "index.html#data-processing-and-statistical-analysis",
+    "href": "index.html#data-processing-and-statistical-analysis",
+    "title": "Materials and methods",
+    "section": "Data processing and statistical analysis",
+    "text": "Data processing and statistical analysis\nDetails pending: Data cleaning rules, handling of missing values, response variables, statistical models, treatment of paired and repeated measurements, spatial structure, and the correspondence between remote sensing and sampling observations."
+  },
+  {
+    "objectID": "index.html#references",
+    "href": "index.html#references",
+    "title": "Materials and methods",
+    "section": "References",
+    "text": "References\n\n\nAnderson, Amy E. 1995. “Metabolic Responses to Sulfur in Lucinid Bivalves.” American Zoologist 35 (2): 121–31. https://doi.org/10.1093/icb/35.2.121.\n\n\nDJI. 2023. Mavic 3M Image Processing Guide. https://dl.djicdn.com/downloads/DJI_Mavic_3_Enterprise/20230829/Mavic_3M_Image_Processing_Guide_EN.pdf.\n\n\nDJI. 2024. DJI Terra Operation Guide. 4.2. https://dl.djicdn.com/downloads/dji-terra/20241008/DJI%20Terra%20Operation%20Guide%20v4.2.pdf.\n\n\nDJI. 2026. “DJI Terra Download Center.” https://www.dji.com/downloads/products/dji-terra.\n\n\nFrederiksen, Morten S., Marianne Holmer, Marta Pérez, Olga Invers, Juan Manuel Ruiz, and Birgitte B. Knudsen. 2008. “Effect of increased sediment sulfide concentrations on the composition of stable sulfur isotopes (δ³⁴S) and sulfur accumulation in the seagrasses Zostera marina and Posidonia oceanica.” Journal of Experimental Marine Biology and Ecology 358: 98–109. https://doi.org/10.1016/j.jembe.2008.01.021.\n\n\nLim, Shen Jean, Louie Alexander, Annette Summers Engel, Audrey T. Paterson, Laurie C. Anderson, and Barbara J. Campbell. 2019. “Extensive Thioautotrophic Gill Endosymbiont Diversity within a Single Ctena orbiculata (Bivalvia: Lucinidae) Population and Implications for Defining Host-Symbiont Specificity and Species Recognition.” mSystems 4 (4): e00280–19. https://doi.org/10.1128/mSystems.00280-19.\n\n\nSimpson, Alexandra G., Laura Tripp, David H. Shull, and Sylvia Yang. 2018. “Effects of Zostera marina rhizosphere and leaf detritus on the concentration and distribution of pore-water sulfide in marine sediments.” Estuarine, Coastal and Shelf Science 209: 160–68. https://doi.org/10.1016/j.ecss.2018.05.024.\n\n\nZoffoli, Maria Laura, Pierre Gernez, Laurent Godet, Steef Peters, Simon Oiry, and Laurent Barillé. 2021. “Decadal increase in the ecological status of a North-Atlantic intertidal seagrass meadow observed with multi-mission satellite time-series.” Ecological Indicators 130: 108033. https://doi.org/10.1016/j.ecolind.2021.108033.\n\n\nZoffoli, Maria Laura, Pierre Gernez, Philippe Rosa, et al. 2020. “Sentinel-2 remote sensing of Zostera noltei-dominated intertidal seagrass meadows.” Remote Sensing of Environment 251: 112020. https://doi.org/10.1016/j.rse.2020.112020."
+  },
+  {
+    "objectID": "index.html#footnotes",
+    "href": "index.html#footnotes",
+    "title": "Materials and methods",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nAs of 16 September 2026, the DJI download centre lists v5.3.5 as the latest available Terra release (DJI 2026).↩︎"
+  },
+  {
+    "objectID": "remote-sensing.html",
+    "href": "remote-sensing.html",
+    "title": "Remote sensing results",
+    "section": "",
+    "text": "This page will present the results obtained from remote sensing. Acquisition and processing protocols are described in the materials and methods."
+  },
+  {
+    "objectID": "remote-sensing.html#data-coverage-and-quality",
+    "href": "remote-sensing.html#data-coverage-and-quality",
+    "title": "Remote sensing results",
+    "section": "Data coverage and quality",
+    "text": "Data coverage and quality\nTo add: A summary of the available acquisitions, coverage of experimental units, and quality checks. Report missing or excluded observations and their reasons."
+  },
+  {
+    "objectID": "remote-sensing.html#maps-and-imagery",
+    "href": "remote-sensing.html#maps-and-imagery",
+    "title": "Remote sensing results",
+    "section": "Maps and imagery",
+    "text": "Maps and imagery\nTo add: Maps and processed imagery showing the experimental area and spatial patterns. Include acquisition dates, legends, units, scale bars, and plot identifiers."
+  },
+  {
+    "objectID": "remote-sensing.html#derived-measurements",
+    "href": "remote-sensing.html#derived-measurements",
+    "title": "Remote sensing results",
+    "section": "Derived measurements",
+    "text": "Derived measurements\nTo add: Figures and tables summarizing the remote sensing variables for each treatment and campaign. Define units, sample sizes, and uncertainty measures in the captions."
+  },
+  {
+    "objectID": "remote-sensing.html#treatment-comparisons-and-changes-over-time",
+    "href": "remote-sensing.html#treatment-comparisons-and-changes-over-time",
+    "title": "Remote sensing results",
+    "section": "Treatment comparisons and changes over time",
+    "text": "Treatment comparisons and changes over time\nTo add: The comparisons that address the study hypotheses, with effect estimates and uncertainty. Describe temporal changes where repeated acquisitions are available."
+  },
+  {
+    "objectID": "remote-sensing.html#interpretation-and-limitations",
+    "href": "remote-sensing.html#interpretation-and-limitations",
+    "title": "Remote sensing results",
+    "section": "Interpretation and limitations",
+    "text": "Interpretation and limitations\nTo add: The main findings, their relation to the study objectives, and limitations associated with data coverage, resolution, and processing.\nCompare these observations with the sampling results."
+  }
+]
