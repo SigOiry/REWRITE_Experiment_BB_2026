@@ -1,12 +1,16 @@
 project:
   type: website
   output-dir: "docs"
+  pre-render:
+    - python scripts/build-drone-viewer.py
   render:
     - index.qmd
     - remote-sensing.qmd
     - sampling.qmd
   resources:
     - .nojekyll
+    - drone-viewer.html
+    - assets/
 
 website:
   title: "REWRITE | BB Experiment"

@@ -116,7 +116,14 @@
     "href": "remote-sensing.html",
     "title": "Remote sensing results",
     "section": "",
-    "text": "This page will present the results obtained from remote sensing. Acquisition and processing protocols are described in the materials and methods."
+    "text": "Acquisition and processing protocols are described in the materials and methods."
+  },
+  {
+    "objectID": "remote-sensing.html#drone-map-time-series",
+    "href": "remote-sensing.html#drone-map-time-series",
+    "title": "Remote sensing results",
+    "section": "Drone map time series",
+    "text": "Drone map time series\nRGB orthomosaics and NDVI maps of the stable and unstable meadows are available for June–September 2026. A separate full-screen viewer presents four mosaics: stable RGB at the upper left, unstable RGB at the upper right, stable NDVI at the lower left, and unstable NDVI at the lower right. Navigation is synchronized across all dates and both image types within each meadow; the two meadow areas navigate independently.\nOpen drone map time series →\nAll NDVI maps share the batlow colour scale over a fixed 0–0.8 interval. Valid values below 0 and above 0.8 are displayed using the respective endpoint colours. The viewer uses reduced-resolution web previews retaining the full raster extents. Months follow the processed filenames, including the confirmed July designation. Quantitative analyses will use the source rasters.\n\n\n\n\n\n\nNoteResults in preparation\n\n\n\nThe map time series is available above. Quantitative analyses and their interpretation remain in preparation."
   },
   {
     "objectID": "remote-sensing.html#data-coverage-and-quality",
@@ -124,13 +131,6 @@
     "title": "Remote sensing results",
     "section": "Data coverage and quality",
     "text": "Data coverage and quality\nTo add: A summary of the available acquisitions, coverage of experimental units, and quality checks. Report missing or excluded observations and their reasons."
-  },
-  {
-    "objectID": "remote-sensing.html#maps-and-imagery",
-    "href": "remote-sensing.html#maps-and-imagery",
-    "title": "Remote sensing results",
-    "section": "Maps and imagery",
-    "text": "Maps and imagery\nTo add: Maps and processed imagery showing the experimental area and spatial patterns. Include acquisition dates, legends, units, scale bars, and plot identifiers."
   },
   {
     "objectID": "remote-sensing.html#derived-measurements",

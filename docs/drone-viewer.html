@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Drone time series · REWRITE</title>
+  <link rel="stylesheet" href="assets/vendor/leaflet/leaflet.css">
+  <link rel="stylesheet" href="assets/drone/viewer.css">
+  <script src="assets/vendor/leaflet/leaflet.js" defer></script>
+  <script src="assets/drone/viewer.js" defer></script>
+</head>
+<body>
+  <header class="viewer-header">
+    <div class="viewer-title"><a href="remote-sensing.html" class="back-link">← Results</a><h1>Drone time series</h1><span id="period-range"></span></div>
+    <nav aria-label="Map controls">
+      <button type="button" data-reset="stable">Reset stable</button>
+      <button type="button" data-reset="unstable">Reset unstable</button>
+      <button type="button" id="about-button">Map information</button>
+      <button type="button" id="fullscreen-button">Full screen</button>
+    </nav>
+  </header>
+  <main class="mosaic-layout" aria-label="Drone map mosaics">
+    <section class="mosaic stable" data-site="stable" data-kind="RGB" aria-labelledby="stable-rgb-title">
+      <header><h2 id="stable-rgb-title">Stable meadow <span>RGB</span></h2><span class="sync-label">Linked by area</span></header><div class="map-grid"></div>
+    </section>
+    <section class="mosaic unstable" data-site="unstable" data-kind="RGB" aria-labelledby="unstable-rgb-title">
+      <header><h2 id="unstable-rgb-title">Unstable meadow <span>RGB</span></h2><span class="sync-label">Linked by area</span></header><div class="map-grid"></div>
+    </section>
+    <section class="mosaic stable" data-site="stable" data-kind="NDVI" aria-labelledby="stable-ndvi-title">
+      <header><h2 id="stable-ndvi-title">Stable meadow <span>NDVI</span></h2><span class="sync-label">Linked by area</span></header><div class="map-grid"></div>
+    </section>
+    <section class="mosaic unstable" data-site="unstable" data-kind="NDVI" aria-labelledby="unstable-ndvi-title">
+      <header><h2 id="unstable-ndvi-title">Unstable meadow <span>NDVI</span></h2><span class="sync-label">Linked by area</span></header><div class="map-grid"></div>
+    </section>
+  </main>
+  <footer class="viewer-footer">
+    <div class="legend"><strong>NDVI</strong><span>0</span><span class="legend-gradient" aria-label="Batlow NDVI colour scale from zero to 0.8"><i>0.4</i></span><span>0.8</span><span class="legend-unit">batlow · unitless · values clamped to range</span></div>
+    <p id="viewer-status" role="status">Loading map series…</p>
+  </footer>
+  <dialog id="map-information" aria-labelledby="information-title">
+    <h2 id="information-title">Map information</h2>
+    <p>RGB orthomosaics and NDVI products are grouped by meadow and ordered by the month recorded in the processed filenames. July 2026 follows these filenames, as confirmed for the folders labelled 25062026.</p>
+    <p>Panning or zooming any map updates every RGB and NDVI map of the same meadow. The two meadow areas navigate independently. North is at the top of every map.</p>
+    <p>Web previews retain the full raster footprints and are reduced to a maximum dimension of 2,048 pixels. RGB uses bilinear resampling. NDVI uses nearest-neighbour resampling and the batlow colour scale over a fixed interval from 0 to 0.8. Valid negative values receive the colour at 0, and valid values above 0.8 receive the colour at 0.8. Original GeoTIFF values and files remain unchanged.</p>
+    <p>Transparent regions correspond to source no-data or non-finite values. The supplied NDVI files declare zero as no-data; this source definition is retained in the previews. The maps provide visual comparisons, not quantitative estimates of temporal change.</p>
+    <form method="dialog"><button>Close</button></form>
+  </dialog>
+  <noscript><p class="fatal-error">JavaScript is required to display the interactive maps.</p></noscript>
+</body>
+</html>

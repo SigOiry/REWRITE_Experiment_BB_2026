@@ -1,0 +1,513 @@
+{
+  "schema": 2,
+  "max_preview_edge": 2048,
+  "ndvi_scale": "batlow",
+  "ndvi_clamp": [
+    0.0,
+    0.8
+  ],
+  "ndvi_stops": [
+    [
+      0.0,
+      "#201158"
+    ],
+    [
+      0.1,
+      "#003E5F"
+    ],
+    [
+      0.2,
+      "#005E5E"
+    ],
+    [
+      0.3,
+      "#00784C"
+    ],
+    [
+      0.4,
+      "#578B21"
+    ],
+    [
+      0.5,
+      "#A89800"
+    ],
+    [
+      0.6,
+      "#E89E6B"
+    ],
+    [
+      0.7,
+      "#FFADC1"
+    ],
+    [
+      0.8,
+      "#FFCEF4"
+    ]
+  ],
+  "maps": [
+    {
+      "site": "stable",
+      "period": "2026-06",
+      "kind": "NDVI",
+      "label": "June 2026",
+      "image": "assets/drone/generated/stable-2026-06-ndvi-e2fdb754d955.webp",
+      "source": "Data/MS_DRONE/REWRITE_Jim_18062026_Stable/Stable_062026_NDVI.tif",
+      "fingerprint": "e2fdb754d955",
+      "bounds": [
+        [
+          46.95902396585561,
+          -2.1726427970820548
+        ],
+        [
+          46.96017965797635,
+          -2.170678721111658
+        ]
+      ],
+      "source_crs": "EPSG:4326",
+      "source_shape": [
+        16677,
+        9813
+      ],
+      "preview_shape": [
+        2048,
+        1766
+      ],
+      "source_nodata": 0.0
+    },
+    {
+      "site": "stable",
+      "period": "2026-06",
+      "kind": "RGB",
+      "label": "June 2026",
+      "image": "assets/drone/generated/stable-2026-06-rgb-1076774379a6.webp",
+      "source": "Data/MS_DRONE/REWRITE_Jim_18062026_Stable/Stable_062026_RGB.tif",
+      "fingerprint": "1076774379a6",
+      "bounds": [
+        [
+          46.959024024607,
+          -2.1726427970826037
+        ],
+        [
+          46.96017965784096,
+          -2.1706788380511686
+        ]
+      ],
+      "source_crs": "EPSG:4326",
+      "source_shape": [
+        28308,
+        16657
+      ],
+      "preview_shape": [
+        2048,
+        1766
+      ],
+      "source_nodata": 0.0
+    },
+    {
+      "site": "unstable",
+      "period": "2026-06",
+      "kind": "NDVI",
+      "label": "June 2026",
+      "image": "assets/drone/generated/unstable-2026-06-ndvi-2b1c2ba97ae9.webp",
+      "source": "Data/MS_DRONE/REWRITE_Jim_18062026_Unstable/Unstable_062026_NDVI.tif",
+      "fingerprint": "2b1c2ba97ae9",
+      "bounds": [
+        [
+          46.96111893944268,
+          -2.180413654729481
+        ],
+        [
+          46.96213005770214,
+          -2.178487926942571
+        ]
+      ],
+      "source_crs": "EPSG:4326",
+      "source_shape": [
+        16023,
+        8413
+      ],
+      "preview_shape": [
+        2048,
+        1576
+      ],
+      "source_nodata": 0.0
+    },
+    {
+      "site": "unstable",
+      "period": "2026-06",
+      "kind": "RGB",
+      "label": "June 2026",
+      "image": "assets/drone/generated/unstable-2026-06-rgb-d7a5263ab2a6.webp",
+      "source": "Data/MS_DRONE/REWRITE_Jim_18062026_Unstable/Unstable_062026_RGB.tif",
+      "fingerprint": "d7a5263ab2a6",
+      "bounds": [
+        [
+          46.961119018768294,
+          -2.180413654729984
+        ],
+        [
+          46.962130057761065,
+          -2.178487795371267
+        ]
+      ],
+      "source_crs": "EPSG:4326",
+      "source_shape": [
+        27201,
+        14280
+      ],
+      "preview_shape": [
+        2048,
+        1576
+      ],
+      "source_nodata": 0.0
+    },
+    {
+      "site": "stable",
+      "period": "2026-07",
+      "kind": "NDVI",
+      "label": "July 2026",
+      "image": "assets/drone/generated/stable-2026-07-ndvi-463f42075250.webp",
+      "source": "Data/MS_DRONE/REWRITE_Jim_25062026_Stable/Stable_072026_NDVI.tif",
+      "fingerprint": "463f42075250",
+      "bounds": [
+        [
+          46.95903759172825,
+          -2.1726315375625957
+        ],
+        [
+          46.96019080556533,
+          -2.1706693718361736
+        ]
+      ],
+      "source_crs": "EPSG:4326",
+      "source_shape": [
+        16945,
+        9959
+      ],
+      "preview_shape": [
+        2048,
+        1764
+      ],
+      "source_nodata": 0.0
+    },
+    {
+      "site": "stable",
+      "period": "2026-07",
+      "kind": "RGB",
+      "label": "July 2026",
+      "image": "assets/drone/generated/stable-2026-07-rgb-d5c347fa2195.webp",
+      "source": "Data/MS_DRONE/REWRITE_Jim_25062026_Stable/Stable_072026_RGB.tif",
+      "fingerprint": "d5c347fa2195",
+      "bounds": [
+        [
+          46.959037633699225,
+          -2.172631537563135
+        ],
+        [
+          46.9601908055654,
+          -2.170669405912246
+        ]
+      ],
+      "source_crs": "EPSG:4326",
+      "source_shape": [
+        28764,
+        16905
+      ],
+      "preview_shape": [
+        2048,
+        1764
+      ],
+      "source_nodata": 0.0
+    },
+    {
+      "site": "unstable",
+      "period": "2026-07",
+      "kind": "NDVI",
+      "label": "July 2026",
+      "image": "assets/drone/generated/unstable-2026-07-ndvi-8ce72842b7b0.webp",
+      "source": "Data/MS_DRONE/REWRITE_Jim_25062026_Unstable/Unstable_072026_NDVI.tif",
+      "fingerprint": "8ce72842b7b0",
+      "bounds": [
+        [
+          46.961126678616736,
+          -2.180180835069228
+        ],
+        [
+          46.96214668242265,
+          -2.1784491540331614
+        ]
+      ],
+      "source_crs": "EPSG:4326",
+      "source_shape": [
+        14670,
+        8641
+      ],
+      "preview_shape": [
+        2048,
+        1768
+      ],
+      "source_nodata": 0.0
+    },
+    {
+      "site": "unstable",
+      "period": "2026-07",
+      "kind": "RGB",
+      "label": "July 2026",
+      "image": "assets/drone/generated/unstable-2026-07-rgb-d5efc453807e.webp",
+      "source": "Data/MS_DRONE/REWRITE_Jim_25062026_Unstable/Unstable_072026_RGB.tif",
+      "fingerprint": "d5efc453807e",
+      "bounds": [
+        [
+          46.96112663663868,
+          -2.180180835069699
+        ],
+        [
+          46.962146682422045,
+          -2.17844921191221
+        ]
+      ],
+      "source_crs": "EPSG:4326",
+      "source_shape": [
+        24902,
+        14669
+      ],
+      "preview_shape": [
+        2048,
+        1768
+      ],
+      "source_nodata": 0.0
+    },
+    {
+      "site": "stable",
+      "period": "2026-08",
+      "kind": "NDVI",
+      "label": "August 2026",
+      "image": "assets/drone/generated/stable-2026-08-ndvi-d4b50eab4e5d.webp",
+      "source": "Data/MS_DRONE/REWRITE_Jim_27082026_Stable/Stable_082026_NDVI.tif",
+      "fingerprint": "d4b50eab4e5d",
+      "bounds": [
+        [
+          46.95905312601232,
+          -2.1726295377488523
+        ],
+        [
+          46.96022031168716,
+          -2.170680941105225
+        ]
+      ],
+      "source_crs": "EPSG:4326",
+      "source_shape": [
+        16598,
+        9942
+      ],
+      "preview_shape": [
+        2048,
+        1798
+      ],
+      "source_nodata": 0.0
+    },
+    {
+      "site": "stable",
+      "period": "2026-08",
+      "kind": "RGB",
+      "label": "August 2026",
+      "image": "assets/drone/generated/stable-2026-08-rgb-cb143b9bdc1e.webp",
+      "source": "Data/MS_DRONE/REWRITE_Jim_27082026_Stable/Stable_082026_RGB.tif",
+      "fingerprint": "cb143b9bdc1e",
+      "bounds": [
+        [
+          46.95905318033832,
+          -2.1726295377494025
+        ],
+        [
+          46.96022031168712,
+          -2.1706809761381103
+        ]
+      ],
+      "source_crs": "EPSG:4326",
+      "source_shape": [
+        28175,
+        16876
+      ],
+      "preview_shape": [
+        2048,
+        1798
+      ],
+      "source_nodata": 0.0
+    },
+    {
+      "site": "unstable",
+      "period": "2026-08",
+      "kind": "NDVI",
+      "label": "August 2026",
+      "image": "assets/drone/generated/unstable-2026-08-ndvi-85754f701348.webp",
+      "source": "Data/MS_DRONE/REWRITE_Jim_27082026_Unstable/Unstable_082026_NDVI.tif",
+      "fingerprint": "85754f701348",
+      "bounds": [
+        [
+          46.96114833104773,
+          -2.1804222187767683
+        ],
+        [
+          46.96217347252701,
+          -2.1784543285390705
+        ]
+      ],
+      "source_crs": "EPSG:4326",
+      "source_shape": [
+        16098,
+        8386
+      ],
+      "preview_shape": [
+        2048,
+        1564
+      ],
+      "source_nodata": 0.0
+    },
+    {
+      "site": "unstable",
+      "period": "2026-08",
+      "kind": "RGB",
+      "label": "August 2026",
+      "image": "assets/drone/generated/unstable-2026-08-rgb-6fbb7d2e4d22.webp",
+      "source": "Data/MS_DRONE/REWRITE_Jim_27082026_Unstable/Unstable_082026_RGB.tif",
+      "fingerprint": "6fbb7d2e4d22",
+      "bounds": [
+        [
+          46.96114836577014,
+          -2.180422218777287
+        ],
+        [
+          46.962173472494335,
+          -2.1784543883350636
+        ]
+      ],
+      "source_crs": "EPSG:4326",
+      "source_shape": [
+        27326,
+        14235
+      ],
+      "preview_shape": [
+        2048,
+        1564
+      ],
+      "source_nodata": 0.0
+    },
+    {
+      "site": "stable",
+      "period": "2026-09",
+      "kind": "NDVI",
+      "label": "September 2026",
+      "image": "assets/drone/generated/stable-2026-09-ndvi-bd5ae3c88eb7.webp",
+      "source": "Data/MS_DRONE/REWRITE_Jim_08092026_Stable/Stable_092026_NDVI.tif",
+      "fingerprint": "bd5ae3c88eb7",
+      "bounds": [
+        [
+          46.95904538786396,
+          -2.172653127628208
+        ],
+        [
+          46.960230365952,
+          -2.170737676635709
+        ]
+      ],
+      "source_crs": "EPSG:3857",
+      "source_shape": [
+        7106,
+        6441
+      ],
+      "preview_shape": [
+        2048,
+        1857
+      ],
+      "source_nodata": 0.0
+    },
+    {
+      "site": "stable",
+      "period": "2026-09",
+      "kind": "RGB",
+      "label": "September 2026",
+      "image": "assets/drone/generated/stable-2026-09-rgb-5ef707d87329.webp",
+      "source": "Data/MS_DRONE/REWRITE_Jim_08092026_Stable/Stable_092026_RGB.tif",
+      "fingerprint": "5ef707d87329",
+      "bounds": [
+        [
+          46.95904527401928,
+          -2.172653127875247
+        ],
+        [
+          46.96023036620679,
+          -2.1707380056834613
+        ]
+      ],
+      "source_crs": "EPSG:3857",
+      "source_shape": [
+        12042,
+        10918
+      ],
+      "preview_shape": [
+        2048,
+        1857
+      ],
+      "source_nodata": 0.0
+    },
+    {
+      "site": "unstable",
+      "period": "2026-09",
+      "kind": "NDVI",
+      "label": "September 2026",
+      "image": "assets/drone/generated/unstable-2026-09-ndvi-1666a4aed7af.webp",
+      "source": "Data/MS_DRONE/REWRITE_Jim_08092026_Unstable/Unstable_092026_NDVI.tif",
+      "fingerprint": "1666a4aed7af",
+      "bounds": [
+        [
+          46.96115419486263,
+          -2.1804056892907124
+        ],
+        [
+          46.96217586064479,
+          -2.1784440518540604
+        ]
+      ],
+      "source_crs": "EPSG:4326",
+      "source_shape": [
+        16040,
+        8354
+      ],
+      "preview_shape": [
+        2048,
+        1563
+      ],
+      "source_nodata": 0.0
+    },
+    {
+      "site": "unstable",
+      "period": "2026-09",
+      "kind": "RGB",
+      "label": "September 2026",
+      "image": "assets/drone/generated/unstable-2026-09-rgb-61ac51764f2e.webp",
+      "source": "Data/MS_DRONE/REWRITE_Jim_08092026_Unstable/Unstable_092026_RGB.tif",
+      "fingerprint": "61ac51764f2e",
+      "bounds": [
+        [
+          46.96115426688846,
+          -2.1804056892912325
+        ],
+        [
+          46.96217586067554,
+          -2.1784440563127463
+        ]
+      ],
+      "source_crs": "EPSG:4326",
+      "source_shape": [
+        27228,
+        14180
+      ],
+      "preview_shape": [
+        2048,
+        1563
+      ],
+      "source_nodata": 0.0
+    }
+  ]
+}

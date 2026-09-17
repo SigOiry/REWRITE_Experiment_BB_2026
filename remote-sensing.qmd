@@ -3,21 +3,25 @@ title: "Remote sensing results"
 subtitle: "REWRITE · BB Experiment"
 ---
 
-This page will present the results obtained from remote sensing. Acquisition and processing protocols are described in the [materials and methods](index.qmd#remote-sensing-methods).
+Acquisition and processing protocols are described in the [materials and methods](index.qmd#remote-sensing-methods).
+
+## Drone map time series
+
+RGB orthomosaics and NDVI maps of the stable and unstable meadows are available for June–September 2026. A separate full-screen viewer presents four mosaics: stable RGB at the upper left, unstable RGB at the upper right, stable NDVI at the lower left, and unstable NDVI at the lower right. Navigation is synchronized across all dates and both image types within each meadow; the two meadow areas navigate independently.
+
+[Open drone map time series →](drone-viewer.html){.btn .btn-primary .drone-viewer-link}
+
+All NDVI maps share the batlow colour scale over a fixed 0–0.8 interval. Valid values below 0 and above 0.8 are displayed using the respective endpoint colours. The viewer uses reduced-resolution web previews retaining the full raster extents. Months follow the processed filenames, including the confirmed July designation. Quantitative analyses will use the source rasters.
 
 ::: callout-note
 ## Results in preparation
 
-No results have been reported on this page yet. The sections below are placeholders for the analyses and figures.
+The map time series is available above. Quantitative analyses and their interpretation remain in preparation.
 :::
 
 ## Data coverage and quality
 
 **To add:** A summary of the available acquisitions, coverage of experimental units, and quality checks. Report missing or excluded observations and their reasons.
-
-## Maps and imagery
-
-**To add:** Maps and processed imagery showing the experimental area and spatial patterns. Include acquisition dates, legends, units, scale bars, and plot identifiers.
 
 ## Derived measurements
 

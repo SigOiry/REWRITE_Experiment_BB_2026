@@ -1,0 +1,43 @@
+:root { color-scheme: light; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; color: #253a40; background: #edf1f0; }
+* { box-sizing: border-box; }
+body { margin: 0; height: 100vh; height: 100dvh; display: flex; flex-direction: column; }
+.viewer-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 18px; background: #173b3e; color: #fff; }
+.viewer-title, nav { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+h1 { font-size: 19px; margin: 0; font-weight: 650; }
+.back-link { color: #d2eeeb; text-decoration: none; font-size: 13px; border-right: 1px solid #608083; padding-right: 14px; }
+#period-range { font-size: 12px; color: #c3dad8; }
+button { font: inherit; font-size: 12px; cursor: pointer; border: 1px solid #b4c8c7; background: #fff; color: #173b3e; border-radius: 5px; padding: 7px 10px; }
+button:hover { background: #e6f1ef; }
+button:focus-visible, a:focus-visible { outline: 3px solid #e5ba56; outline-offset: 3px; }
+.mosaic-layout { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 10px; padding: 10px; }
+.mosaic { display: flex; flex-direction: column; min-width: 0; min-height: 0; border: 1px solid #ccd8d6; border-radius: 7px; background: white; overflow: hidden; }
+.mosaic > header { padding: 7px 10px; display: flex; align-items: center; justify-content: space-between; border-top: 3px solid #0072b2; gap: 8px; }
+.mosaic.unstable > header { border-top-color: #c3751b; }
+h2 { font-size: 14px; margin: 0; font-weight: 650; }
+h2 span { font-size: 11px; margin-left: 8px; border: 1px solid #ccd8d6; padding: 2px 6px; border-radius: 4px; }
+.sync-label { font-size: 10px; color: #607572; }
+.map-grid { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: minmax(0, 1fr); gap: 5px; padding: 0 5px 5px; overflow: auto; }
+.map-card { display: flex; flex-direction: column; position: relative; min-height: 100px; min-width: 0; border: 1px solid #dde4e2; border-radius: 4px; overflow: hidden; }
+.map-card h3 { font-size: 11px; font-weight: 600; margin: 0; padding: 4px 8px; background: #f7f9f8; display: flex; justify-content: space-between; }
+.north { font-size: 10px; font-weight: 400; color: #617671; }
+.drone-map { flex: 1; min-height: 65px; background: #e5eae7; }
+.map-card .leaflet-control-zoom a { width: 23px; height: 23px; line-height: 23px; font-size: 17px; }
+.leaflet-control-scale-line { font-size: 9px; background: #ffffffd9; }
+.leaflet-control-attribution { font-size: 8px !important; }
+.map-message { position: absolute; inset: auto 8px 22px; z-index: 500; padding: 6px 9px; background: #fffffff0; border-radius: 4px; font-size: 11px; pointer-events: none; }
+.map-message[hidden] { display: none; }
+.missing-map { display: grid; place-content: center; flex: 1; font-size: 12px; color: #607572; }
+.viewer-footer { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 7px 16px; background: #fff; border-top: 1px solid #ccd8d6; font-size: 11px; }
+.viewer-footer p { margin: 0; }
+.legend { display: flex; align-items: center; gap: 9px; }
+.legend-gradient { display: inline-block; position: relative; width: 160px; height: 13px; background: linear-gradient(to right, #201158 0%, #003E5F 12.5%, #005E5E 25%, #00784C 37.5%, #578B21 50%, #A89800 62.5%, #E89E6B 75%, #FFADC1 87.5%, #FFCEF4 100%); border: 1px solid #cad4d0; }
+.legend-gradient i { position: absolute; left: 50%; top: 0; transform: translateX(-50%); font-size: 9px; color: #253a40; font-style: normal; }
+dialog { max-width: 580px; width: calc(100% - 40px); border: 1px solid #a9bfba; border-radius: 10px; padding: 24px; box-shadow: 0 18px 80px #102e3e44; }
+dialog::backdrop { background: #102e3e88; }
+dialog h2 { font-size: 20px; }
+dialog p { font-size: 14px; line-height: 1.6; }
+dialog form { text-align: right; }
+.fatal-error { margin: 15px; padding: 15px; background: #fff4e8; color: #713e0a; }
+@media (max-height: 680px) and (min-width: 701px) { .mosaic-layout { min-height: 510px; } body { height: auto; min-height: 100dvh; } }
+@media (max-width: 1050px) { .viewer-header { flex-wrap: wrap; padding: 8px 12px; } .viewer-header nav { gap: 6px; } .legend-unit { display: none; } }
+@media (max-width: 700px) { body { height: auto; min-height: 100dvh; } .mosaic-layout { grid-template-columns: 1fr; grid-template-rows: none; } .mosaic { height: 490px; } .viewer-footer { flex-wrap: wrap; } .sync-label { font-size: 10px; } }

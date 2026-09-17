@@ -7,3 +7,4 @@ Data/MS_DRONE/*
 
 /.quarto/
 **/*.quarto_ipynb
+__pycache__/
