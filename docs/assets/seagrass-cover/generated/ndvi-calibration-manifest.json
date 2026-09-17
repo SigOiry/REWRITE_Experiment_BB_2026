@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "fingerprint": "8cbb11d60bae9ec4098a561270ddf41030af21dfe445e5711301ea26ca5d91f6",
+  "station_name_correction": {
+    "source_issue": "two 5AU/5NU pairs and no 6AU/6NU pair",
+    "rule": "relabel northern duplicate pair as station 6"
+  },
+  "extraction": "mean of valid raster pixels whose centres fall within each 0.10 m buffer",
+  "model": {
+    "model": "two-parameter logistic",
+    "intercept": -2.1342039043702825,
+    "slope": 3.926933377580348,
+    "r_squared": 0.5959920020598432,
+    "rmse_percentage_points": 7.799537823603074,
+    "n": 24,
+    "ndvi_min": 0.1897611063287919,
+    "ndvi_max": 0.604667411910163,
+    "buffer_radius_m": 0.1,
+    "equation": "SPC = 100 / (1 + exp(-(intercept + slope * NDVI)))"
+  }
+}

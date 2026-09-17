@@ -125,8 +125,6 @@
     document.querySelector(".mosaic-layout").prepend(message);
   }
 
-  const dialog = document.getElementById("map-information");
-  document.getElementById("about-button").addEventListener("click", () => dialog.showModal());
   const fullscreen = document.getElementById("fullscreen-button");
   fullscreen.hidden = !document.fullscreenEnabled;
   fullscreen.addEventListener("click", async () => {

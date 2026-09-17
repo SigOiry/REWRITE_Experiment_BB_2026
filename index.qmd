@@ -199,7 +199,15 @@ On the 16thof may, before installation, both areas were surveyed using a DJI Zen
 
 ### Derived measurements
 
-The multispectral time series will be used to quantify the temporal evolution of meadow condition in the two study areas. The specific spectral indices, cover-estimation relationships, spatial units of extraction, and procedures linking imagery to individual experimental cores remain to be specified.
+The multispectral time series will be used to quantify the temporal evolution of meadow condition in the two study areas. For the September calibration, field photographs covering each sample were annotated with a red circular boundary corresponding to the sampled area. The circle was fitted from the annotation and transferred to the spatially aligned, unannotated photograph, thereby excluding the red marking from the colour classification.
+
+Within the observed portion of each circle, seagrass pixels were identified using a fixed RGB criterion in which the green channel was required to exceed both the red and blue channels. This inclusive criterion retained pale and weakly saturated green tissue. Percentage cover was calculated as the number of classified seagrass pixels divided by the total number of observed pixels within the circle, multiplied by 100. Image masks were retained for visual assessment of every classification. Where a circle extended beyond the photograph, the estimate was calculated from the observed part of the circle and the proportion observed was reported as a quality-control variable.
+
+The resulting field estimates will be paired with NDVI extracted from the September drone orthomosaics to estimate the relationship between spectral response and seagrass percentage cover.
+
+For each sample, mean NDVI was extracted from valid September orthomosaic pixels whose centres occurred within a 10 cm buffer around the GNSS position. The point layer contained two unstable-meadow pairs labelled 5AU/5NU and no pair labelled 6AU/6NU; the northern duplicate pair, which formed the distinct sixth spatial group, was assigned to station 6 before matching. The relationship between NDVI and field percentage cover was fitted with a two-parameter logistic function, constraining predicted cover to the interval from 0% to 100%.
+
+The same spatial extraction was applied to the processed monthly NDVI orthomosaics from June to September 2026. Core-level values were retained for every survey. Temporal summaries were calculated by meadow and by experimental group, with N cores representing controls and A cores representing the *L. orbiculatus* addition treatment. Means are presented with their standard errors to describe variability among the contributing experimental cores.
 
 ## Sampling methods
 

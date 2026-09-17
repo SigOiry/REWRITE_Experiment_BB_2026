@@ -1,38 +1,194 @@
 ---
 title: "Remote sensing results"
 subtitle: "REWRITE · BB Experiment"
+execute:
+  echo: false
+  warning: false
+  message: false
 ---
 
 Acquisition and processing protocols are described in the [materials and methods](index.qmd#remote-sensing-methods).
 
-## Drone map time series
+## Seasonal dynamics of meadow condition
 
-RGB orthomosaics and NDVI maps of the stable and unstable meadows are available for June–September 2026. A separate full-screen viewer presents four mosaics: stable RGB at the upper left, unstable RGB at the upper right, stable NDVI at the lower left, and unstable NDVI at the lower right. Navigation is synchronized across all dates and both image types within each meadow; the two meadow areas navigate independently.
+Four surveys conducted between June and September 2026 provide paired RGB orthomosaics and NDVI maps for the stable and unstable meadows.
 
-[Open drone map time series →](drone-viewer.html){.btn .btn-primary .drone-viewer-link}
+[View the RGB and NDVI time series →](drone-viewer.html){.btn .btn-primary .drone-viewer-link}
 
-All NDVI maps share the batlow colour scale over a fixed 0–0.8 interval. Valid values below 0 and above 0.8 are displayed using the respective endpoint colours. The viewer uses reduced-resolution web previews retaining the full raster extents. Months follow the processed filenames, including the confirmed July designation. Quantitative analyses will use the source rasters.
+The maps show a seasonal increase in NDVI from June towards late summer in both meadow areas. Higher NDVI values form a more continuous spatial pattern in the stable meadow, whereas the unstable meadow retains a more heterogeneous distribution. In June, NDVI shows heterogeneous patterns in both areas, where NDVI is higher in permanently submerged area (channels, pounds...). By September, elevated NDVI occupies substantial portions of both areas, consistent with the late-summer development of the meadow and the timing of the phenological maximum. In September, the meadow of the stable area shows homogeneous NDVI values almost across its entire extent whereas the meadow of the unstable area still shows the same patterns as in June, with higher NDVI value in wet area and lower in areas that dry during low tide.
 
-::: callout-note
-## Results in preparation
+## Image-derived seagrass cover
 
-The map time series is available above. Quantitative analyses and their interpretation remain in preparation.
-:::
+Field photographs collected in September 2026 provided sample-scale estimates of *Zostera noltei* percentage cover for the subsequent calibration of drone-derived NDVI. Percentage cover varied among the 24 samples, reflecting marked spatial heterogeneity in the amount of vegetation present within the sampled areas. The complete circular sampling area was visible in every photograph.
 
-## Data coverage and quality
+{{< include assets/seagrass-cover/generated/table.html >}}
 
-**To add:** A summary of the available acquisitions, coverage of experimental units, and quality checks. Report missing or excluded observations and their reasons.
+[Download the sample-level measurements](assets/seagrass-cover/generated/seagrass-cover.csv)
 
-## Derived measurements
+## NDVI–seagrass cover relationship
 
-**To add:** Figures and tables summarizing the remote sensing variables for each treatment and campaign. Define units, sample sizes, and uncertainty measures in the captions.
+```{r}
+#| label: ndvi-cover-data
+library(ggplot2)
+library(ggiraph)
 
-## Treatment comparisons and changes over time
+calibration <- read.csv("assets/seagrass-cover/generated/ndvi-calibration.csv")
+curve <- read.csv("assets/seagrass-cover/generated/ndvi-curve.csv")
+model <- read.csv("assets/seagrass-cover/generated/ndvi-model.csv")
+calibration$tooltip <- sprintf(
+  "%s\nMeadow: %s\nSeagrass cover: %.1f%%\nMean NDVI: %.3f\nPixels: %d",
+  calibration$sample_id, calibration$meadow, calibration$seagrass_cover_pct,
+  calibration$ndvi_mean, calibration$ndvi_n_pixels
+)
+```
 
-**To add:** The comparisons that address the study hypotheses, with effect estimates and uncertainty. Describe temporal changes where repeated acquisitions are available.
+Mean September NDVI was calculated within a 10 cm radius of each sample position. Across the 24 samples, NDVI ranged from `r sprintf("%.3f", model$ndvi_min)` to `r sprintf("%.3f", model$ndvi_max)` and showed a positive association with photograph-derived seagrass percentage cover. A bounded logistic calibration gave the following empirical relationship:
 
-## Interpretation and limitations
+$$
+\mathrm{SPC} = \frac{100}{1 + \exp\!\left(`r sprintf("%.3f", -model$intercept)` - `r sprintf("%.3f", model$slope)`\,\mathrm{NDVI}\right)},
+$$
 
-**To add:** The main findings, their relation to the study objectives, and limitations associated with data coverage, resolution, and processing.
+where SPC is seagrass percentage cover. The model explained `r sprintf("%.1f", 100 * model$r_squared)`% of the observed variation ($R^2 = `r sprintf("%.3f", model$r_squared)`$), with a root-mean-square error of `r sprintf("%.2f", model$rmse_percentage_points)` percentage points. The calibration is supported over the observed NDVI interval and should not be extrapolated beyond this range.
 
-Compare these observations with the [sampling results](sampling.qmd).
+```{r}
+#| label: fig-ndvi-cover-calibration
+#| fig-cap: "Relationship between mean September NDVI within 10 cm of each sample position and photograph-derived seagrass percentage cover. The line represents the fitted logistic calibration and the shaded band its approximate 95% confidence interval."
+#| fig-alt: "Interactive scatter plot of seagrass percentage cover against NDVI for 24 stable and unstable meadow samples, with a rising logistic curve and confidence band."
+
+plot_ndvi <- ggplot(calibration, aes(ndvi_mean, seagrass_cover_pct)) +
+  geom_ribbon(
+    data = curve,
+    aes(x = ndvi, ymin = spc_lower_95, ymax = spc_upper_95),
+    inherit.aes = FALSE, fill = "#777777", alpha = 0.18
+  ) +
+  geom_line(
+    data = curve, aes(x = ndvi, y = spc_fitted), inherit.aes = FALSE,
+    colour = "#222222", linewidth = 0.9
+  ) +
+  geom_point_interactive(
+    aes(colour = meadow, tooltip = tooltip, data_id = sample_id),
+    size = 3.2, alpha = 0.9
+  ) +
+  scale_colour_manual(values = c(Stable = "#0072B2", Unstable = "#D55E00")) +
+  scale_y_continuous(limits = c(0, 100), breaks = seq(0, 100, 20),
+                     expand = expansion(mult = c(0, 0.02))) +
+  labs(x = "Mean NDVI within 10 cm", y = "Seagrass percentage cover (%)",
+       colour = "Meadow") +
+  theme_minimal(base_size = 12) +
+  theme(panel.grid.minor = element_blank(), legend.position = "top")
+
+girafe(
+  ggobj = plot_ndvi,
+  width_svg = 8, height_svg = 5,
+  options = list(
+    opts_hover(css = "fill-opacity:1;stroke:#111;stroke-width:2px;"),
+    opts_selection(type = "single", only_shiny = FALSE),
+    opts_toolbar(saveaspng = FALSE),
+    opts_sizing(rescale = TRUE)
+  )
+)
+```
+
+[Download the matched cover and NDVI measurements](assets/seagrass-cover/generated/ndvi-calibration.csv)
+
+## Temporal NDVI at experimental cores
+
+```{r}
+#| label: ndvi-timeseries-data
+ndvi_series <- read.csv("assets/seagrass-cover/generated/ndvi-timeseries.csv")
+ndvi_series$period <- as.Date(ndvi_series$period)
+
+meadow_summary <- aggregate(
+  ndvi_mean ~ period + meadow,
+  data = ndvi_series,
+  FUN = function(x) c(mean = mean(x, na.rm = TRUE), sd = sd(x, na.rm = TRUE),
+                      n = sum(is.finite(x)))
+)
+meadow_summary <- do.call(data.frame, meadow_summary)
+names(meadow_summary)[3:5] <- c("mean_ndvi", "sd_ndvi", "n")
+meadow_summary$se_ndvi <- meadow_summary$sd_ndvi / sqrt(meadow_summary$n)
+meadow_summary$tooltip <- sprintf(
+  "%s meadow\n%s\nMean NDVI: %.3f\nSE: %.3f\nCores: %d",
+  meadow_summary$meadow, format(meadow_summary$period, "%B %Y"),
+  meadow_summary$mean_ndvi, meadow_summary$se_ndvi, meadow_summary$n
+)
+
+treatment_summary <- aggregate(
+  ndvi_mean ~ period + meadow + treatment,
+  data = ndvi_series,
+  FUN = function(x) c(mean = mean(x, na.rm = TRUE), sd = sd(x, na.rm = TRUE),
+                      n = sum(is.finite(x)))
+)
+treatment_summary <- do.call(data.frame, treatment_summary)
+names(treatment_summary)[4:6] <- c("mean_ndvi", "sd_ndvi", "n")
+treatment_summary$se_ndvi <- treatment_summary$sd_ndvi / sqrt(treatment_summary$n)
+treatment_summary$tooltip <- sprintf(
+  "%s · %s\n%s\nMean NDVI: %.3f\nSE: %.3f\nCores: %d",
+  treatment_summary$meadow, treatment_summary$treatment,
+  format(treatment_summary$period, "%B %Y"), treatment_summary$mean_ndvi,
+  treatment_summary$se_ndvi, treatment_summary$n
+)
+```
+
+Mean NDVI at the experimental cores increased from June to September in both meadow areas, although the magnitude of this seasonal increase differed markedly between them. In June, mean NDVI was lower in the stable meadow than in the unstable meadow (0.203 and 0.262, respectively). The trajectories crossed between June and July, and by September mean NDVI was higher in the stable meadow than in the unstable meadow (0.422 and 0.348, respectively). Across the four surveys, the mean rate of increase was approximately 0.074 NDVI units month$^{-1}$ in the stable meadow and 0.029 NDVI units month$^{-1}$ in the unstable meadow. The seasonal increase was therefore approximately 2.6 times greater in the stable meadow, whereas NDVI increased more gradually in the unstable meadow.
+
+```{r}
+#| label: fig-ndvi-timeseries-meadow
+#| fig-cap: "Temporal change in mean NDVI at experimental cores in the stable and unstable meadows from June to September 2026. Error bars represent ±1 standard error."
+#| fig-alt: "Interactive line plot comparing monthly mean NDVI in stable and unstable meadows between June and September 2026."
+
+plot_meadow <- ggplot(meadow_summary, aes(period, mean_ndvi, colour = meadow, group = meadow)) +
+  geom_errorbar(aes(ymin = mean_ndvi - se_ndvi, ymax = mean_ndvi + se_ndvi),
+                width = 4, linewidth = 0.55) +
+  geom_line_interactive(aes(tooltip = tooltip, data_id = meadow), linewidth = 1) +
+  geom_point_interactive(aes(tooltip = tooltip,
+                             data_id = paste(meadow, period)), size = 3.4) +
+  scale_colour_manual(values = c(Stable = "#0072B2", Unstable = "#D55E00")) +
+  scale_x_date(date_breaks = "1 month", date_labels = "%b", expand = expansion(mult = 0.05)) +
+  labs(x = "2026 survey", y = "Mean NDVI", colour = "Meadow") +
+  theme_minimal(base_size = 12) +
+  theme(panel.grid.minor = element_blank(), legend.position = "top")
+
+girafe(
+  ggobj = plot_meadow, width_svg = 8, height_svg = 4.8,
+  options = list(opts_hover(css = "stroke:#111;stroke-width:2px;fill-opacity:1;"),
+                 opts_selection(type = "single", only_shiny = FALSE),
+                 opts_toolbar(saveaspng = FALSE), opts_sizing(rescale = TRUE))
+)
+```
+
+Within the stable meadow, mean NDVI increased in both experimental groups, but the increase was more pronounced in treatment cores. Mean NDVI in treatment cores rose from 0.193 in June to 0.454 in September, corresponding to an average increase of 0.088 NDVI units month$^{-1}$. Over the same period, mean NDVI in control cores increased from 0.213 to 0.389, at an average rate of 0.060 NDVI units month$^{-1}$. The rate of increase was therefore approximately 1.5 times greater in treatment cores. Treatment values exceeded control values from July onwards, and the difference between the two groups increased towards September.
+
+In the unstable meadow, control and treatment cores exhibited contrasting short-term trajectories but similar overall rates of seasonal increase. Mean NDVI in control cores decreased from 0.279 in June to 0.243 in July, whereas treatment cores showed no corresponding decline and increased from 0.244 to 0.305. Treatment NDVI then remained nearly unchanged between July and August (0.305 and 0.296, respectively), while control NDVI recovered to 0.317. By September, mean NDVI was similar in control and treatment cores (0.354 and 0.342, respectively). Across the complete series, the average rates of increase were 0.030 NDVI units month$^{-1}$ in control cores and 0.028 NDVI units month$^{-1}$ in treatment cores.
+
+```{r}
+#| label: fig-ndvi-timeseries-treatment
+#| fig-cap: "Temporal change in mean NDVI for control and treatment cores, shown separately for the stable and unstable meadows. Error bars represent ±1 standard error."
+#| fig-alt: "Two interactive panels comparing monthly mean NDVI between control and treatment cores in stable and unstable meadows from June to September 2026."
+
+plot_treatment <- ggplot(
+  treatment_summary,
+  aes(period, mean_ndvi, colour = treatment, group = treatment)
+) +
+  geom_errorbar(aes(ymin = mean_ndvi - se_ndvi, ymax = mean_ndvi + se_ndvi),
+                width = 4, linewidth = 0.5) +
+  geom_line_interactive(aes(tooltip = tooltip,
+                            data_id = paste(meadow, treatment)), linewidth = 1) +
+  geom_point_interactive(aes(tooltip = tooltip,
+                             data_id = paste(meadow, treatment, period)), size = 3.2) +
+  facet_wrap(~meadow, nrow = 1) +
+  scale_colour_manual(values = c(Control = "#009E73", Treatment = "#CC79A7")) +
+  scale_x_date(date_breaks = "1 month", date_labels = "%b", expand = expansion(mult = 0.07)) +
+  labs(x = "2026 survey", y = "Mean NDVI", colour = "Core") +
+  theme_minimal(base_size = 12) +
+  theme(panel.grid.minor = element_blank(), legend.position = "top")
+
+girafe(
+  ggobj = plot_treatment, width_svg = 8, height_svg = 4.8,
+  options = list(opts_hover(css = "stroke:#111;stroke-width:2px;fill-opacity:1;"),
+                 opts_selection(type = "single", only_shiny = FALSE),
+                 opts_toolbar(saveaspng = FALSE), opts_sizing(rescale = TRUE))
+)
+```
+
+[Download the monthly core-level NDVI measurements](assets/seagrass-cover/generated/ndvi-timeseries.csv)

@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "fingerprint": "81876c2133d5af17aeaed9494a592eca7e985b4b7395e24ae22e9125b1c65763",
+  "buffer_radius_m": 0.1,
+  "months": [
+    "2026-06-01",
+    "2026-07-01",
+    "2026-08-01",
+    "2026-09-01"
+  ],
+  "records": 96,
+  "missing_ndvi": 0,
+  "treatment_codes": {
+    "N": "Control",
+    "A": "Treatment"
+  },
+  "station_name_correction": "northern duplicate 5AU/5NU pair assigned to station 6"
+}

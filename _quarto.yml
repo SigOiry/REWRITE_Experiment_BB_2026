@@ -3,6 +3,9 @@ project:
   output-dir: "docs"
   pre-render:
     - python scripts/build-drone-viewer.py
+    - python scripts/estimate-seagrass-cover.py
+    - python scripts/build-ndvi-calibration.py
+    - python scripts/build-ndvi-timeseries.py
   render:
     - index.qmd
     - remote-sensing.qmd

@@ -36,3 +36,29 @@ Quarto copies the viewer and `assets/` into `docs/`; raw drone TIFFs are not cop
 
 `python -m unittest discover -s tests -v` checks full-extent reprojection, NDVI
 no-data handling and fixed colours, and RGB transparency with valid zero channels.
+
+## Field-photograph percentage cover
+
+`scripts/estimate-seagrass-cover.py` runs before rendering and processes the 24
+September photographs in `Data/Sept_2026/Quadrat_September2026`. It fits the red
+sample boundary from each annotated PNG, applies the resulting circle to the aligned
+raw JPEG, and classifies pixels for which green is the dominant RGB channel. The
+four-pixel inward offset follows the inner edge of the
+drawn boundary. Results, circle-coverage checks, and magenta quality-control masks
+are written to `assets/seagrass-cover/generated/`. A source fingerprint avoids
+reprocessing unchanged photographs.
+
+`scripts/build-ndvi-calibration.py` matches the 24 cover observations to the core
+points, extracts mean September NDVI from raster-cell centres within 0.10 m buffers,
+and fits the bounded logistic relationship shown on the results page. The source
+point layer has two unstable pairs named 5AU/5NU and no 6AU/6NU; the script assigns
+the northern duplicate pair to station 6 and validates the resulting 24 identifiers.
+Windowed raster reads avoid loading either orthomosaic in full. The generated CSVs
+contain the matched observations, fitted curve, confidence interval, and model
+coefficients used by the `ggiraph` figure.
+
+`scripts/build-ndvi-timeseries.py` applies the same 0.10 m extraction to the eight
+processed June–September NDVI orthomosaics. It writes one record per core and month
+to `ndvi-timeseries.csv`, using N as Control and A as Treatment. The results page
+summarizes these 96 observations by meadow and by treatment within meadow in two
+interactive `ggiraph` figures.

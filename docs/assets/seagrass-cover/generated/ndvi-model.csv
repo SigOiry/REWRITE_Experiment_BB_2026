@@ -1,0 +1,2 @@
+model,intercept,slope,r_squared,rmse_percentage_points,n,ndvi_min,ndvi_max,buffer_radius_m,equation
+two-parameter logistic,-2.13420390,3.92693338,0.59599200,7.79953782,24,0.18976111,0.60466741,0.10000000,SPC = 100 / (1 + exp(-(intercept + slope * NDVI)))

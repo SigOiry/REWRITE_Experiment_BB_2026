@@ -28,3 +28,71 @@
   background: #edf2f5;
   outline: 2px solid #0072b2;
 }
+
+.cover-table-wrap {
+  margin: 1rem 0 0.5rem;
+  max-height: 15.1rem;
+  overflow: auto;
+  border-bottom: 1px solid #d9d9d9;
+}
+
+.cover-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+
+.cover-table th,
+.cover-table td {
+  border-bottom: 1px solid #d9d9d9;
+  padding: 0.45rem 0.6rem;
+  text-align: right;
+  white-space: nowrap;
+  height: 2.5rem;
+}
+
+.cover-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--bs-body-bg, #fff);
+}
+
+.cover-table th:first-child,
+.cover-table td:first-child,
+.cover-table th:nth-child(3),
+.cover-table td:nth-child(3),
+.cover-table th:nth-child(4),
+.cover-table td:nth-child(4),
+.cover-table th:last-child,
+.cover-table td:last-child {
+  text-align: left;
+}
+
+.cover-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin: 1rem 0 2rem;
+}
+
+.cover-mask {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid #d7d7d7;
+  border-radius: 6px;
+  background: #fff;
+}
+
+.cover-mask img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  background: #f2f2f2;
+}
+
+.cover-mask figcaption {
+  padding: 0.55rem 0.7rem;
+  font-size: 0.9rem;
+}

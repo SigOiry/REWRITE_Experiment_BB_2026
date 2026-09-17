@@ -73,7 +73,52 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<link href="site_libs/htmltools-fill-0.5.9/fill.css" rel="stylesheet">
 
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+
+<link href="site_libs/ggiraphjs-0.9.4/girafe.css" rel="stylesheet">
+
+<script src="site_libs/ggiraphjs-0.9.4/girafe.js"></script>
+
+<script src="site_libs/girafe-binding-0.9.6/girafe.js"></script>
+
+<link href="site_libs/liberation-sans-0.5.0/css/liberation-sans.css" rel="stylesheet">
+
+<link href="site_libs/liberation-serif-0.5.0/css/liberation-serif.css" rel="stylesheet">
+
+<link href="site_libs/liberation-mono-0.5.0/css/liberation-mono.css" rel="stylesheet">
+
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -123,11 +168,10 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#drone-map-time-series" id="toc-drone-map-time-series" class="nav-link active" data-scroll-target="#drone-map-time-series">Drone map time series</a></li>
-  <li><a href="#data-coverage-and-quality" id="toc-data-coverage-and-quality" class="nav-link" data-scroll-target="#data-coverage-and-quality">Data coverage and quality</a></li>
-  <li><a href="#derived-measurements" id="toc-derived-measurements" class="nav-link" data-scroll-target="#derived-measurements">Derived measurements</a></li>
-  <li><a href="#treatment-comparisons-and-changes-over-time" id="toc-treatment-comparisons-and-changes-over-time" class="nav-link" data-scroll-target="#treatment-comparisons-and-changes-over-time">Treatment comparisons and changes over time</a></li>
-  <li><a href="#interpretation-and-limitations" id="toc-interpretation-and-limitations" class="nav-link" data-scroll-target="#interpretation-and-limitations">Interpretation and limitations</a></li>
+  <li><a href="#seasonal-dynamics-of-meadow-condition" id="toc-seasonal-dynamics-of-meadow-condition" class="nav-link active" data-scroll-target="#seasonal-dynamics-of-meadow-condition">Seasonal dynamics of meadow condition</a></li>
+  <li><a href="#image-derived-seagrass-cover" id="toc-image-derived-seagrass-cover" class="nav-link" data-scroll-target="#image-derived-seagrass-cover">Image-derived seagrass cover</a></li>
+  <li><a href="#ndviseagrass-cover-relationship" id="toc-ndviseagrass-cover-relationship" class="nav-link" data-scroll-target="#ndviseagrass-cover-relationship">NDVI–seagrass cover relationship</a></li>
+  <li><a href="#temporal-ndvi-at-experimental-cores" id="toc-temporal-ndvi-at-experimental-cores" class="nav-link" data-scroll-target="#temporal-ndvi-at-experimental-cores">Temporal NDVI at experimental cores</a></li>
   </ul>
 </nav>
     </div>
@@ -155,41 +199,504 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p>Acquisition and processing protocols are described in the <a href="./index.html#remote-sensing-methods">materials and methods</a>.</p>
-<section id="drone-map-time-series" class="level2">
-<h2 class="anchored" data-anchor-id="drone-map-time-series">Drone map time series</h2>
-<p>RGB orthomosaics and NDVI maps of the stable and unstable meadows are available for June–September 2026. A separate full-screen viewer presents four mosaics: stable RGB at the upper left, unstable RGB at the upper right, stable NDVI at the lower left, and unstable NDVI at the lower right. Navigation is synchronized across all dates and both image types within each meadow; the two meadow areas navigate independently.</p>
-<p><a href="drone-viewer.html" class="btn btn-primary drone-viewer-link">Open drone map time series →</a></p>
-<p>All NDVI maps share the batlow colour scale over a fixed 0–0.8 interval. Valid values below 0 and above 0.8 are displayed using the respective endpoint colours. The viewer uses reduced-resolution web previews retaining the full raster extents. Months follow the processed filenames, including the confirmed July designation. Quantitative analyses will use the source rasters.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Results in preparation
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>The map time series is available above. Quantitative analyses and their interpretation remain in preparation.</p>
-</div>
-</div>
+<section id="seasonal-dynamics-of-meadow-condition" class="level2">
+<h2 class="anchored" data-anchor-id="seasonal-dynamics-of-meadow-condition">Seasonal dynamics of meadow condition</h2>
+<p>Four surveys conducted between June and September 2026 provide paired RGB orthomosaics and NDVI maps for the stable and unstable meadows.</p>
+<p><a href="drone-viewer.html" class="btn btn-primary drone-viewer-link">View the RGB and NDVI time series →</a></p>
+<p>The maps show a seasonal increase in NDVI from June towards late summer in both meadow areas. Higher NDVI values form a more continuous spatial pattern in the stable meadow, whereas the unstable meadow retains a more heterogeneous distribution. In June, NDVI shows heterogeneous patterns in both areas, where NDVI is higher in permanently submerged area (channels, pounds…). By September, elevated NDVI occupies substantial portions of both areas, consistent with the late-summer development of the meadow and the timing of the phenological maximum. In September, the meadow of the stable area shows homogeneous NDVI values almost across its entire extent whereas the meadow of the unstable area still shows the same patterns as in June, with higher NDVI value in wet area and lower in areas that dry during low tide.</p>
 </section>
-<section id="data-coverage-and-quality" class="level2">
-<h2 class="anchored" data-anchor-id="data-coverage-and-quality">Data coverage and quality</h2>
-<p><strong>To add:</strong> A summary of the available acquisitions, coverage of experimental units, and quality checks. Report missing or excluded observations and their reasons.</p>
+<section id="image-derived-seagrass-cover" class="level2">
+<h2 class="anchored" data-anchor-id="image-derived-seagrass-cover">Image-derived seagrass cover</h2>
+<p>Field photographs collected in September 2026 provided sample-scale estimates of <em>Zostera noltei</em> percentage cover for the subsequent calibration of drone-derived NDVI. Percentage cover varied among the 24 samples, reflecting marked spatial heterogeneity in the amount of vegetation present within the sampled areas. The complete circular sampling area was visible in every photograph.</p>
+<div class="cover-table-wrap">
+<table class="cover-table">
+<thead>
+<tr>
+<th>
+Sample
+</th>
+<th>
+Station
+</th>
+<th>
+Core code
+</th>
+<th>
+Meadow
+</th>
+<th>
+Seagrass cover (%)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+1AS
+</td>
+<td>
+1
+</td>
+<td>
+A
+</td>
+<td>
+Stable
+</td>
+<td>
+27.5
+</td>
+</tr>
+<tr>
+<td>
+1AU
+</td>
+<td>
+1
+</td>
+<td>
+A
+</td>
+<td>
+Unstable
+</td>
+<td>
+21.3
+</td>
+</tr>
+<tr>
+<td>
+1NS
+</td>
+<td>
+1
+</td>
+<td>
+N
+</td>
+<td>
+Stable
+</td>
+<td>
+35.8
+</td>
+</tr>
+<tr>
+<td>
+1NU
+</td>
+<td>
+1
+</td>
+<td>
+N
+</td>
+<td>
+Unstable
+</td>
+<td>
+30.5
+</td>
+</tr>
+<tr>
+<td>
+2AS
+</td>
+<td>
+2
+</td>
+<td>
+A
+</td>
+<td>
+Stable
+</td>
+<td>
+38.9
+</td>
+</tr>
+<tr>
+<td>
+2AU
+</td>
+<td>
+2
+</td>
+<td>
+A
+</td>
+<td>
+Unstable
+</td>
+<td>
+22.4
+</td>
+</tr>
+<tr>
+<td>
+2NS
+</td>
+<td>
+2
+</td>
+<td>
+N
+</td>
+<td>
+Stable
+</td>
+<td>
+16.2
+</td>
+</tr>
+<tr>
+<td>
+2NU
+</td>
+<td>
+2
+</td>
+<td>
+N
+</td>
+<td>
+Unstable
+</td>
+<td>
+39.6
+</td>
+</tr>
+<tr>
+<td>
+3AS
+</td>
+<td>
+3
+</td>
+<td>
+A
+</td>
+<td>
+Stable
+</td>
+<td>
+67.0
+</td>
+</tr>
+<tr>
+<td>
+3AU
+</td>
+<td>
+3
+</td>
+<td>
+A
+</td>
+<td>
+Unstable
+</td>
+<td>
+33.5
+</td>
+</tr>
+<tr>
+<td>
+3NS
+</td>
+<td>
+3
+</td>
+<td>
+N
+</td>
+<td>
+Stable
+</td>
+<td>
+61.8
+</td>
+</tr>
+<tr>
+<td>
+3NU
+</td>
+<td>
+3
+</td>
+<td>
+N
+</td>
+<td>
+Unstable
+</td>
+<td>
+31.0
+</td>
+</tr>
+<tr>
+<td>
+4AS
+</td>
+<td>
+4
+</td>
+<td>
+A
+</td>
+<td>
+Stable
+</td>
+<td>
+40.1
+</td>
+</tr>
+<tr>
+<td>
+4AU
+</td>
+<td>
+4
+</td>
+<td>
+A
+</td>
+<td>
+Unstable
+</td>
+<td>
+32.2
+</td>
+</tr>
+<tr>
+<td>
+4NS
+</td>
+<td>
+4
+</td>
+<td>
+N
+</td>
+<td>
+Stable
+</td>
+<td>
+46.1
+</td>
+</tr>
+<tr>
+<td>
+4NU
+</td>
+<td>
+4
+</td>
+<td>
+N
+</td>
+<td>
+Unstable
+</td>
+<td>
+24.8
+</td>
+</tr>
+<tr>
+<td>
+5AS
+</td>
+<td>
+5
+</td>
+<td>
+A
+</td>
+<td>
+Stable
+</td>
+<td>
+47.0
+</td>
+</tr>
+<tr>
+<td>
+5AU
+</td>
+<td>
+5
+</td>
+<td>
+A
+</td>
+<td>
+Unstable
+</td>
+<td>
+26.4
+</td>
+</tr>
+<tr>
+<td>
+5NS
+</td>
+<td>
+5
+</td>
+<td>
+N
+</td>
+<td>
+Stable
+</td>
+<td>
+19.7
+</td>
+</tr>
+<tr>
+<td>
+5NU
+</td>
+<td>
+5
+</td>
+<td>
+N
+</td>
+<td>
+Unstable
+</td>
+<td>
+47.8
+</td>
+</tr>
+<tr>
+<td>
+6AS
+</td>
+<td>
+6
+</td>
+<td>
+A
+</td>
+<td>
+Stable
+</td>
+<td>
+44.1
+</td>
+</tr>
+<tr>
+<td>
+6AU
+</td>
+<td>
+6
+</td>
+<td>
+A
+</td>
+<td>
+Unstable
+</td>
+<td>
+41.5
+</td>
+</tr>
+<tr>
+<td>
+6NS
+</td>
+<td>
+6
+</td>
+<td>
+N
+</td>
+<td>
+Stable
+</td>
+<td>
+31.4
+</td>
+</tr>
+<tr>
+<td>
+6NU
+</td>
+<td>
+6
+</td>
+<td>
+N
+</td>
+<td>
+Unstable
+</td>
+<td>
+28.9
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><a href="assets/seagrass-cover/generated/seagrass-cover.csv">Download the sample-level measurements</a></p>
 </section>
-<section id="derived-measurements" class="level2">
-<h2 class="anchored" data-anchor-id="derived-measurements">Derived measurements</h2>
-<p><strong>To add:</strong> Figures and tables summarizing the remote sensing variables for each treatment and campaign. Define units, sample sizes, and uncertainty measures in the captions.</p>
+<section id="ndviseagrass-cover-relationship" class="level2">
+<h2 class="anchored" data-anchor-id="ndviseagrass-cover-relationship">NDVI–seagrass cover relationship</h2>
+<p>Mean September NDVI was calculated within a 10 cm radius of each sample position. Across the 24 samples, NDVI ranged from 0.190 to 0.605 and showed a positive association with photograph-derived seagrass percentage cover. A bounded logistic calibration gave the following empirical relationship:</p>
+<p><span class="math display">\[
+\mathrm{SPC} = \frac{100}{1 + \exp\!\left(2.134 - 3.927\,\mathrm{NDVI}\right)},
+\]</span></p>
+<p>where SPC is seagrass percentage cover. The model explained 59.6% of the observed variation (<span class="math inline">\(R^2 = 0.596\)</span>), with a root-mean-square error of 7.80 percentage points. The calibration is supported over the observed NDVI interval and should not be extrapolated beyond this range.</p>
+<div class="cell">
+<div id="fig-ndvi-cover-calibration" class="cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ndvi-cover-calibration-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="girafe html-widget html-fill-item" id="htmlwidget-be051eaf32366971a6bd" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-be051eaf32366971a6bd">{"x":{"html":"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='ggiraph-svg' role='graphics-document' id='svg_df52476c09df9e89' viewBox='0 0 576 360'>\n <defs id='svg_df52476c09df9e89_defs'>\n  <clipPath id='svg_df52476c09df9e89_c1'>\n   <rect x='0' y='0' width='576' height='360'/>\n  <\/clipPath>\n  <clipPath id='svg_df52476c09df9e89_c2'>\n   <rect x='41.1' y='47.17' width='528.92' height='279.15'/>\n  <\/clipPath>\n <\/defs>\n <g id='svg_df52476c09df9e89_rootg' class='ggiraph-svg-rootg'>\n  <g clip-path='url(#svg_df52476c09df9e89_c1)'>\n   <rect x='0' y='0' width='576' height='360' fill='#FFFFFF' fill-opacity='1' stroke='#FFFFFF' stroke-opacity='1' stroke-width='0.75' stroke-linejoin='round' stroke-linecap='round' class='ggiraph-svg-bg'/>\n   <rect x='0' y='0' width='576' height='360' fill='#FFFFFF' fill-opacity='1' stroke='none'/>\n  <\/g>\n  <g clip-path='url(#svg_df52476c09df9e89_c2)'>\n   <polyline points='41.10,326.32 570.02,326.32' fill='none' stroke='#EBEBEB' stroke-opacity='1' stroke-width='1.16' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='41.10,271.59 570.02,271.59' fill='none' stroke='#EBEBEB' stroke-opacity='1' stroke-width='1.16' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='41.10,216.85 570.02,216.85' fill='none' stroke='#EBEBEB' stroke-opacity='1' stroke-width='1.16' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='41.10,162.11 570.02,162.11' fill='none' stroke='#EBEBEB' stroke-opacity='1' stroke-width='1.16' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='41.10,107.38 570.02,107.38' fill='none' stroke='#EBEBEB' stroke-opacity='1' stroke-width='1.16' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='41.10,52.64 570.02,52.64' fill='none' stroke='#EBEBEB' stroke-opacity='1' stroke-width='1.16' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='77.01,326.32 77.01,47.17' fill='none' stroke='#EBEBEB' stroke-opacity='1' stroke-width='1.16' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='192.90,326.32 192.90,47.17' fill='none' stroke='#EBEBEB' stroke-opacity='1' stroke-width='1.16' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='308.79,326.32 308.79,47.17' fill='none' stroke='#EBEBEB' stroke-opacity='1' stroke-width='1.16' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='424.68,326.32 424.68,47.17' fill='none' stroke='#EBEBEB' stroke-opacity='1' stroke-width='1.16' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='540.57,326.32 540.57,47.17' fill='none' stroke='#EBEBEB' stroke-opacity='1' stroke-width='1.16' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polygon points='65.14,256.48 67.56,256.16 69.98,255.85 72.39,255.53 74.81,255.21 77.22,254.89 79.64,254.57 82.06,254.25 84.47,253.93 86.89,253.61 89.31,253.29 91.72,252.97 94.14,252.64 96.55,252.32 98.97,251.99 101.39,251.66 103.80,251.34 106.22,251.01 108.64,250.68 111.05,250.35 113.47,250.02 115.88,249.68 118.30,249.35 120.72,249.02 123.13,248.68 125.55,248.34 127.97,248.01 130.38,247.67 132.80,247.33 135.22,246.99 137.63,246.65 140.05,246.30 142.46,245.96 144.88,245.61 147.30,245.27 149.71,244.92 152.13,244.57 154.55,244.22 156.96,243.87 159.38,243.52 161.79,243.17 164.21,242.81 166.63,242.46 169.04,242.10 171.46,241.74 173.88,241.38 176.29,241.02 178.71,240.66 181.12,240.29 183.54,239.93 185.96,239.56 188.37,239.19 190.79,238.82 193.21,238.45 195.62,238.08 198.04,237.70 200.45,237.33 202.87,236.95 205.29,236.57 207.70,236.18 210.12,235.80 212.54,235.41 214.95,235.02 217.37,234.63 219.78,234.24 222.20,233.85 224.62,233.45 227.03,233.05 229.45,232.65 231.87,232.24 234.28,231.84 236.70,231.43 239.11,231.02 241.53,230.60 243.95,230.19 246.36,229.77 248.78,229.34 251.20,228.92 253.61,228.49 256.03,228.06 258.44,227.62 260.86,227.18 263.28,226.74 265.69,226.30 268.11,225.85 270.53,225.40 272.94,224.94 275.36,224.48 277.77,224.02 280.19,223.55 282.61,223.08 285.02,222.60 287.44,222.12 289.86,221.64 292.27,221.15 294.69,220.66 297.10,220.16 299.52,219.66 301.94,219.16 304.35,218.65 306.77,218.13 309.19,217.61 311.60,217.09 314.02,216.56 316.44,216.03 318.85,215.49 321.27,214.95 323.68,214.40 326.10,213.85 328.52,213.29 330.93,212.73 333.35,212.16 335.77,211.59 338.18,211.02 340.60,210.44 343.01,209.85 345.43,209.26 347.85,208.67 350.26,208.07 352.68,207.47 355.10,206.86 357.51,206.25 359.93,205.63 362.34,205.01 364.76,204.39 367.18,203.76 369.59,203.13 372.01,202.49 374.43,201.85 376.84,201.21 379.26,200.56 381.67,199.91 384.09,199.26 386.51,198.60 388.92,197.94 391.34,197.28 393.76,196.61 396.17,195.94 398.59,195.27 401.00,194.59 403.42,193.92 405.84,193.23 408.25,192.55 410.67,191.87 413.09,191.18 415.50,190.49 417.92,189.79 420.33,189.10 422.75,188.40 425.17,187.70 427.58,187.00 430.00,186.30 432.42,185.60 434.83,184.89 437.25,184.18 439.66,183.47 442.08,182.76 444.50,182.05 446.91,181.34 449.33,180.63 451.75,179.91 454.16,179.19 456.58,178.48 458.99,177.76 461.41,177.04 463.83,176.32 466.24,175.60 468.66,174.88 471.08,174.16 473.49,173.44 475.91,172.71 478.33,171.99 480.74,171.27 483.16,170.54 485.57,169.82 487.99,169.10 490.41,168.37 492.82,167.65 495.24,166.93 497.66,166.20 500.07,165.48 502.49,164.76 504.90,164.03 507.32,163.31 509.74,162.59 512.15,161.87 514.57,161.15 516.99,160.42 519.40,159.70 521.82,158.99 524.23,158.27 526.65,157.55 529.07,156.83 531.48,156.12 533.90,155.40 536.32,154.69 538.73,153.97 541.15,153.26 543.56,152.55 545.98,151.84 545.98,194.40 543.56,194.80 541.15,195.19 538.73,195.59 536.32,195.98 533.90,196.37 531.48,196.77 529.07,197.16 526.65,197.56 524.23,197.95 521.82,198.35 519.40,198.74 516.99,199.13 514.57,199.53 512.15,199.92 509.74,200.32 507.32,200.71 504.90,201.11 502.49,201.50 500.07,201.90 497.66,202.29 495.24,202.69 492.82,203.08 490.41,203.48 487.99,203.88 485.57,204.27 483.16,204.67 480.74,205.07 478.33,205.46 475.91,205.86 473.49,206.26 471.08,206.66 468.66,207.06 466.24,207.46 463.83,207.85 461.41,208.26 458.99,208.66 456.58,209.06 454.16,209.46 451.75,209.86 449.33,210.27 446.91,210.67 444.50,211.07 442.08,211.48 439.66,211.89 437.25,212.29 434.83,212.70 432.42,213.11 430.00,213.52 427.58,213.93 425.17,214.34 422.75,214.76 420.33,215.17 417.92,215.59 415.50,216.00 413.09,216.42 410.67,216.84 408.25,217.26 405.84,217.68 403.42,218.11 401.00,218.53 398.59,218.96 396.17,219.39 393.76,219.82 391.34,220.25 388.92,220.68 386.51,221.12 384.09,221.56 381.67,222.00 379.26,222.44 376.84,222.88 374.43,223.33 372.01,223.78 369.59,224.23 367.18,224.68 364.76,225.13 362.34,225.59 359.93,226.05 357.51,226.51 355.10,226.98 352.68,227.45 350.26,227.92 347.85,228.39 345.43,228.86 343.01,229.34 340.60,229.82 338.18,230.30 335.77,230.79 333.35,231.28 330.93,231.77 328.52,232.26 326.10,232.76 323.68,233.26 321.27,233.76 318.85,234.26 316.44,234.77 314.02,235.28 311.60,235.79 309.19,236.30 306.77,236.82 304.35,237.34 301.94,237.86 299.52,238.38 297.10,238.91 294.69,239.43 292.27,239.96 289.86,240.49 287.44,241.02 285.02,241.56 282.61,242.09 280.19,242.63 277.77,243.17 275.36,243.71 272.94,244.25 270.53,244.79 268.11,245.33 265.69,245.87 263.28,246.42 260.86,246.96 258.44,247.51 256.03,248.05 253.61,248.60 251.20,249.14 248.78,249.69 246.36,250.24 243.95,250.78 241.53,251.33 239.11,251.87 236.70,252.42 234.28,252.97 231.87,253.51 229.45,254.05 227.03,254.60 224.62,255.14 222.20,255.68 219.78,256.22 217.37,256.76 214.95,257.30 212.54,257.84 210.12,258.38 207.70,258.92 205.29,259.45 202.87,259.98 200.45,260.51 198.04,261.05 195.62,261.57 193.21,262.10 190.79,262.63 188.37,263.15 185.96,263.67 183.54,264.19 181.12,264.71 178.71,265.23 176.29,265.75 173.88,266.26 171.46,266.77 169.04,267.28 166.63,267.79 164.21,268.29 161.79,268.79 159.38,269.30 156.96,269.79 154.55,270.29 152.13,270.79 149.71,271.28 147.30,271.77 144.88,272.25 142.46,272.74 140.05,273.22 137.63,273.70 135.22,274.18 132.80,274.66 130.38,275.13 127.97,275.60 125.55,276.07 123.13,276.53 120.72,277.00 118.30,277.46 115.88,277.92 113.47,278.37 111.05,278.82 108.64,279.28 106.22,279.72 103.80,280.17 101.39,280.61 98.97,281.05 96.55,281.49 94.14,281.92 91.72,282.36 89.31,282.79 86.89,283.21 84.47,283.64 82.06,284.06 79.64,284.48 77.22,284.89 74.81,285.31 72.39,285.72 69.98,286.13 67.56,286.53 65.14,286.93' fill='#777777' fill-opacity='0.18' stroke='none'/>\n   <polyline points='65.14,256.48 67.56,256.16 69.98,255.85 72.39,255.53 74.81,255.21 77.22,254.89 79.64,254.57 82.06,254.25 84.47,253.93 86.89,253.61 89.31,253.29 91.72,252.97 94.14,252.64 96.55,252.32 98.97,251.99 101.39,251.66 103.80,251.34 106.22,251.01 108.64,250.68 111.05,250.35 113.47,250.02 115.88,249.68 118.30,249.35 120.72,249.02 123.13,248.68 125.55,248.34 127.97,248.01 130.38,247.67 132.80,247.33 135.22,246.99 137.63,246.65 140.05,246.30 142.46,245.96 144.88,245.61 147.30,245.27 149.71,244.92 152.13,244.57 154.55,244.22 156.96,243.87 159.38,243.52 161.79,243.17 164.21,242.81 166.63,242.46 169.04,242.10 171.46,241.74 173.88,241.38 176.29,241.02 178.71,240.66 181.12,240.29 183.54,239.93 185.96,239.56 188.37,239.19 190.79,238.82 193.21,238.45 195.62,238.08 198.04,237.70 200.45,237.33 202.87,236.95 205.29,236.57 207.70,236.18 210.12,235.80 212.54,235.41 214.95,235.02 217.37,234.63 219.78,234.24 222.20,233.85 224.62,233.45 227.03,233.05 229.45,232.65 231.87,232.24 234.28,231.84 236.70,231.43 239.11,231.02 241.53,230.60 243.95,230.19 246.36,229.77 248.78,229.34 251.20,228.92 253.61,228.49 256.03,228.06 258.44,227.62 260.86,227.18 263.28,226.74 265.69,226.30 268.11,225.85 270.53,225.40 272.94,224.94 275.36,224.48 277.77,224.02 280.19,223.55 282.61,223.08 285.02,222.60 287.44,222.12 289.86,221.64 292.27,221.15 294.69,220.66 297.10,220.16 299.52,219.66 301.94,219.16 304.35,218.65 306.77,218.13 309.19,217.61 311.60,217.09 314.02,216.56 316.44,216.03 318.85,215.49 321.27,214.95 323.68,214.40 326.10,213.85 328.52,213.29 330.93,212.73 333.35,212.16 335.77,211.59 338.18,211.02 340.60,210.44 343.01,209.85 345.43,209.26 347.85,208.67 350.26,208.07 352.68,207.47 355.10,206.86 357.51,206.25 359.93,205.63 362.34,205.01 364.76,204.39 367.18,203.76 369.59,203.13 372.01,202.49 374.43,201.85 376.84,201.21 379.26,200.56 381.67,199.91 384.09,199.26 386.51,198.60 388.92,197.94 391.34,197.28 393.76,196.61 396.17,195.94 398.59,195.27 401.00,194.59 403.42,193.92 405.84,193.23 408.25,192.55 410.67,191.87 413.09,191.18 415.50,190.49 417.92,189.79 420.33,189.10 422.75,188.40 425.17,187.70 427.58,187.00 430.00,186.30 432.42,185.60 434.83,184.89 437.25,184.18 439.66,183.47 442.08,182.76 444.50,182.05 446.91,181.34 449.33,180.63 451.75,179.91 454.16,179.19 456.58,178.48 458.99,177.76 461.41,177.04 463.83,176.32 466.24,175.60 468.66,174.88 471.08,174.16 473.49,173.44 475.91,172.71 478.33,171.99 480.74,171.27 483.16,170.54 485.57,169.82 487.99,169.10 490.41,168.37 492.82,167.65 495.24,166.93 497.66,166.20 500.07,165.48 502.49,164.76 504.90,164.03 507.32,163.31 509.74,162.59 512.15,161.87 514.57,161.15 516.99,160.42 519.40,159.70 521.82,158.99 524.23,158.27 526.65,157.55 529.07,156.83 531.48,156.12 533.90,155.40 536.32,154.69 538.73,153.97 541.15,153.26 543.56,152.55 545.98,151.84' fill='none' stroke='none'/>\n   <polyline points='545.98,194.40 543.56,194.80 541.15,195.19 538.73,195.59 536.32,195.98 533.90,196.37 531.48,196.77 529.07,197.16 526.65,197.56 524.23,197.95 521.82,198.35 519.40,198.74 516.99,199.13 514.57,199.53 512.15,199.92 509.74,200.32 507.32,200.71 504.90,201.11 502.49,201.50 500.07,201.90 497.66,202.29 495.24,202.69 492.82,203.08 490.41,203.48 487.99,203.88 485.57,204.27 483.16,204.67 480.74,205.07 478.33,205.46 475.91,205.86 473.49,206.26 471.08,206.66 468.66,207.06 466.24,207.46 463.83,207.85 461.41,208.26 458.99,208.66 456.58,209.06 454.16,209.46 451.75,209.86 449.33,210.27 446.91,210.67 444.50,211.07 442.08,211.48 439.66,211.89 437.25,212.29 434.83,212.70 432.42,213.11 430.00,213.52 427.58,213.93 425.17,214.34 422.75,214.76 420.33,215.17 417.92,215.59 415.50,216.00 413.09,216.42 410.67,216.84 408.25,217.26 405.84,217.68 403.42,218.11 401.00,218.53 398.59,218.96 396.17,219.39 393.76,219.82 391.34,220.25 388.92,220.68 386.51,221.12 384.09,221.56 381.67,222.00 379.26,222.44 376.84,222.88 374.43,223.33 372.01,223.78 369.59,224.23 367.18,224.68 364.76,225.13 362.34,225.59 359.93,226.05 357.51,226.51 355.10,226.98 352.68,227.45 350.26,227.92 347.85,228.39 345.43,228.86 343.01,229.34 340.60,229.82 338.18,230.30 335.77,230.79 333.35,231.28 330.93,231.77 328.52,232.26 326.10,232.76 323.68,233.26 321.27,233.76 318.85,234.26 316.44,234.77 314.02,235.28 311.60,235.79 309.19,236.30 306.77,236.82 304.35,237.34 301.94,237.86 299.52,238.38 297.10,238.91 294.69,239.43 292.27,239.96 289.86,240.49 287.44,241.02 285.02,241.56 282.61,242.09 280.19,242.63 277.77,243.17 275.36,243.71 272.94,244.25 270.53,244.79 268.11,245.33 265.69,245.87 263.28,246.42 260.86,246.96 258.44,247.51 256.03,248.05 253.61,248.60 251.20,249.14 248.78,249.69 246.36,250.24 243.95,250.78 241.53,251.33 239.11,251.87 236.70,252.42 234.28,252.97 231.87,253.51 229.45,254.05 227.03,254.60 224.62,255.14 222.20,255.68 219.78,256.22 217.37,256.76 214.95,257.30 212.54,257.84 210.12,258.38 207.70,258.92 205.29,259.45 202.87,259.98 200.45,260.51 198.04,261.05 195.62,261.57 193.21,262.10 190.79,262.63 188.37,263.15 185.96,263.67 183.54,264.19 181.12,264.71 178.71,265.23 176.29,265.75 173.88,266.26 171.46,266.77 169.04,267.28 166.63,267.79 164.21,268.29 161.79,268.79 159.38,269.30 156.96,269.79 154.55,270.29 152.13,270.79 149.71,271.28 147.30,271.77 144.88,272.25 142.46,272.74 140.05,273.22 137.63,273.70 135.22,274.18 132.80,274.66 130.38,275.13 127.97,275.60 125.55,276.07 123.13,276.53 120.72,277.00 118.30,277.46 115.88,277.92 113.47,278.37 111.05,278.82 108.64,279.28 106.22,279.72 103.80,280.17 101.39,280.61 98.97,281.05 96.55,281.49 94.14,281.92 91.72,282.36 89.31,282.79 86.89,283.21 84.47,283.64 82.06,284.06 79.64,284.48 77.22,284.89 74.81,285.31 72.39,285.72 69.98,286.13 67.56,286.53 65.14,286.93' fill='none' stroke='none'/>\n   <polyline points='65.14,271.71 67.56,271.35 69.98,270.99 72.39,270.62 74.81,270.26 77.22,269.89 79.64,269.53 82.06,269.16 84.47,268.79 86.89,268.41 89.31,268.04 91.72,267.66 94.14,267.28 96.55,266.90 98.97,266.52 101.39,266.14 103.80,265.75 106.22,265.37 108.64,264.98 111.05,264.59 113.47,264.19 115.88,263.80 118.30,263.40 120.72,263.01 123.13,262.61 125.55,262.21 127.97,261.80 130.38,261.40 132.80,260.99 135.22,260.58 137.63,260.17 140.05,259.76 142.46,259.35 144.88,258.93 147.30,258.52 149.71,258.10 152.13,257.68 154.55,257.26 156.96,256.83 159.38,256.41 161.79,255.98 164.21,255.55 166.63,255.12 169.04,254.69 171.46,254.26 173.88,253.82 176.29,253.38 178.71,252.94 181.12,252.50 183.54,252.06 185.96,251.62 188.37,251.17 190.79,250.73 193.21,250.28 195.62,249.83 198.04,249.37 200.45,248.92 202.87,248.46 205.29,248.01 207.70,247.55 210.12,247.09 212.54,246.63 214.95,246.16 217.37,245.70 219.78,245.23 222.20,244.76 224.62,244.30 227.03,243.82 229.45,243.35 231.87,242.88 234.28,242.40 236.70,241.92 239.11,241.45 241.53,240.97 243.95,240.48 246.36,240.00 248.78,239.52 251.20,239.03 253.61,238.54 256.03,238.05 258.44,237.56 260.86,237.07 263.28,236.58 265.69,236.08 268.11,235.59 270.53,235.09 272.94,234.59 275.36,234.09 277.77,233.59 280.19,233.09 282.61,232.58 285.02,232.08 287.44,231.57 289.86,231.07 292.27,230.56 294.69,230.05 297.10,229.53 299.52,229.02 301.94,228.51 304.35,227.99 306.77,227.48 309.19,226.96 311.60,226.44 314.02,225.92 316.44,225.40 318.85,224.88 321.27,224.35 323.68,223.83 326.10,223.30 328.52,222.78 330.93,222.25 333.35,221.72 335.77,221.19 338.18,220.66 340.60,220.13 343.01,219.60 345.43,219.06 347.85,218.53 350.26,217.99 352.68,217.46 355.10,216.92 357.51,216.38 359.93,215.84 362.34,215.30 364.76,214.76 367.18,214.22 369.59,213.68 372.01,213.14 374.43,212.59 376.84,212.05 379.26,211.50 381.67,210.96 384.09,210.41 386.51,209.86 388.92,209.31 391.34,208.76 393.76,208.21 396.17,207.66 398.59,207.11 401.00,206.56 403.42,206.01 405.84,205.46 408.25,204.91 410.67,204.35 413.09,203.80 415.50,203.24 417.92,202.69 420.33,202.13 422.75,201.58 425.17,201.02 427.58,200.47 430.00,199.91 432.42,199.35 434.83,198.80 437.25,198.24 439.66,197.68 442.08,197.12 444.50,196.56 446.91,196.00 449.33,195.45 451.75,194.89 454.16,194.33 456.58,193.77 458.99,193.21 461.41,192.65 463.83,192.09 466.24,191.53 468.66,190.97 471.08,190.41 473.49,189.85 475.91,189.29 478.33,188.73 480.74,188.17 483.16,187.61 485.57,187.05 487.99,186.49 490.41,185.93 492.82,185.37 495.24,184.81 497.66,184.25 500.07,183.69 502.49,183.13 504.90,182.57 507.32,182.01 509.74,181.45 512.15,180.90 514.57,180.34 516.99,179.78 519.40,179.22 521.82,178.67 524.23,178.11 526.65,177.55 529.07,177.00 531.48,176.44 533.90,175.89 536.32,175.33 538.73,174.78 541.15,174.23 543.56,173.67 545.98,173.12' fill='none' stroke='#222222' stroke-opacity='1' stroke-width='1.92' stroke-linejoin='round' stroke-linecap='butt'/>\n   <circle id='svg_df52476c09df9e89_e1' cx='227.21' cy='250.98' r='2.85pt' fill='#0072B2' fill-opacity='0.9' stroke='#0072B2' stroke-opacity='0.9' stroke-width='0.77' stroke-linejoin='round' stroke-linecap='round' title='1AS&amp;lt;br/&amp;gt;Meadow: Stable&amp;lt;br/&amp;gt;Seagrass cover: 27.5%&amp;lt;br/&amp;gt;Mean NDVI: 0.330&amp;lt;br/&amp;gt;Pixels: 76' data-id='1AS'/>\n   <circle id='svg_df52476c09df9e89_e2' cx='65.14' cy='268.08' r='2.85pt' fill='#D55E00' fill-opacity='0.9' stroke='#D55E00' stroke-opacity='0.9' stroke-width='0.77' stroke-linejoin='round' stroke-linecap='round' title='1AU&amp;lt;br/&amp;gt;Meadow: Unstable&amp;lt;br/&amp;gt;Seagrass cover: 21.3%&amp;lt;br/&amp;gt;Mean NDVI: 0.190&amp;lt;br/&amp;gt;Pixels: 249' data-id='1AU'/>\n   <circle id='svg_df52476c09df9e89_e3' cx='282.61' cy='228.48' r='2.85pt' fill='#0072B2' fill-opacity='0.9' stroke='#0072B2' stroke-opacity='0.9' stroke-width='0.77' stroke-linejoin='round' stroke-linecap='round' title='1NS&amp;lt;br/&amp;gt;Meadow: Stable&amp;lt;br/&amp;gt;Seagrass cover: 35.8%&amp;lt;br/&amp;gt;Mean NDVI: 0.377&amp;lt;br/&amp;gt;Pixels: 76' data-id='1NS'/>\n   <circle id='svg_df52476c09df9e89_e4' cx='371.28' cy='242.82' r='2.85pt' fill='#D55E00' fill-opacity='0.9' stroke='#D55E00' stroke-opacity='0.9' stroke-width='0.77' stroke-linejoin='round' stroke-linecap='round' title='1NU&amp;lt;br/&amp;gt;Meadow: Unstable&amp;lt;br/&amp;gt;Seagrass cover: 30.5%&amp;lt;br/&amp;gt;Mean NDVI: 0.454&amp;lt;br/&amp;gt;Pixels: 247' data-id='1NU'/>\n   <circle id='svg_df52476c09df9e89_e5' cx='160.64' cy='219.89' r='2.85pt' fill='#0072B2' fill-opacity='0.9' stroke='#0072B2' stroke-opacity='0.9' stroke-width='0.77' stroke-linejoin='round' stroke-linecap='round' title='2AS&amp;lt;br/&amp;gt;Meadow: Stable&amp;lt;br/&amp;gt;Seagrass cover: 38.9%&amp;lt;br/&amp;gt;Mean NDVI: 0.272&amp;lt;br/&amp;gt;Pixels: 76' data-id='2AS'/>\n   <circle id='svg_df52476c09df9e89_e6' cx='309.63' cy='265.04' r='2.85pt' fill='#D55E00' fill-opacity='0.9' stroke='#D55E00' stroke-opacity='0.9' stroke-width='0.77' stroke-linejoin='round' stroke-linecap='round' title='2AU&amp;lt;br/&amp;gt;Meadow: Unstable&amp;lt;br/&amp;gt;Seagrass cover: 22.4%&amp;lt;br/&amp;gt;Mean NDVI: 0.401&amp;lt;br/&amp;gt;Pixels: 252' data-id='2AU'/>\n   <circle id='svg_df52476c09df9e89_e7' cx='96.61' cy='281.85' r='2.85pt' fill='#0072B2' fill-opacity='0.9' stroke='#0072B2' stroke-opacity='0.9' stroke-width='0.77' stroke-linejoin='round' stroke-linecap='round' title='2NS&amp;lt;br/&amp;gt;Meadow: Stable&amp;lt;br/&amp;gt;Seagrass cover: 16.2%&amp;lt;br/&amp;gt;Mean NDVI: 0.217&amp;lt;br/&amp;gt;Pixels: 74' data-id='2NS'/>\n   <circle id='svg_df52476c09df9e89_e8' cx='312.93' cy='218.03' r='2.85pt' fill='#D55E00' fill-opacity='0.9' stroke='#D55E00' stroke-opacity='0.9' stroke-width='0.77' stroke-linejoin='round' stroke-linecap='round' title='2NU&amp;lt;br/&amp;gt;Meadow: Unstable&amp;lt;br/&amp;gt;Seagrass cover: 39.6%&amp;lt;br/&amp;gt;Mean NDVI: 0.404&amp;lt;br/&amp;gt;Pixels: 245' data-id='2NU'/>\n   <circle id='svg_df52476c09df9e89_e9' cx='545.98' cy='143.01' r='2.85pt' fill='#0072B2' fill-opacity='0.9' stroke='#0072B2' stroke-opacity='0.9' stroke-width='0.77' stroke-linejoin='round' stroke-linecap='round' title='3AS&amp;lt;br/&amp;gt;Meadow: Stable&amp;lt;br/&amp;gt;Seagrass cover: 67.0%&amp;lt;br/&amp;gt;Mean NDVI: 0.605&amp;lt;br/&amp;gt;Pixels: 72' data-id='3AS'/>\n   <circle id='svg_df52476c09df9e89_e10' cx='285.42' cy='234.64' r='2.85pt' fill='#D55E00' fill-opacity='0.9' stroke='#D55E00' stroke-opacity='0.9' stroke-width='0.77' stroke-linejoin='round' stroke-linecap='round' title='3AU&amp;lt;br/&amp;gt;Meadow: Unstable&amp;lt;br/&amp;gt;Seagrass cover: 33.5%&amp;lt;br/&amp;gt;Mean NDVI: 0.380&amp;lt;br/&amp;gt;Pixels: 248' data-id='3AU'/>\n   <circle id='svg_df52476c09df9e89_e11' cx='471.11' cy='157.19' r='2.85pt' fill='#0072B2' fill-opacity='0.9' stroke='#0072B2' stroke-opacity='0.9' stroke-width='0.77' stroke-linejoin='round' stroke-linecap='round' title='3NS&amp;lt;br/&amp;gt;Meadow: Stable&amp;lt;br/&amp;gt;Seagrass cover: 61.8%&amp;lt;br/&amp;gt;Mean NDVI: 0.540&amp;lt;br/&amp;gt;Pixels: 76' data-id='3NS'/>\n   <circle id='svg_df52476c09df9e89_e12' cx='225.56' cy='241.37' r='2.85pt' fill='#D55E00' fill-opacity='0.9' stroke='#D55E00' stroke-opacity='0.9' stroke-width='0.77' stroke-linejoin='round' stroke-linecap='round' title='3NU&amp;lt;br/&amp;gt;Meadow: Unstable&amp;lt;br/&amp;gt;Seagrass cover: 31.0%&amp;lt;br/&amp;gt;Mean NDVI: 0.328&amp;lt;br/&amp;gt;Pixels: 246' data-id='3NU'/>\n   <circle id='svg_df52476c09df9e89_e13' cx='443.49' cy='216.44' r='2.85pt' fill='#0072B2' fill-opacity='0.9' stroke='#0072B2' stroke-opacity='0.9' stroke-width='0.77' stroke-linejoin='round' stroke-linecap='round' title='4AS&amp;lt;br/&amp;gt;Meadow: Stable&amp;lt;br/&amp;gt;Seagrass cover: 40.1%&amp;lt;br/&amp;gt;Mean NDVI: 0.516&amp;lt;br/&amp;gt;Pixels: 77' data-id='4AS'/>\n   <circle id='svg_df52476c09df9e89_e14' cx='343.85' cy='238.28' r='2.85pt' fill='#D55E00' fill-opacity='0.9' stroke='#D55E00' stroke-opacity='0.9' stroke-width='0.77' stroke-linejoin='round' stroke-linecap='round' title='4AU&amp;lt;br/&amp;gt;Meadow: Unstable&amp;lt;br/&amp;gt;Seagrass cover: 32.2%&amp;lt;br/&amp;gt;Mean NDVI: 0.430&amp;lt;br/&amp;gt;Pixels: 251' data-id='4AU'/>\n   <circle id='svg_df52476c09df9e89_e15' cx='373.68' cy='200.1' r='2.85pt' fill='#0072B2' fill-opacity='0.9' stroke='#0072B2' stroke-opacity='0.9' stroke-width='0.77' stroke-linejoin='round' stroke-linecap='round' title='4NS&amp;lt;br/&amp;gt;Meadow: Stable&amp;lt;br/&amp;gt;Seagrass cover: 46.1%&amp;lt;br/&amp;gt;Mean NDVI: 0.456&amp;lt;br/&amp;gt;Pixels: 75' data-id='4NS'/>\n   <circle id='svg_df52476c09df9e89_e16' cx='258.7' cy='258.34' r='2.85pt' fill='#D55E00' fill-opacity='0.9' stroke='#D55E00' stroke-opacity='0.9' stroke-width='0.77' stroke-linejoin='round' stroke-linecap='round' title='4NU&amp;lt;br/&amp;gt;Meadow: Unstable&amp;lt;br/&amp;gt;Seagrass cover: 24.8%&amp;lt;br/&amp;gt;Mean NDVI: 0.357&amp;lt;br/&amp;gt;Pixels: 253' data-id='4NU'/>\n   <circle id='svg_df52476c09df9e89_e17' cx='469.69' cy='197.77' r='2.85pt' fill='#0072B2' fill-opacity='0.9' stroke='#0072B2' stroke-opacity='0.9' stroke-width='0.77' stroke-linejoin='round' stroke-linecap='round' title='5AS&amp;lt;br/&amp;gt;Meadow: Stable&amp;lt;br/&amp;gt;Seagrass cover: 47.0%&amp;lt;br/&amp;gt;Mean NDVI: 0.539&amp;lt;br/&amp;gt;Pixels: 73' data-id='5AS'/>\n   <circle id='svg_df52476c09df9e89_e18' cx='128.1' cy='254.02' r='2.85pt' fill='#D55E00' fill-opacity='0.9' stroke='#D55E00' stroke-opacity='0.9' stroke-width='0.77' stroke-linejoin='round' stroke-linecap='round' title='5AU&amp;lt;br/&amp;gt;Meadow: Unstable&amp;lt;br/&amp;gt;Seagrass cover: 26.4%&amp;lt;br/&amp;gt;Mean NDVI: 0.244&amp;lt;br/&amp;gt;Pixels: 248' data-id='5AU'/>\n   <circle id='svg_df52476c09df9e89_e19' cx='158.52' cy='272.52' r='2.85pt' fill='#0072B2' fill-opacity='0.9' stroke='#0072B2' stroke-opacity='0.9' stroke-width='0.77' stroke-linejoin='round' stroke-linecap='round' title='5NS&amp;lt;br/&amp;gt;Meadow: Stable&amp;lt;br/&amp;gt;Seagrass cover: 19.7%&amp;lt;br/&amp;gt;Mean NDVI: 0.270&amp;lt;br/&amp;gt;Pixels: 76' data-id='5NS'/>\n   <circle id='svg_df52476c09df9e89_e20' cx='271.59' cy='195.39' r='2.85pt' fill='#D55E00' fill-opacity='0.9' stroke='#D55E00' stroke-opacity='0.9' stroke-width='0.77' stroke-linejoin='round' stroke-linecap='round' title='5NU&amp;lt;br/&amp;gt;Meadow: Unstable&amp;lt;br/&amp;gt;Seagrass cover: 47.8%&amp;lt;br/&amp;gt;Mean NDVI: 0.368&amp;lt;br/&amp;gt;Pixels: 245' data-id='5NU'/>\n   <circle id='svg_df52476c09df9e89_e21' cx='383.37' cy='205.66' r='2.85pt' fill='#0072B2' fill-opacity='0.9' stroke='#0072B2' stroke-opacity='0.9' stroke-width='0.77' stroke-linejoin='round' stroke-linecap='round' title='6AS&amp;lt;br/&amp;gt;Meadow: Stable&amp;lt;br/&amp;gt;Seagrass cover: 44.1%&amp;lt;br/&amp;gt;Mean NDVI: 0.464&amp;lt;br/&amp;gt;Pixels: 74' data-id='6AS'/>\n   <circle id='svg_df52476c09df9e89_e22' cx='317.23' cy='212.72' r='2.85pt' fill='#D55E00' fill-opacity='0.9' stroke='#D55E00' stroke-opacity='0.9' stroke-width='0.77' stroke-linejoin='round' stroke-linecap='round' title='6AU&amp;lt;br/&amp;gt;Meadow: Unstable&amp;lt;br/&amp;gt;Seagrass cover: 41.5%&amp;lt;br/&amp;gt;Mean NDVI: 0.407&amp;lt;br/&amp;gt;Pixels: 251' data-id='6AU'/>\n   <circle id='svg_df52476c09df9e89_e23' cx='395.52' cy='240.28' r='2.85pt' fill='#0072B2' fill-opacity='0.9' stroke='#0072B2' stroke-opacity='0.9' stroke-width='0.77' stroke-linejoin='round' stroke-linecap='round' title='6NS&amp;lt;br/&amp;gt;Meadow: Stable&amp;lt;br/&amp;gt;Seagrass cover: 31.4%&amp;lt;br/&amp;gt;Mean NDVI: 0.475&amp;lt;br/&amp;gt;Pixels: 74' data-id='6NS'/>\n   <circle id='svg_df52476c09df9e89_e24' cx='94.19' cy='247.28' r='2.85pt' fill='#D55E00' fill-opacity='0.9' stroke='#D55E00' stroke-opacity='0.9' stroke-width='0.77' stroke-linejoin='round' stroke-linecap='round' title='6NU&amp;lt;br/&amp;gt;Meadow: Unstable&amp;lt;br/&amp;gt;Seagrass cover: 28.9%&amp;lt;br/&amp;gt;Mean NDVI: 0.215&amp;lt;br/&amp;gt;Pixels: 248' data-id='6NU'/>\n  <\/g>\n  <g clip-path='url(#svg_df52476c09df9e89_c1)'>\n   <text x='30.39' y='329.62' font-size='7.2pt' font-family='Liberation Sans' fill='#4D4D4D' fill-opacity='1'>0<\/text>\n   <text x='25.05' y='274.88' font-size='7.2pt' font-family='Liberation Sans' fill='#4D4D4D' fill-opacity='1'>20<\/text>\n   <text x='25.05' y='220.15' font-size='7.2pt' font-family='Liberation Sans' fill='#4D4D4D' fill-opacity='1'>40<\/text>\n   <text x='25.05' y='165.41' font-size='7.2pt' font-family='Liberation Sans' fill='#4D4D4D' fill-opacity='1'>60<\/text>\n   <text x='25.05' y='110.68' font-size='7.2pt' font-family='Liberation Sans' fill='#4D4D4D' fill-opacity='1'>80<\/text>\n   <text x='19.72' y='55.94' font-size='7.2pt' font-family='Liberation Sans' fill='#4D4D4D' fill-opacity='1'>100<\/text>\n   <text x='70.34' y='338.3' font-size='7.2pt' font-family='Liberation Sans' fill='#4D4D4D' fill-opacity='1'>0.2<\/text>\n   <text x='186.23' y='338.3' font-size='7.2pt' font-family='Liberation Sans' fill='#4D4D4D' fill-opacity='1'>0.3<\/text>\n   <text x='302.12' y='338.3' font-size='7.2pt' font-family='Liberation Sans' fill='#4D4D4D' fill-opacity='1'>0.4<\/text>\n   <text x='418.01' y='338.3' font-size='7.2pt' font-family='Liberation Sans' fill='#4D4D4D' fill-opacity='1'>0.5<\/text>\n   <text x='533.9' y='338.3' font-size='7.2pt' font-family='Liberation Sans' fill='#4D4D4D' fill-opacity='1'>0.6<\/text>\n   <text x='239.53' y='351.53' font-size='9pt' font-family='Liberation Sans'>Mean NDVI within 10 cm<\/text>\n   <text transform='translate(14.24,271.14) rotate(-90.00)' font-size='9pt' font-family='Liberation Sans'>Seagrass percentage cover (%)<\/text>\n   <text x='221.12' y='24.72' font-size='9pt' font-family='Liberation Sans'>Meadow<\/text>\n   <circle cx='281.1' cy='20.6' r='2.85pt' fill='#0072B2' fill-opacity='0.9' stroke='#0072B2' stroke-opacity='0.9' stroke-width='0.77' stroke-linejoin='round' stroke-linecap='round'/>\n   <circle cx='337.53' cy='20.6' r='2.85pt' fill='#D55E00' fill-opacity='0.9' stroke='#D55E00' stroke-opacity='0.9' stroke-width='0.77' stroke-linejoin='round' stroke-linecap='round'/>\n   <text x='295.72' y='23.89' font-size='7.2pt' font-family='Liberation Sans'>Stable<\/text>\n   <text x='352.15' y='23.89' font-size='7.2pt' font-family='Liberation Sans'>Unstable<\/text>\n  <\/g>\n <\/g>\n<\/svg>","js":null,"uid":"svg_df52476c09df9e89","ratio":1.6,"settings":{"tooltip":{"css":".tooltip_SVGID_ { padding:5px;background:black;color:white;border-radius:2px;text-align:left; ; position:absolute;pointer-events:none;z-index:9999;}","placement":"doc","opacity":0.9,"offx":10,"offy":10,"use_cursor_pos":true,"use_fill":false,"use_stroke":false,"delay_over":200,"delay_out":500},"hover":{"css":".hover_data_SVGID_ { fill-opacity:1;stroke:#111;stroke-width:2px; }","reactive":true,"nearest_distance":null,"linked":false},"hover_inv":{"css":""},"hover_key":{"css":".hover_key_SVGID_ { fill:orange;stroke:black;cursor:pointer; }\ntext.hover_key_SVGID_ { stroke:none;fill:orange; }\ncircle.hover_key_SVGID_ { fill:orange;stroke:black; }\nline.hover_key_SVGID_, polyline.hover_key_SVGID_ { fill:none;stroke:orange; }\nrect.hover_key_SVGID_, polygon.hover_key_SVGID_, path.hover_key_SVGID_ { fill:orange;stroke:none; }\nimage.hover_key_SVGID_ { stroke:orange; }","reactive":true},"hover_theme":{"css":".hover_theme_SVGID_ { fill:orange;stroke:black;cursor:pointer; }\ntext.hover_theme_SVGID_ { stroke:none;fill:orange; }\ncircle.hover_theme_SVGID_ { fill:orange;stroke:black; }\nline.hover_theme_SVGID_, polyline.hover_theme_SVGID_ { fill:none;stroke:orange; }\nrect.hover_theme_SVGID_, polygon.hover_theme_SVGID_, path.hover_theme_SVGID_ { fill:orange;stroke:none; }\nimage.hover_theme_SVGID_ { stroke:orange; }","reactive":true},"select":{"css":".select_data_SVGID_ { fill:red;stroke:black;cursor:pointer; }\ntext.select_data_SVGID_ { stroke:none;fill:red; }\ncircle.select_data_SVGID_ { fill:red;stroke:black; }\nline.select_data_SVGID_, polyline.select_data_SVGID_ { fill:none;stroke:red; }\nrect.select_data_SVGID_, polygon.select_data_SVGID_, path.select_data_SVGID_ { fill:red;stroke:none; }\nimage.select_data_SVGID_ { stroke:red; }","type":"single","only_shiny":false,"selected":[],"linked":false},"select_inv":{"css":""},"select_key":{"css":".select_key_SVGID_ { fill:red;stroke:black;cursor:pointer; }\ntext.select_key_SVGID_ { stroke:none;fill:red; }\ncircle.select_key_SVGID_ { fill:red;stroke:black; }\nline.select_key_SVGID_, polyline.select_key_SVGID_ { fill:none;stroke:red; }\nrect.select_key_SVGID_, polygon.select_key_SVGID_, path.select_key_SVGID_ { fill:red;stroke:none; }\nimage.select_key_SVGID_ { stroke:red; }","type":"single","only_shiny":true,"selected":[]},"select_theme":{"css":".select_theme_SVGID_ { fill:red;stroke:black;cursor:pointer; }\ntext.select_theme_SVGID_ { stroke:none;fill:red; }\ncircle.select_theme_SVGID_ { fill:red;stroke:black; }\nline.select_theme_SVGID_, polyline.select_theme_SVGID_ { fill:none;stroke:red; }\nrect.select_theme_SVGID_, polygon.select_theme_SVGID_, path.select_theme_SVGID_ { fill:red;stroke:none; }\nimage.select_theme_SVGID_ { stroke:red; }","type":"single","only_shiny":true,"selected":[]},"zoom":{"min":1,"max":1,"duration":300,"default_on":false},"toolbar":{"position":"topright","pngname":"diagram","tooltips":null,"fixed":false,"hidden":[],"delay_over":200,"delay_out":500},"sizing":{"rescale":true,"width":1}}},"evals":[],"jsHooks":[]}</script>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ndvi-cover-calibration-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Relationship between mean September NDVI within 10 cm of each sample position and photograph-derived seagrass percentage cover. The line represents the fitted logistic calibration and the shaded band its approximate 95% confidence interval.
+</figcaption>
+</figure>
+</div>
+</div>
+<p><a href="assets/seagrass-cover/generated/ndvi-calibration.csv">Download the matched cover and NDVI measurements</a></p>
 </section>
-<section id="treatment-comparisons-and-changes-over-time" class="level2">
-<h2 class="anchored" data-anchor-id="treatment-comparisons-and-changes-over-time">Treatment comparisons and changes over time</h2>
-<p><strong>To add:</strong> The comparisons that address the study hypotheses, with effect estimates and uncertainty. Describe temporal changes where repeated acquisitions are available.</p>
-</section>
-<section id="interpretation-and-limitations" class="level2">
-<h2 class="anchored" data-anchor-id="interpretation-and-limitations">Interpretation and limitations</h2>
-<p><strong>To add:</strong> The main findings, their relation to the study objectives, and limitations associated with data coverage, resolution, and processing.</p>
-<p>Compare these observations with the <a href="./sampling.html">sampling results</a>.</p>
+<section id="temporal-ndvi-at-experimental-cores" class="level2">
+<h2 class="anchored" data-anchor-id="temporal-ndvi-at-experimental-cores">Temporal NDVI at experimental cores</h2>
+<p>Mean NDVI at the experimental cores increased from June to September in both meadow areas, although the magnitude of this seasonal increase differed markedly between them. In June, mean NDVI was lower in the stable meadow than in the unstable meadow (0.203 and 0.262, respectively). The trajectories crossed between June and July, and by September mean NDVI was higher in the stable meadow than in the unstable meadow (0.422 and 0.348, respectively). Across the four surveys, the mean rate of increase was approximately 0.074 NDVI units month<span class="math inline">\(^{-1}\)</span> in the stable meadow and 0.029 NDVI units month<span class="math inline">\(^{-1}\)</span> in the unstable meadow. The seasonal increase was therefore approximately 2.6 times greater in the stable meadow, whereas NDVI increased more gradually in the unstable meadow.</p>
+<div class="cell">
+<div id="fig-ndvi-timeseries-meadow" class="cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ndvi-timeseries-meadow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="girafe html-widget html-fill-item" id="htmlwidget-5794967cef13ee20c673" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-5794967cef13ee20c673">{"x":{"html":"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='ggiraph-svg' role='graphics-document' id='svg_be051eaf32366971' viewBox='0 0 576 345.6'>\n <defs id='svg_be051eaf32366971_defs'>\n  <clipPath id='svg_be051eaf32366971_c1'>\n   <rect x='0' y='0' width='576' height='345.6'/>\n  <\/clipPath>\n  <clipPath id='svg_be051eaf32366971_c2'>\n   <rect x='38.43' y='47.17' width='531.59' height='264.75'/>\n  <\/clipPath>\n <\/defs>\n <g id='svg_be051eaf32366971_rootg' class='ggiraph-svg-rootg'>\n  <g clip-path='url(#svg_be051eaf32366971_c1)'>\n   <rect x='0' y='0' width='576' height='345.6' fill='#FFFFFF' fill-opacity='1' stroke='#FFFFFF' stroke-opacity='1' stroke-width='0.75' stroke-linejoin='round' stroke-linecap='round' class='ggiraph-svg-bg'/>\n   <rect x='0' y='0' width='576' height='345.6' fill='#FFFFFF' fill-opacity='1' stroke='none'/>\n  <\/g>\n  <g clip-path='url(#svg_be051eaf32366971_c2)'>\n   <polyline points='38.43,289.94 570.02,289.94' fill='none' stroke='#EBEBEB' stroke-opacity='1' stroke-width='1.16' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='38.43,200.53 570.02,200.53' fill='none' stroke='#EBEBEB' stroke-opacity='1' stroke-width='1.16' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='38.43,111.11 570.02,111.11' fill='none' stroke='#EBEBEB' stroke-opacity='1' stroke-width='1.16' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='72.66,311.92 72.66,47.17' fill='none' stroke='#EBEBEB' stroke-opacity='1' stroke-width='1.16' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='223.68,311.92 223.68,47.17' fill='none' stroke='#EBEBEB' stroke-opacity='1' stroke-width='1.16' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='379.74,311.92 379.74,47.17' fill='none' stroke='#EBEBEB' stroke-opacity='1' stroke-width='1.16' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='535.79,311.92 535.79,47.17' fill='none' stroke='#EBEBEB' stroke-opacity='1' stroke-width='1.16' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='62.59,274.50 82.73,274.50' fill='none' stroke='#0072B2' stroke-opacity='1' stroke-width='1.17' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='72.66,274.50 72.66,299.89' fill='none' stroke='#0072B2' stroke-opacity='1' stroke-width='1.17' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='62.59,299.89 82.73,299.89' fill='none' stroke='#0072B2' stroke-opacity='1' stroke-width='1.17' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='213.61,199.03 233.75,199.03' fill='none' stroke='#0072B2' stroke-opacity='1' stroke-width='1.17' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='223.68,199.03 223.68,232.38' fill='none' stroke='#0072B2' stroke-opacity='1' stroke-width='1.17' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='213.61,232.38 233.75,232.38' fill='none' stroke='#0072B2' stroke-opacity='1' stroke-width='1.17' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='369.67,118.86 389.80,118.86' fill='none' stroke='#0072B2' stroke-opacity='1' stroke-width='1.17' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='379.74,118.86 379.74,169.38' fill='none' stroke='#0072B2' stroke-opacity='1' stroke-width='1.17' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='369.67,169.38 389.80,169.38' fill='none' stroke='#0072B2' stroke-opacity='1' stroke-width='1.17' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='525.72,59.20 545.86,59.20' fill='none' stroke='#0072B2' stroke-opacity='1' stroke-width='1.17' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='535.79,59.20 535.79,124.06' fill='none' stroke='#0072B2' stroke-opacity='1' stroke-width='1.17' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='525.72,124.06 545.86,124.06' fill='none' stroke='#0072B2' stroke-opacity='1' stroke-width='1.17' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='62.59,191.69 82.73,191.69' fill='none' stroke='#D55E00' stroke-opacity='1' stroke-width='1.17' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='72.66,191.69 72.66,278.18' fill='none' stroke='#D55E00' stroke-opacity='1' stroke-width='1.17' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='62.59,278.18 82.73,278.18' fill='none' stroke='#D55E00' stroke-opacity='1' stroke-width='1.17' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='213.61,206.80 233.75,206.80' fill='none' stroke='#D55E00' stroke-opacity='1' stroke-width='1.17' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='223.68,206.80 223.68,240.16' fill='none' stroke='#D55E00' stroke-opacity='1' stroke-width='1.17' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='213.61,240.16 233.75,240.16' fill='none' stroke='#D55E00' stroke-opacity='1' stroke-width='1.17' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='369.67,170.27 389.80,170.27' fill='none' stroke='#D55E00' stroke-opacity='1' stroke-width='1.17' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='379.74,170.27 379.74,219.28' fill='none' stroke='#D55E00' stroke-opacity='1' stroke-width='1.17' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='369.67,219.28 389.80,219.28' fill='none' stroke='#D55E00' stroke-opacity='1' stroke-width='1.17' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='525.72,135.13 545.86,135.13' fill='none' stroke='#D55E00' stroke-opacity='1' stroke-width='1.17' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='535.79,135.13 535.79,179.92' fill='none' stroke='#D55E00' stroke-opacity='1' stroke-width='1.17' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='525.72,179.92 545.86,179.92' fill='none' stroke='#D55E00' stroke-opacity='1' stroke-width='1.17' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline id='svg_be051eaf32366971_e1' points='72.66,287.19 223.68,215.71 379.74,144.12 535.79,91.63' fill='none' stroke='#0072B2' stroke-opacity='1' stroke-width='2.13' stroke-linejoin='round' stroke-linecap='butt' title='Stable meadow&amp;lt;br/&amp;gt;June 2026&amp;lt;br/&amp;gt;Mean NDVI: 0.203&amp;lt;br/&amp;gt;SE: 0.014&amp;lt;br/&amp;gt;Cores: 12' data-id='Stable'/>\n   <polyline id='svg_be051eaf32366971_e2' points='72.66,234.93 223.68,223.48 379.74,194.78 535.79,157.52' fill='none' stroke='#D55E00' stroke-opacity='1' stroke-width='2.13' stroke-linejoin='round' stroke-linecap='butt' title='Unstable meadow&amp;lt;br/&amp;gt;June 2026&amp;lt;br/&amp;gt;Mean NDVI: 0.262&amp;lt;br/&amp;gt;SE: 0.048&amp;lt;br/&amp;gt;Cores: 12' data-id='Unstable'/>\n   <circle id='svg_be051eaf32366971_e3' cx='72.66' cy='287.19' r='3.01pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.77' stroke-linejoin='round' stroke-linecap='round' title='Stable meadow&amp;lt;br/&amp;gt;June 2026&amp;lt;br/&amp;gt;Mean NDVI: 0.203&amp;lt;br/&amp;gt;SE: 0.014&amp;lt;br/&amp;gt;Cores: 12' data-id='Stable 2026-06-01'/>\n   <circle id='svg_be051eaf32366971_e4' cx='223.68' cy='215.71' r='3.01pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.77' stroke-linejoin='round' stroke-linecap='round' title='Stable meadow&amp;lt;br/&amp;gt;July 2026&amp;lt;br/&amp;gt;Mean NDVI: 0.283&amp;lt;br/&amp;gt;SE: 0.019&amp;lt;br/&amp;gt;Cores: 12' data-id='Stable 2026-07-01'/>\n   <circle id='svg_be051eaf32366971_e5' cx='379.74' cy='144.12' r='3.01pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.77' stroke-linejoin='round' stroke-linecap='round' title='Stable meadow&amp;lt;br/&amp;gt;August 2026&amp;lt;br/&amp;gt;Mean NDVI: 0.363&amp;lt;br/&amp;gt;SE: 0.028&amp;lt;br/&amp;gt;Cores: 12' data-id='Stable 2026-08-01'/>\n   <circle id='svg_be051eaf32366971_e6' cx='535.79' cy='91.63' r='3.01pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.77' stroke-linejoin='round' stroke-linecap='round' title='Stable meadow&amp;lt;br/&amp;gt;September 2026&amp;lt;br/&amp;gt;Mean NDVI: 0.422&amp;lt;br/&amp;gt;SE: 0.036&amp;lt;br/&amp;gt;Cores: 12' data-id='Stable 2026-09-01'/>\n   <circle id='svg_be051eaf32366971_e7' cx='72.66' cy='234.93' r='3.01pt' fill='#D55E00' fill-opacity='1' stroke='#D55E00' stroke-opacity='1' stroke-width='0.77' stroke-linejoin='round' stroke-linecap='round' title='Unstable meadow&amp;lt;br/&amp;gt;June 2026&amp;lt;br/&amp;gt;Mean NDVI: 0.262&amp;lt;br/&amp;gt;SE: 0.048&amp;lt;br/&amp;gt;Cores: 12' data-id='Unstable 2026-06-01'/>\n   <circle id='svg_be051eaf32366971_e8' cx='223.68' cy='223.48' r='3.01pt' fill='#D55E00' fill-opacity='1' stroke='#D55E00' stroke-opacity='1' stroke-width='0.77' stroke-linejoin='round' stroke-linecap='round' title='Unstable meadow&amp;lt;br/&amp;gt;July 2026&amp;lt;br/&amp;gt;Mean NDVI: 0.274&amp;lt;br/&amp;gt;SE: 0.019&amp;lt;br/&amp;gt;Cores: 12' data-id='Unstable 2026-07-01'/>\n   <circle id='svg_be051eaf32366971_e9' cx='379.74' cy='194.78' r='3.01pt' fill='#D55E00' fill-opacity='1' stroke='#D55E00' stroke-opacity='1' stroke-width='0.77' stroke-linejoin='round' stroke-linecap='round' title='Unstable meadow&amp;lt;br/&amp;gt;August 2026&amp;lt;br/&amp;gt;Mean NDVI: 0.306&amp;lt;br/&amp;gt;SE: 0.027&amp;lt;br/&amp;gt;Cores: 12' data-id='Unstable 2026-08-01'/>\n   <circle id='svg_be051eaf32366971_e10' cx='535.79' cy='157.52' r='3.01pt' fill='#D55E00' fill-opacity='1' stroke='#D55E00' stroke-opacity='1' stroke-width='0.77' stroke-linejoin='round' stroke-linecap='round' title='Unstable meadow&amp;lt;br/&amp;gt;September 2026&amp;lt;br/&amp;gt;Mean NDVI: 0.348&amp;lt;br/&amp;gt;SE: 0.025&amp;lt;br/&amp;gt;Cores: 12' data-id='Unstable 2026-09-01'/>\n  <\/g>\n  <g clip-path='url(#svg_be051eaf32366971_c1)'>\n   <text x='19.72' y='293.24' font-size='7.2pt' font-family='Liberation Sans' fill='#4D4D4D' fill-opacity='1'>0.2<\/text>\n   <text x='19.72' y='203.82' font-size='7.2pt' font-family='Liberation Sans' fill='#4D4D4D' fill-opacity='1'>0.3<\/text>\n   <text x='19.72' y='114.41' font-size='7.2pt' font-family='Liberation Sans' fill='#4D4D4D' fill-opacity='1'>0.4<\/text>\n   <text x='64.93' y='323.9' font-size='7.2pt' font-family='Liberation Sans' fill='#4D4D4D' fill-opacity='1'>Jun<\/text>\n   <text x='217.55' y='323.9' font-size='7.2pt' font-family='Liberation Sans' fill='#4D4D4D' fill-opacity='1'>Jul<\/text>\n   <text x='371.2' y='323.9' font-size='7.2pt' font-family='Liberation Sans' fill='#4D4D4D' fill-opacity='1'>Aug<\/text>\n   <text x='527.26' y='323.9' font-size='7.2pt' font-family='Liberation Sans' fill='#4D4D4D' fill-opacity='1'>Sep<\/text>\n   <text x='271.53' y='337.13' font-size='9pt' font-family='Liberation Sans'>2026 survey<\/text>\n   <text transform='translate(14.24,210.56) rotate(-90.00)' font-size='9pt' font-family='Liberation Sans'>Mean NDVI<\/text>\n   <text x='219.78' y='24.72' font-size='9pt' font-family='Liberation Sans'>Meadow<\/text>\n   <line x1='272.85' y1='20.6' x2='286.68' y2='20.6' stroke='#0072B2' stroke-opacity='1' stroke-width='1.17' stroke-linejoin='round' stroke-linecap='butt'/>\n   <line x1='272.85' y1='20.6' x2='286.68' y2='20.6' stroke='#0072B2' stroke-opacity='1' stroke-width='2.13' stroke-linejoin='round' stroke-linecap='butt'/>\n   <circle cx='279.77' cy='20.6' r='3.01pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.77' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='329.28' y1='20.6' x2='343.11' y2='20.6' stroke='#D55E00' stroke-opacity='1' stroke-width='1.17' stroke-linejoin='round' stroke-linecap='butt'/>\n   <line x1='329.28' y1='20.6' x2='343.11' y2='20.6' stroke='#D55E00' stroke-opacity='1' stroke-width='2.13' stroke-linejoin='round' stroke-linecap='butt'/>\n   <circle cx='336.2' cy='20.6' r='3.01pt' fill='#D55E00' fill-opacity='1' stroke='#D55E00' stroke-opacity='1' stroke-width='0.77' stroke-linejoin='round' stroke-linecap='round'/>\n   <text x='294.38' y='23.89' font-size='7.2pt' font-family='Liberation Sans'>Stable<\/text>\n   <text x='350.81' y='23.89' font-size='7.2pt' font-family='Liberation Sans'>Unstable<\/text>\n  <\/g>\n <\/g>\n<\/svg>","js":null,"uid":"svg_be051eaf32366971","ratio":1.666666666666667,"settings":{"tooltip":{"css":".tooltip_SVGID_ { padding:5px;background:black;color:white;border-radius:2px;text-align:left; ; position:absolute;pointer-events:none;z-index:9999;}","placement":"doc","opacity":0.9,"offx":10,"offy":10,"use_cursor_pos":true,"use_fill":false,"use_stroke":false,"delay_over":200,"delay_out":500},"hover":{"css":".hover_data_SVGID_ { stroke:#111;stroke-width:2px;fill-opacity:1; }","reactive":true,"nearest_distance":null,"linked":false},"hover_inv":{"css":""},"hover_key":{"css":".hover_key_SVGID_ { fill:orange;stroke:black;cursor:pointer; }\ntext.hover_key_SVGID_ { stroke:none;fill:orange; }\ncircle.hover_key_SVGID_ { fill:orange;stroke:black; }\nline.hover_key_SVGID_, polyline.hover_key_SVGID_ { fill:none;stroke:orange; }\nrect.hover_key_SVGID_, polygon.hover_key_SVGID_, path.hover_key_SVGID_ { fill:orange;stroke:none; }\nimage.hover_key_SVGID_ { stroke:orange; }","reactive":true},"hover_theme":{"css":".hover_theme_SVGID_ { fill:orange;stroke:black;cursor:pointer; }\ntext.hover_theme_SVGID_ { stroke:none;fill:orange; }\ncircle.hover_theme_SVGID_ { fill:orange;stroke:black; }\nline.hover_theme_SVGID_, polyline.hover_theme_SVGID_ { fill:none;stroke:orange; }\nrect.hover_theme_SVGID_, polygon.hover_theme_SVGID_, path.hover_theme_SVGID_ { fill:orange;stroke:none; }\nimage.hover_theme_SVGID_ { stroke:orange; }","reactive":true},"select":{"css":".select_data_SVGID_ { fill:red;stroke:black;cursor:pointer; }\ntext.select_data_SVGID_ { stroke:none;fill:red; }\ncircle.select_data_SVGID_ { fill:red;stroke:black; }\nline.select_data_SVGID_, polyline.select_data_SVGID_ { fill:none;stroke:red; }\nrect.select_data_SVGID_, polygon.select_data_SVGID_, path.select_data_SVGID_ { fill:red;stroke:none; }\nimage.select_data_SVGID_ { stroke:red; }","type":"single","only_shiny":false,"selected":[],"linked":false},"select_inv":{"css":""},"select_key":{"css":".select_key_SVGID_ { fill:red;stroke:black;cursor:pointer; }\ntext.select_key_SVGID_ { stroke:none;fill:red; }\ncircle.select_key_SVGID_ { fill:red;stroke:black; }\nline.select_key_SVGID_, polyline.select_key_SVGID_ { fill:none;stroke:red; }\nrect.select_key_SVGID_, polygon.select_key_SVGID_, path.select_key_SVGID_ { fill:red;stroke:none; }\nimage.select_key_SVGID_ { stroke:red; }","type":"single","only_shiny":true,"selected":[]},"select_theme":{"css":".select_theme_SVGID_ { fill:red;stroke:black;cursor:pointer; }\ntext.select_theme_SVGID_ { stroke:none;fill:red; }\ncircle.select_theme_SVGID_ { fill:red;stroke:black; }\nline.select_theme_SVGID_, polyline.select_theme_SVGID_ { fill:none;stroke:red; }\nrect.select_theme_SVGID_, polygon.select_theme_SVGID_, path.select_theme_SVGID_ { fill:red;stroke:none; }\nimage.select_theme_SVGID_ { stroke:red; }","type":"single","only_shiny":true,"selected":[]},"zoom":{"min":1,"max":1,"duration":300,"default_on":false},"toolbar":{"position":"topright","pngname":"diagram","tooltips":null,"fixed":false,"hidden":[],"delay_over":200,"delay_out":500},"sizing":{"rescale":true,"width":1}}},"evals":[],"jsHooks":[]}</script>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ndvi-timeseries-meadow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Temporal change in mean NDVI at experimental cores in the stable and unstable meadows from June to September 2026. Error bars represent ±1 standard error.
+</figcaption>
+</figure>
+</div>
+</div>
+<p>Within the stable meadow, mean NDVI increased in both experimental groups, but the increase was more pronounced in treatment cores. Mean NDVI in treatment cores rose from 0.193 in June to 0.454 in September, corresponding to an average increase of 0.088 NDVI units month<span class="math inline">\(^{-1}\)</span>. Over the same period, mean NDVI in control cores increased from 0.213 to 0.389, at an average rate of 0.060 NDVI units month<span class="math inline">\(^{-1}\)</span>. The rate of increase was therefore approximately 1.5 times greater in treatment cores. Treatment values exceeded control values from July onwards, and the difference between the two groups increased towards September.</p>
+<p>In the unstable meadow, control and treatment cores exhibited contrasting short-term trajectories but similar overall rates of seasonal increase. Mean NDVI in control cores decreased from 0.279 in June to 0.243 in July, whereas treatment cores showed no corresponding decline and increased from 0.244 to 0.305. Treatment NDVI then remained nearly unchanged between July and August (0.305 and 0.296, respectively), while control NDVI recovered to 0.317. By September, mean NDVI was similar in control and treatment cores (0.354 and 0.342, respectively). Across the complete series, the average rates of increase were 0.030 NDVI units month<span class="math inline">\(^{-1}\)</span> in control cores and 0.028 NDVI units month<span class="math inline">\(^{-1}\)</span> in treatment cores.</p>
+<div class="cell">
+<div id="fig-ndvi-timeseries-treatment" class="cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ndvi-timeseries-treatment-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="girafe html-widget html-fill-item" id="htmlwidget-7479b8b6965434eb0297" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-7479b8b6965434eb0297">{"x":{"html":"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='ggiraph-svg' role='graphics-document' id='svg_a6bd5794967cef13' viewBox='0 0 576 345.6'>\n <defs id='svg_a6bd5794967cef13_defs'>\n  <clipPath id='svg_a6bd5794967cef13_c1'>\n   <rect x='0' y='0' width='576' height='345.6'/>\n  <\/clipPath>\n  <clipPath id='svg_a6bd5794967cef13_c2'>\n   <rect x='38.43' y='65.31' width='262.81' height='246.61'/>\n  <\/clipPath>\n  <clipPath id='svg_a6bd5794967cef13_c3'>\n   <rect x='307.22' y='65.31' width='262.81' height='246.61'/>\n  <\/clipPath>\n  <clipPath id='svg_a6bd5794967cef13_c4'>\n   <rect x='38.43' y='47.17' width='262.81' height='18.15'/>\n  <\/clipPath>\n  <clipPath id='svg_a6bd5794967cef13_c5'>\n   <rect x='307.22' y='47.17' width='262.81' height='18.15'/>\n  <\/clipPath>\n <\/defs>\n <g id='svg_a6bd5794967cef13_rootg' class='ggiraph-svg-rootg'>\n  <g clip-path='url(#svg_a6bd5794967cef13_c1)'>\n   <rect x='0' y='0' width='576' height='345.6' fill='#FFFFFF' fill-opacity='1' stroke='#FFFFFF' stroke-opacity='1' stroke-width='0.75' stroke-linejoin='round' stroke-linecap='round' class='ggiraph-svg-bg'/>\n   <rect x='0' y='0' width='576' height='345.6' fill='#FFFFFF' fill-opacity='1' stroke='none'/>\n  <\/g>\n  <g clip-path='url(#svg_a6bd5794967cef13_c2)'>\n   <polyline points='38.43,283.94 301.24,283.94' fill='none' stroke='#EBEBEB' stroke-opacity='1' stroke-width='1.16' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='38.43,216.32 301.24,216.32' fill='none' stroke='#EBEBEB' stroke-opacity='1' stroke-width='1.16' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='38.43,148.69 301.24,148.69' fill='none' stroke='#EBEBEB' stroke-opacity='1' stroke-width='1.16' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='38.43,81.07 301.24,81.07' fill='none' stroke='#EBEBEB' stroke-opacity='1' stroke-width='1.16' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='59.37,311.92 59.37,65.31' fill='none' stroke='#EBEBEB' stroke-opacity='1' stroke-width='1.16' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='131.41,311.92 131.41,65.31' fill='none' stroke='#EBEBEB' stroke-opacity='1' stroke-width='1.16' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='205.85,311.92 205.85,65.31' fill='none' stroke='#EBEBEB' stroke-opacity='1' stroke-width='1.16' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='280.30,311.92 280.30,65.31' fill='none' stroke='#EBEBEB' stroke-opacity='1' stroke-width='1.16' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='54.57,257.94 64.17,257.94' fill='none' stroke='#009E73' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='59.37,257.94 59.37,292.32' fill='none' stroke='#009E73' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='54.57,292.32 64.17,292.32' fill='none' stroke='#009E73' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='126.61,214.90 136.21,214.90' fill='none' stroke='#009E73' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='131.41,214.90 131.41,256.87' fill='none' stroke='#009E73' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='126.61,256.87 136.21,256.87' fill='none' stroke='#009E73' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='201.05,162.00 210.66,162.00' fill='none' stroke='#009E73' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='205.85,162.00 205.85,216.93' fill='none' stroke='#009E73' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='201.05,216.93 210.66,216.93' fill='none' stroke='#009E73' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='275.49,121.37 285.10,121.37' fill='none' stroke='#009E73' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='280.30,121.37 280.30,190.55' fill='none' stroke='#009E73' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='275.49,190.55 285.10,190.55' fill='none' stroke='#009E73' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='54.57,278.99 64.17,278.99' fill='none' stroke='#CC79A7' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='59.37,278.99 59.37,298.19' fill='none' stroke='#CC79A7' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='54.57,298.19 64.17,298.19' fill='none' stroke='#CC79A7' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='126.61,204.43 136.21,204.43' fill='none' stroke='#CC79A7' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='131.41,204.43 131.41,234.99' fill='none' stroke='#CC79A7' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='126.61,234.99 136.21,234.99' fill='none' stroke='#CC79A7' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='201.05,130.44 210.66,130.44' fill='none' stroke='#CC79A7' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='205.85,130.44 205.85,185.26' fill='none' stroke='#CC79A7' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='201.05,185.26 210.66,185.26' fill='none' stroke='#CC79A7' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='275.49,76.52 285.10,76.52' fill='none' stroke='#CC79A7' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='280.30,76.52 280.30,147.41' fill='none' stroke='#CC79A7' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='275.49,147.41 285.10,147.41' fill='none' stroke='#CC79A7' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline id='svg_a6bd5794967cef13_e1' points='59.37,275.13 131.41,235.88 205.85,189.46 280.30,155.96' fill='none' stroke='#009E73' stroke-opacity='1' stroke-width='2.13' stroke-linejoin='round' stroke-linecap='butt' title='Stable &amp;lt;U+00B7&amp;gt; Control&amp;lt;br/&amp;gt;June 2026&amp;lt;br/&amp;gt;Mean NDVI: 0.213&amp;lt;br/&amp;gt;SE: 0.025&amp;lt;br/&amp;gt;Cores: 6' data-id='Stable Control'/>\n   <polyline id='svg_a6bd5794967cef13_e2' points='59.37,288.59 131.41,219.71 205.85,157.85 280.30,111.97' fill='none' stroke='#CC79A7' stroke-opacity='1' stroke-width='2.13' stroke-linejoin='round' stroke-linecap='butt' title='Stable &amp;lt;U+00B7&amp;gt; Treatment&amp;lt;br/&amp;gt;June 2026&amp;lt;br/&amp;gt;Mean NDVI: 0.193&amp;lt;br/&amp;gt;SE: 0.014&amp;lt;br/&amp;gt;Cores: 6' data-id='Stable Treatment'/>\n   <circle id='svg_a6bd5794967cef13_e3' cx='59.37' cy='275.13' r='2.85pt' fill='#009E73' fill-opacity='1' stroke='#009E73' stroke-opacity='1' stroke-width='0.77' stroke-linejoin='round' stroke-linecap='round' title='Stable &amp;lt;U+00B7&amp;gt; Control&amp;lt;br/&amp;gt;June 2026&amp;lt;br/&amp;gt;Mean NDVI: 0.213&amp;lt;br/&amp;gt;SE: 0.025&amp;lt;br/&amp;gt;Cores: 6' data-id='Stable Control 2026-06-01'/>\n   <circle id='svg_a6bd5794967cef13_e4' cx='131.41' cy='235.88' r='2.85pt' fill='#009E73' fill-opacity='1' stroke='#009E73' stroke-opacity='1' stroke-width='0.77' stroke-linejoin='round' stroke-linecap='round' title='Stable &amp;lt;U+00B7&amp;gt; Control&amp;lt;br/&amp;gt;July 2026&amp;lt;br/&amp;gt;Mean NDVI: 0.271&amp;lt;br/&amp;gt;SE: 0.031&amp;lt;br/&amp;gt;Cores: 6' data-id='Stable Control 2026-07-01'/>\n   <circle id='svg_a6bd5794967cef13_e5' cx='205.85' cy='189.46' r='2.85pt' fill='#009E73' fill-opacity='1' stroke='#009E73' stroke-opacity='1' stroke-width='0.77' stroke-linejoin='round' stroke-linecap='round' title='Stable &amp;lt;U+00B7&amp;gt; Control&amp;lt;br/&amp;gt;August 2026&amp;lt;br/&amp;gt;Mean NDVI: 0.340&amp;lt;br/&amp;gt;SE: 0.041&amp;lt;br/&amp;gt;Cores: 6' data-id='Stable Control 2026-08-01'/>\n   <circle id='svg_a6bd5794967cef13_e6' cx='280.3' cy='155.96' r='2.85pt' fill='#009E73' fill-opacity='1' stroke='#009E73' stroke-opacity='1' stroke-width='0.77' stroke-linejoin='round' stroke-linecap='round' title='Stable &amp;lt;U+00B7&amp;gt; Control&amp;lt;br/&amp;gt;September 2026&amp;lt;br/&amp;gt;Mean NDVI: 0.389&amp;lt;br/&amp;gt;SE: 0.051&amp;lt;br/&amp;gt;Cores: 6' data-id='Stable Control 2026-09-01'/>\n   <circle id='svg_a6bd5794967cef13_e7' cx='59.37' cy='288.59' r='2.85pt' fill='#CC79A7' fill-opacity='1' stroke='#CC79A7' stroke-opacity='1' stroke-width='0.77' stroke-linejoin='round' stroke-linecap='round' title='Stable &amp;lt;U+00B7&amp;gt; Treatment&amp;lt;br/&amp;gt;June 2026&amp;lt;br/&amp;gt;Mean NDVI: 0.193&amp;lt;br/&amp;gt;SE: 0.014&amp;lt;br/&amp;gt;Cores: 6' data-id='Stable Treatment 2026-06-01'/>\n   <circle id='svg_a6bd5794967cef13_e8' cx='131.41' cy='219.71' r='2.85pt' fill='#CC79A7' fill-opacity='1' stroke='#CC79A7' stroke-opacity='1' stroke-width='0.77' stroke-linejoin='round' stroke-linecap='round' title='Stable &amp;lt;U+00B7&amp;gt; Treatment&amp;lt;br/&amp;gt;July 2026&amp;lt;br/&amp;gt;Mean NDVI: 0.295&amp;lt;br/&amp;gt;SE: 0.023&amp;lt;br/&amp;gt;Cores: 6' data-id='Stable Treatment 2026-07-01'/>\n   <circle id='svg_a6bd5794967cef13_e9' cx='205.85' cy='157.85' r='2.85pt' fill='#CC79A7' fill-opacity='1' stroke='#CC79A7' stroke-opacity='1' stroke-width='0.77' stroke-linejoin='round' stroke-linecap='round' title='Stable &amp;lt;U+00B7&amp;gt; Treatment&amp;lt;br/&amp;gt;August 2026&amp;lt;br/&amp;gt;Mean NDVI: 0.386&amp;lt;br/&amp;gt;SE: 0.041&amp;lt;br/&amp;gt;Cores: 6' data-id='Stable Treatment 2026-08-01'/>\n   <circle id='svg_a6bd5794967cef13_e10' cx='280.3' cy='111.97' r='2.85pt' fill='#CC79A7' fill-opacity='1' stroke='#CC79A7' stroke-opacity='1' stroke-width='0.77' stroke-linejoin='round' stroke-linecap='round' title='Stable &amp;lt;U+00B7&amp;gt; Treatment&amp;lt;br/&amp;gt;September 2026&amp;lt;br/&amp;gt;Mean NDVI: 0.454&amp;lt;br/&amp;gt;SE: 0.052&amp;lt;br/&amp;gt;Cores: 6' data-id='Stable Treatment 2026-09-01'/>\n  <\/g>\n  <g clip-path='url(#svg_a6bd5794967cef13_c3)'>\n   <polyline points='307.22,283.94 570.02,283.94' fill='none' stroke='#EBEBEB' stroke-opacity='1' stroke-width='1.16' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='307.22,216.32 570.02,216.32' fill='none' stroke='#EBEBEB' stroke-opacity='1' stroke-width='1.16' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='307.22,148.69 570.02,148.69' fill='none' stroke='#EBEBEB' stroke-opacity='1' stroke-width='1.16' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='307.22,81.07 570.02,81.07' fill='none' stroke='#EBEBEB' stroke-opacity='1' stroke-width='1.16' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='328.16,311.92 328.16,65.31' fill='none' stroke='#EBEBEB' stroke-opacity='1' stroke-width='1.16' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='400.20,311.92 400.20,65.31' fill='none' stroke='#EBEBEB' stroke-opacity='1' stroke-width='1.16' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='474.64,311.92 474.64,65.31' fill='none' stroke='#EBEBEB' stroke-opacity='1' stroke-width='1.16' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='549.08,311.92 549.08,65.31' fill='none' stroke='#EBEBEB' stroke-opacity='1' stroke-width='1.16' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='323.35,180.37 332.96,180.37' fill='none' stroke='#009E73' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='328.16,180.37 328.16,280.32' fill='none' stroke='#009E73' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='323.35,280.32 332.96,280.32' fill='none' stroke='#009E73' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='395.39,245.06 405.00,245.06' fill='none' stroke='#009E73' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='400.20,245.06 400.20,264.44' fill='none' stroke='#009E73' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='395.39,264.44 405.00,264.44' fill='none' stroke='#009E73' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='469.84,184.15 479.44,184.15' fill='none' stroke='#009E73' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='474.64,184.15 474.64,225.49' fill='none' stroke='#009E73' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='469.84,225.49 479.44,225.49' fill='none' stroke='#009E73' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='544.28,157.35 553.89,157.35' fill='none' stroke='#009E73' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='549.08,157.35 549.08,201.99' fill='none' stroke='#009E73' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='544.28,201.99 553.89,201.99' fill='none' stroke='#009E73' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='323.35,207.95 332.96,207.95' fill='none' stroke='#CC79A7' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='328.16,207.95 328.16,300.71' fill='none' stroke='#CC79A7' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='323.35,300.71 332.96,300.71' fill='none' stroke='#CC79A7' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='395.39,191.90 405.00,191.90' fill='none' stroke='#CC79A7' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='400.20,191.90 400.20,233.31' fill='none' stroke='#CC79A7' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='395.39,233.31 405.00,233.31' fill='none' stroke='#CC79A7' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='469.84,186.50 479.44,186.50' fill='none' stroke='#CC79A7' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='474.64,186.50 474.64,251.74' fill='none' stroke='#CC79A7' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='469.84,251.74 479.44,251.74' fill='none' stroke='#CC79A7' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='544.28,160.40 553.89,160.40' fill='none' stroke='#CC79A7' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='549.08,160.40 549.08,215.44' fill='none' stroke='#CC79A7' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='544.28,215.44 553.89,215.44' fill='none' stroke='#CC79A7' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline id='svg_a6bd5794967cef13_e11' points='328.16,230.34 400.20,254.75 474.64,204.82 549.08,179.67' fill='none' stroke='#009E73' stroke-opacity='1' stroke-width='2.13' stroke-linejoin='round' stroke-linecap='butt' title='Unstable &amp;lt;U+00B7&amp;gt; Control&amp;lt;br/&amp;gt;June 2026&amp;lt;br/&amp;gt;Mean NDVI: 0.279&amp;lt;br/&amp;gt;SE: 0.074&amp;lt;br/&amp;gt;Cores: 6' data-id='Unstable Control'/>\n   <polyline id='svg_a6bd5794967cef13_e12' points='328.16,254.33 400.20,212.61 474.64,219.12 549.08,187.92' fill='none' stroke='#CC79A7' stroke-opacity='1' stroke-width='2.13' stroke-linejoin='round' stroke-linecap='butt' title='Unstable &amp;lt;U+00B7&amp;gt; Treatment&amp;lt;br/&amp;gt;June 2026&amp;lt;br/&amp;gt;Mean NDVI: 0.244&amp;lt;br/&amp;gt;SE: 0.069&amp;lt;br/&amp;gt;Cores: 6' data-id='Unstable Treatment'/>\n   <circle id='svg_a6bd5794967cef13_e13' cx='328.16' cy='230.34' r='2.85pt' fill='#009E73' fill-opacity='1' stroke='#009E73' stroke-opacity='1' stroke-width='0.77' stroke-linejoin='round' stroke-linecap='round' title='Unstable &amp;lt;U+00B7&amp;gt; Control&amp;lt;br/&amp;gt;June 2026&amp;lt;br/&amp;gt;Mean NDVI: 0.279&amp;lt;br/&amp;gt;SE: 0.074&amp;lt;br/&amp;gt;Cores: 6' data-id='Unstable Control 2026-06-01'/>\n   <circle id='svg_a6bd5794967cef13_e14' cx='400.2' cy='254.75' r='2.85pt' fill='#009E73' fill-opacity='1' stroke='#009E73' stroke-opacity='1' stroke-width='0.77' stroke-linejoin='round' stroke-linecap='round' title='Unstable &amp;lt;U+00B7&amp;gt; Control&amp;lt;br/&amp;gt;July 2026&amp;lt;br/&amp;gt;Mean NDVI: 0.243&amp;lt;br/&amp;gt;SE: 0.014&amp;lt;br/&amp;gt;Cores: 6' data-id='Unstable Control 2026-07-01'/>\n   <circle id='svg_a6bd5794967cef13_e15' cx='474.64' cy='204.82' r='2.85pt' fill='#009E73' fill-opacity='1' stroke='#009E73' stroke-opacity='1' stroke-width='0.77' stroke-linejoin='round' stroke-linecap='round' title='Unstable &amp;lt;U+00B7&amp;gt; Control&amp;lt;br/&amp;gt;August 2026&amp;lt;br/&amp;gt;Mean NDVI: 0.317&amp;lt;br/&amp;gt;SE: 0.031&amp;lt;br/&amp;gt;Cores: 6' data-id='Unstable Control 2026-08-01'/>\n   <circle id='svg_a6bd5794967cef13_e16' cx='549.08' cy='179.67' r='2.85pt' fill='#009E73' fill-opacity='1' stroke='#009E73' stroke-opacity='1' stroke-width='0.77' stroke-linejoin='round' stroke-linecap='round' title='Unstable &amp;lt;U+00B7&amp;gt; Control&amp;lt;br/&amp;gt;September 2026&amp;lt;br/&amp;gt;Mean NDVI: 0.354&amp;lt;br/&amp;gt;SE: 0.033&amp;lt;br/&amp;gt;Cores: 6' data-id='Unstable Control 2026-09-01'/>\n   <circle id='svg_a6bd5794967cef13_e17' cx='328.16' cy='254.33' r='2.85pt' fill='#CC79A7' fill-opacity='1' stroke='#CC79A7' stroke-opacity='1' stroke-width='0.77' stroke-linejoin='round' stroke-linecap='round' title='Unstable &amp;lt;U+00B7&amp;gt; Treatment&amp;lt;br/&amp;gt;June 2026&amp;lt;br/&amp;gt;Mean NDVI: 0.244&amp;lt;br/&amp;gt;SE: 0.069&amp;lt;br/&amp;gt;Cores: 6' data-id='Unstable Treatment 2026-06-01'/>\n   <circle id='svg_a6bd5794967cef13_e18' cx='400.2' cy='212.61' r='2.85pt' fill='#CC79A7' fill-opacity='1' stroke='#CC79A7' stroke-opacity='1' stroke-width='0.77' stroke-linejoin='round' stroke-linecap='round' title='Unstable &amp;lt;U+00B7&amp;gt; Treatment&amp;lt;br/&amp;gt;July 2026&amp;lt;br/&amp;gt;Mean NDVI: 0.305&amp;lt;br/&amp;gt;SE: 0.031&amp;lt;br/&amp;gt;Cores: 6' data-id='Unstable Treatment 2026-07-01'/>\n   <circle id='svg_a6bd5794967cef13_e19' cx='474.64' cy='219.12' r='2.85pt' fill='#CC79A7' fill-opacity='1' stroke='#CC79A7' stroke-opacity='1' stroke-width='0.77' stroke-linejoin='round' stroke-linecap='round' title='Unstable &amp;lt;U+00B7&amp;gt; Treatment&amp;lt;br/&amp;gt;August 2026&amp;lt;br/&amp;gt;Mean NDVI: 0.296&amp;lt;br/&amp;gt;SE: 0.048&amp;lt;br/&amp;gt;Cores: 6' data-id='Unstable Treatment 2026-08-01'/>\n   <circle id='svg_a6bd5794967cef13_e20' cx='549.08' cy='187.92' r='2.85pt' fill='#CC79A7' fill-opacity='1' stroke='#CC79A7' stroke-opacity='1' stroke-width='0.77' stroke-linejoin='round' stroke-linecap='round' title='Unstable &amp;lt;U+00B7&amp;gt; Treatment&amp;lt;br/&amp;gt;September 2026&amp;lt;br/&amp;gt;Mean NDVI: 0.342&amp;lt;br/&amp;gt;SE: 0.041&amp;lt;br/&amp;gt;Cores: 6' data-id='Unstable Treatment 2026-09-01'/>\n  <\/g>\n  <g clip-path='url(#svg_a6bd5794967cef13_c4)'>\n   <text x='156.24' y='59.54' font-size='7.2pt' font-family='Liberation Sans' fill='#1A1A1A' fill-opacity='1'>Stable<\/text>\n  <\/g>\n  <g clip-path='url(#svg_a6bd5794967cef13_c5)'>\n   <text x='419.69' y='59.54' font-size='7.2pt' font-family='Liberation Sans' fill='#1A1A1A' fill-opacity='1'>Unstable<\/text>\n  <\/g>\n  <g clip-path='url(#svg_a6bd5794967cef13_c1)'>\n   <text x='51.64' y='323.9' font-size='7.2pt' font-family='Liberation Sans' fill='#4D4D4D' fill-opacity='1'>Jun<\/text>\n   <text x='125.28' y='323.9' font-size='7.2pt' font-family='Liberation Sans' fill='#4D4D4D' fill-opacity='1'>Jul<\/text>\n   <text x='197.32' y='323.9' font-size='7.2pt' font-family='Liberation Sans' fill='#4D4D4D' fill-opacity='1'>Aug<\/text>\n   <text x='271.77' y='323.9' font-size='7.2pt' font-family='Liberation Sans' fill='#4D4D4D' fill-opacity='1'>Sep<\/text>\n   <text x='320.42' y='323.9' font-size='7.2pt' font-family='Liberation Sans' fill='#4D4D4D' fill-opacity='1'>Jun<\/text>\n   <text x='394.07' y='323.9' font-size='7.2pt' font-family='Liberation Sans' fill='#4D4D4D' fill-opacity='1'>Jul<\/text>\n   <text x='466.11' y='323.9' font-size='7.2pt' font-family='Liberation Sans' fill='#4D4D4D' fill-opacity='1'>Aug<\/text>\n   <text x='540.55' y='323.9' font-size='7.2pt' font-family='Liberation Sans' fill='#4D4D4D' fill-opacity='1'>Sep<\/text>\n   <text x='19.72' y='287.24' font-size='7.2pt' font-family='Liberation Sans' fill='#4D4D4D' fill-opacity='1'>0.2<\/text>\n   <text x='19.72' y='219.61' font-size='7.2pt' font-family='Liberation Sans' fill='#4D4D4D' fill-opacity='1'>0.3<\/text>\n   <text x='19.72' y='151.99' font-size='7.2pt' font-family='Liberation Sans' fill='#4D4D4D' fill-opacity='1'>0.4<\/text>\n   <text x='19.72' y='84.37' font-size='7.2pt' font-family='Liberation Sans' fill='#4D4D4D' fill-opacity='1'>0.5<\/text>\n   <text x='271.53' y='337.13' font-size='9pt' font-family='Liberation Sans'>2026 survey<\/text>\n   <text transform='translate(14.24,219.64) rotate(-90.00)' font-size='9pt' font-family='Liberation Sans'>Mean NDVI<\/text>\n   <text x='224.84' y='24.72' font-size='9pt' font-family='Liberation Sans'>Core<\/text>\n   <line x1='258.56' y1='20.6' x2='272.38' y2='20.6' stroke='#009E73' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <line x1='258.56' y1='20.6' x2='272.38' y2='20.6' stroke='#009E73' stroke-opacity='1' stroke-width='2.13' stroke-linejoin='round' stroke-linecap='butt'/>\n   <circle cx='265.47' cy='20.6' r='2.85pt' fill='#009E73' fill-opacity='1' stroke='#009E73' stroke-opacity='1' stroke-width='0.77' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='318.72' y1='20.6' x2='332.54' y2='20.6' stroke='#CC79A7' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <line x1='318.72' y1='20.6' x2='332.54' y2='20.6' stroke='#CC79A7' stroke-opacity='1' stroke-width='2.13' stroke-linejoin='round' stroke-linecap='butt'/>\n   <circle cx='325.63' cy='20.6' r='2.85pt' fill='#CC79A7' fill-opacity='1' stroke='#CC79A7' stroke-opacity='1' stroke-width='0.77' stroke-linejoin='round' stroke-linecap='round'/>\n   <text x='280.09' y='23.89' font-size='7.2pt' font-family='Liberation Sans'>Control<\/text>\n   <text x='340.25' y='23.89' font-size='7.2pt' font-family='Liberation Sans'>Treatment<\/text>\n  <\/g>\n <\/g>\n<\/svg>","js":null,"uid":"svg_a6bd5794967cef13","ratio":1.666666666666667,"settings":{"tooltip":{"css":".tooltip_SVGID_ { padding:5px;background:black;color:white;border-radius:2px;text-align:left; ; position:absolute;pointer-events:none;z-index:9999;}","placement":"doc","opacity":0.9,"offx":10,"offy":10,"use_cursor_pos":true,"use_fill":false,"use_stroke":false,"delay_over":200,"delay_out":500},"hover":{"css":".hover_data_SVGID_ { stroke:#111;stroke-width:2px;fill-opacity:1; }","reactive":true,"nearest_distance":null,"linked":false},"hover_inv":{"css":""},"hover_key":{"css":".hover_key_SVGID_ { fill:orange;stroke:black;cursor:pointer; }\ntext.hover_key_SVGID_ { stroke:none;fill:orange; }\ncircle.hover_key_SVGID_ { fill:orange;stroke:black; }\nline.hover_key_SVGID_, polyline.hover_key_SVGID_ { fill:none;stroke:orange; }\nrect.hover_key_SVGID_, polygon.hover_key_SVGID_, path.hover_key_SVGID_ { fill:orange;stroke:none; }\nimage.hover_key_SVGID_ { stroke:orange; }","reactive":true},"hover_theme":{"css":".hover_theme_SVGID_ { fill:orange;stroke:black;cursor:pointer; }\ntext.hover_theme_SVGID_ { stroke:none;fill:orange; }\ncircle.hover_theme_SVGID_ { fill:orange;stroke:black; }\nline.hover_theme_SVGID_, polyline.hover_theme_SVGID_ { fill:none;stroke:orange; }\nrect.hover_theme_SVGID_, polygon.hover_theme_SVGID_, path.hover_theme_SVGID_ { fill:orange;stroke:none; }\nimage.hover_theme_SVGID_ { stroke:orange; }","reactive":true},"select":{"css":".select_data_SVGID_ { fill:red;stroke:black;cursor:pointer; }\ntext.select_data_SVGID_ { stroke:none;fill:red; }\ncircle.select_data_SVGID_ { fill:red;stroke:black; }\nline.select_data_SVGID_, polyline.select_data_SVGID_ { fill:none;stroke:red; }\nrect.select_data_SVGID_, polygon.select_data_SVGID_, path.select_data_SVGID_ { fill:red;stroke:none; }\nimage.select_data_SVGID_ { stroke:red; }","type":"single","only_shiny":false,"selected":[],"linked":false},"select_inv":{"css":""},"select_key":{"css":".select_key_SVGID_ { fill:red;stroke:black;cursor:pointer; }\ntext.select_key_SVGID_ { stroke:none;fill:red; }\ncircle.select_key_SVGID_ { fill:red;stroke:black; }\nline.select_key_SVGID_, polyline.select_key_SVGID_ { fill:none;stroke:red; }\nrect.select_key_SVGID_, polygon.select_key_SVGID_, path.select_key_SVGID_ { fill:red;stroke:none; }\nimage.select_key_SVGID_ { stroke:red; }","type":"single","only_shiny":true,"selected":[]},"select_theme":{"css":".select_theme_SVGID_ { fill:red;stroke:black;cursor:pointer; }\ntext.select_theme_SVGID_ { stroke:none;fill:red; }\ncircle.select_theme_SVGID_ { fill:red;stroke:black; }\nline.select_theme_SVGID_, polyline.select_theme_SVGID_ { fill:none;stroke:red; }\nrect.select_theme_SVGID_, polygon.select_theme_SVGID_, path.select_theme_SVGID_ { fill:red;stroke:none; }\nimage.select_theme_SVGID_ { stroke:red; }","type":"single","only_shiny":true,"selected":[]},"zoom":{"min":1,"max":1,"duration":300,"default_on":false},"toolbar":{"position":"topright","pngname":"diagram","tooltips":null,"fixed":false,"hidden":[],"delay_over":200,"delay_out":500},"sizing":{"rescale":true,"width":1}}},"evals":[],"jsHooks":[]}</script>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ndvi-timeseries-treatment-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Temporal change in mean NDVI for control and treatment cores, shown separately for the stable and unstable meadows. Error bars represent ±1 standard error.
+</figcaption>
+</figure>
+</div>
+</div>
+<p><a href="assets/seagrass-cover/generated/ndvi-timeseries.csv">Download the monthly core-level NDVI measurements</a></p>
 
 
 </section>
