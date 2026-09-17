@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "fingerprint": "8cbb11d60bae9ec4098a561270ddf41030af21dfe445e5711301ea26ca5d91f6",
+  "fingerprint": "60be83513ad149a02e05fdb6583343289397751f7f2ce6bf1a84e1e8eb9abb06",
   "station_name_correction": {
     "source_issue": "two 5AU/5NU pairs and no 6AU/6NU pair",
     "rule": "relabel northern duplicate pair as station 6"

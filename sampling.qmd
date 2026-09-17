@@ -1,4 +1,386 @@
 ---
 title: "Sampling results"
 subtitle: "REWRITE · BB Experiment"
+execute:
+  echo: false
+  warning: false
+  message: false
+editor_options: 
+  chunk_output_type: console
 ---
+
+```{r library}
+library(tidyverse)
+library(readxl)
+library(ggiraph)
+```
+
+```{r data opening}
+biomass <- read_xlsx(
+  "Data/Sept_2026/REWRITE_Exp_BB_092026.xlsx",
+  sheet = "Seagrass_Biomass"
+) |>
+  transmute(
+    sample_id = Station,
+    inner_core = InnerCore,
+    treatment = factor(
+      recode(Treatment, Natural = "Control", Addition = "Treatment"),
+      levels = c("Control", "Treatment")
+    ),
+    meadow = factor(Area, levels = c("Stable", "Unstable")),
+    compartment = factor(
+      recode(`Biomass compartment`, Above = "Aboveground", Below = "Belowground"),
+      levels = c("Aboveground", "Belowground")
+    ),
+    dry_mass_g = `Dry_Weight (g)`
+  ) |>
+  mutate(
+    station_number = readr::parse_number(sample_id),
+    station_label = factor(
+      paste("Station", station_number), levels = paste("Station", 1:6)
+    ),
+    meadow_station = factor(
+      paste(meadow, "- Station", station_number),
+      levels = c(
+        paste("Stable - Station", 1:6),
+        paste("Unstable - Station", 1:6)
+      )
+    ),
+    sample_id = factor(
+      sample_id,
+      levels = c(
+        as.vector(rbind(paste0(1:6, "NS"), paste0(1:6, "AS"))),
+        as.vector(rbind(paste0(1:6, "NU"), paste0(1:6, "AU")))
+      )
+    )
+  )
+
+stopifnot(nrow(biomass) == 48, !anyNA(biomass$dry_mass_g))
+biomass$tooltip <- sprintf(
+  "%s\n%s meadow · %s\n%s biomass: %.3f g",
+  biomass$sample_id, biomass$meadow, biomass$treatment,
+  biomass$compartment, biomass$dry_mass_g
+)
+
+paired_biomass <- biomass |>
+  select(sample_id, treatment, meadow, compartment, dry_mass_g) |>
+  pivot_wider(names_from = compartment, values_from = dry_mass_g) |>
+  mutate(
+    above_below_ratio = Aboveground / Belowground,
+    tooltip = sprintf(
+      "%s\n%s meadow · %s\nAboveground: %.3f g\nBelowground: %.3f g\nAboveground:belowground ratio: %.2f",
+      sample_id, meadow, treatment, Aboveground, Belowground, above_below_ratio
+    )
+  )
+
+ratio_biomass_plot <- paired_biomass |>
+  filter(sample_id != "3NS")
+```
+
+## Seagrass biomass at the September harvest
+
+Aboveground and belowground dry biomass was recorded separately for each of the 24 inner-core samples, providing six control and six treatment observations in each meadow area.
+
+```{r}
+#| label: fig-biomass-by-station
+#| fig-cap: "Raw aboveground and belowground seagrass dry mass for every experimental core sampled in September 2026. Columns identify stations, and rows separate the stable and unstable meadows."
+#| fig-alt: "Interactive grouped bar chart showing paired aboveground and belowground dry mass for the control and treatment core at each of six stations in the stable and unstable meadows."
+
+plot_biomass_station <- ggplot(
+  biomass, aes(sample_id, dry_mass_g, fill = compartment)
+) +
+  geom_col_interactive(
+    aes(tooltip = tooltip, data_id = paste(sample_id, compartment)),
+    position = position_dodge(width = 0.78), width = 0.7,
+    colour = "#333333", linewidth = 0.35
+  ) +
+  facet_wrap(~meadow_station, nrow = 2, scales = "free_x") +
+  scale_fill_manual(
+    values = c(Aboveground = "#009E73", Belowground = "#D55E00")
+  ) +
+  scale_y_continuous(
+    limits = c(0, 3), breaks = 0:3, expand = expansion(mult = c(0, 0.04))
+  ) +
+  labs(
+    x = "Experimental core", y = "Dry mass (g per inner core)",
+    fill = "Compartment"
+  ) +
+  theme_minimal(base_size = 11) +
+  theme(
+    panel.grid.minor = element_blank(), panel.grid.major.x = element_blank(),
+    legend.position = "top", axis.text.x = element_text(angle = 45, hjust = 1),
+    panel.spacing.x = unit(0.7, "lines")
+  )
+
+girafe(
+  ggobj = plot_biomass_station, width_svg = 9, height_svg = 5.4,
+  options = list(
+    opts_hover(css = "stroke:#111;stroke-width:2px;fill-opacity:1;"),
+    opts_selection(type = "single", only_shiny = FALSE),
+    opts_toolbar(saveaspng = FALSE),
+    opts_sizing(rescale = TRUE)
+  )
+)
+```
+
+Raw dry mass ranged from 0.159 to 2.784 g per inner core. Aboveground biomass was more variable in the stable meadow, where the control and treatment medians were 0.828 and 0.705 g per core, respectively. In the unstable meadow, median aboveground biomass was 0.517 g in control cores and 0.833 g in treatment cores. Belowground medians were 0.819 and 0.930 g in the stable control and treatment cores, and 0.576 and 0.862 g in the corresponding unstable groups.
+
+```{r}
+#| label: fig-biomass-compartments
+#| fig-cap: "Aboveground and belowground seagrass dry mass in the September 2026 inner-core samples. Boxes show the median and interquartile range, whiskers extend to 1.5 times the interquartile range, and points represent individual cores."
+#| fig-alt: "Interactive raw-data plot of aboveground and belowground dry mass for control and treatment cores in stable and unstable meadows."
+
+plot_biomass <- ggplot(biomass, aes(treatment, dry_mass_g, fill = treatment)) +
+  geom_boxplot(
+    width = 0.56, linewidth = 0.55, outlier.shape = NA, alpha = 0.55
+  ) +
+  geom_point_interactive(
+    aes(tooltip = tooltip, data_id = paste(sample_id, compartment)),
+    position = position_jitter(width = 0.09, height = 0, seed = 2026),
+    shape = 21, size = 3.1, colour = "#333333", stroke = 0.45, alpha = 0.95
+  ) +
+  facet_grid(compartment ~ meadow) +
+  scale_fill_manual(values = c(Control = "#009E73", Treatment = "#CC79A7")) +
+  scale_y_continuous(limits = c(0, NA), expand = expansion(mult = c(0, 0.08))) +
+  labs(x = NULL, y = "Dry mass (g per inner core)", fill = "Core") +
+  theme_minimal(base_size = 12) +
+  theme(
+    panel.grid.minor = element_blank(), legend.position = "top",
+    panel.grid.major.x = element_blank()
+  )
+
+girafe(
+  ggobj = plot_biomass, width_svg = 8, height_svg = 5,
+  options = list(
+    opts_hover(css = "stroke:#111;stroke-width:2px;fill-opacity:1;"),
+    opts_selection(type = "single", only_shiny = FALSE),
+    opts_toolbar(saveaspng = FALSE),
+    opts_sizing(rescale = TRUE)
+  )
+)
+```
+
+### Aboveground-to-belowground biomass ratio
+
+The aboveground-to-belowground biomass ratio describes the allocation of dry biomass within each core. A ratio above one indicates that aboveground biomass exceeded belowground biomass, whereas a ratio below one indicates greater belowground biomass. Core 3NS was excluded from this display because its ratio of 5.52 was markedly separated from the remaining observations and compressed their graphical distribution. Among the displayed cores, median ratios were 0.79 and 1.11 in stable control and treatment cores, respectively, compared with 0.68 and 0.99 in unstable control and treatment cores. Aboveground biomass exceeded belowground biomass in three of the six treatment cores in each meadow, two of the five displayed stable control cores, and two of the six unstable control cores.
+
+```{r}
+#| label: fig-biomass-ratio
+#| fig-cap: "Aboveground-to-belowground dry-biomass ratios in the September 2026 inner-core samples. The horizontal line at one denotes equal biomass in the two compartments. Core 3NS (ratio = 5.52) was excluded from the display."
+#| fig-alt: "Interactive boxplots and individual observations of aboveground-to-belowground biomass ratios for control and treatment cores in stable and unstable meadows."
+
+plot_biomass_ratio <- ggplot(
+  ratio_biomass_plot, aes(treatment, above_below_ratio, fill = treatment)
+) +
+  geom_hline(yintercept = 1, colour = "#666666", linetype = 2, linewidth = 0.65) +
+  geom_boxplot(
+    width = 0.56, linewidth = 0.55, outlier.shape = NA, alpha = 0.55
+  ) +
+  geom_point_interactive(
+    aes(tooltip = tooltip, data_id = sample_id),
+    position = position_jitter(width = 0.09, height = 0, seed = 2026),
+    shape = 21, size = 3.2, colour = "#333333", stroke = 0.45, alpha = 0.95
+  ) +
+  facet_wrap(~meadow, nrow = 1) +
+  scale_fill_manual(values = c(Control = "#009E73", Treatment = "#CC79A7")) +
+  scale_y_continuous(
+    breaks = seq(0, 2, by = 0.5), limits = c(0, 2.2),
+    expand = expansion(mult = c(0, 0.04))
+  ) +
+  labs(
+    x = NULL, y = "Aboveground-to-belowground biomass ratio", fill = "Core"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    panel.grid.minor = element_blank(), legend.position = "top",
+    panel.grid.major.x = element_blank()
+  )
+
+girafe(
+  ggobj = plot_biomass_ratio, width_svg = 8, height_svg = 4.8,
+  options = list(
+    opts_hover(css = "stroke:#111;stroke-width:2px;fill-opacity:1;"),
+    opts_selection(type = "single", only_shiny = FALSE),
+    opts_toolbar(saveaspng = FALSE),
+    opts_sizing(rescale = TRUE)
+  )
+)
+```
+
+## Bayesian modelling of the treatment effect
+
+```{r gams}
+
+library(mgcv)
+library(brms)
+library(tidyverse)
+library(emmeans)
+
+df <- "Data/Sept_2026/REWRITE_Exp_BB_092026.xlsx" |> 
+  readxl::read_xlsx(sheet = 1) |> 
+  rename(Compartment = "Biomass compartment", 
+         Biomass = "Dry_Weight (g)") |> 
+  mutate(ID = substr(Station, 1, 1),
+         ID = factor(ID, levels = as.character(unique(ID))),
+         Treatment = factor(Treatment, levels = c("Addition","Natural")),
+         Area = factor(Area, levels = c("Stable","Unstable")),
+         Compartment = factor(Compartment, levels = c("Above","Below")))
+
+priors <- c(
+  prior(normal(0, 1), class = "b"),
+  prior(normal(4, 2), class = "Intercept"),
+  prior(exponential(1), class = "sd"),
+  prior(exponential(1), class = "sigma")
+)
+
+mod <- brm(
+  Biomass ~ Treatment * Compartment * Area +
+    (1 | Station),
+  data = df,
+  family = lognormal(),
+  chains = 4,
+  cores = 4,
+  iter = 4000,
+  warmup = 1000,
+  seed = 123,
+  prior = priors,
+  file = "brms_4000it_Biomass_Treatment"
+)
+
+emm <- emmeans(
+  mod,
+  ~ Treatment | Compartment * Area,
+  epred = TRUE,
+  type = "response"
+)
+# Estimated marginal means from the model
+emm80 <- emmeans(
+  mod,
+  ~ Treatment | Compartment * Area,
+  epred = TRUE,
+  type = "response"
+)|>
+  summary(level = 0.80)
+
+# Convert to data frame
+plot_df <- as.data.frame(emm80)
+
+# Make the code robust depending on the output column name
+if ("response" %in% names(plot_df)) {
+  plot_df <- plot_df %>% rename(Estimate = response)
+} else if ("emmean" %in% names(plot_df)) {
+  plot_df <- plot_df %>% rename(Estimate = emmean)
+}
+
+plot_df <- plot_df |>
+  mutate(
+    Treatment = factor(
+      recode(as.character(Treatment), Addition = "Treatment", Natural = "Control"),
+      levels = c("Control", "Treatment")
+    )
+  )
+
+predicted_biomass <- function(treatment, compartment, area) {
+  plot_df |>
+    filter(
+      Treatment == treatment,
+      Compartment == compartment,
+      Area == area
+    ) |>
+    pull(Estimate)
+}
+```
+
+Aboveground and belowground biomass were analysed jointly using a Bayesian lognormal mixed-effects model. Treatment, biomass compartment, meadow area and all interactions were included as population-level effects, while a random intercept for each experimental core accounted for the paired compartment measurements. The model was estimated from four chains and 12,000 post-warmup posterior draws. All parameters had $\widehat{R} \leq 1.004$, the minimum bulk effective sample size was 1,846, and no divergent transitions were detected.
+
+```{r}
+#| label: fig-bayesian-biomass-estimates
+#| fig-cap: "Posterior estimates of aboveground and belowground seagrass dry biomass in control cores and cores receiving *Loripes orbiculatus*, separated by meadow area. Points show posterior medians and bars show 80% highest-posterior-density credible intervals. Lines connect estimates from the same experimental group across meadow areas."
+#| fig-alt: "Posterior median biomass with 80 percent credible intervals for control and treatment cores in stable and unstable meadows, shown separately for aboveground and belowground compartments."
+
+p1 <- ggplot(plot_df, aes(x = Area, y = Estimate, color = Treatment, group = Treatment)) +
+  geom_point(position = position_dodge(width = 0.25), size = 3) +
+  geom_line(position = position_dodge(width = 0.25), linewidth = 0.8) +
+  geom_errorbar(
+    aes(ymin = lower.HPD, ymax = upper.HPD),
+    position = position_dodge(width = 0.25),
+    width = 0.1
+  ) +
+  facet_wrap(
+    ~Compartment, nrow = 1, scales = "free_y",
+    labeller = labeller(Compartment = c(Above = "Aboveground", Below = "Belowground"))
+  ) +
+  labs(
+    x = "Area",
+    y = expression("Biomass (g dry weight)"),
+    color = "Treatment"
+  ) +
+  theme_classic(base_size = 14) +
+  theme(
+    strip.background = element_blank(),
+    strip.text = element_text(face = "bold"),
+    legend.position = "top"
+  )
+
+p1
+```
+
+Posterior median aboveground biomass in the stable meadow was `r sprintf("%.2f", predicted_biomass("Treatment", "Above", "Stable"))` g in treatment cores and `r sprintf("%.2f", predicted_biomass("Control", "Above", "Stable"))` g in control cores. Belowground biomass was similar between the two groups (`r sprintf("%.2f", predicted_biomass("Treatment", "Below", "Stable"))` and `r sprintf("%.2f", predicted_biomass("Control", "Below", "Stable"))` g, respectively). In the unstable meadow, posterior medians were higher in treatment cores for both aboveground biomass (`r sprintf("%.2f", predicted_biomass("Treatment", "Above", "Unstable"))` versus `r sprintf("%.2f", predicted_biomass("Control", "Above", "Unstable"))` g) and belowground biomass (`r sprintf("%.2f", predicted_biomass("Treatment", "Below", "Unstable"))` versus `r sprintf("%.2f", predicted_biomass("Control", "Below", "Unstable"))` g). The credible intervals nevertheless overlapped substantially in every comparison.
+
+```{r}
+
+eff <- contrast(
+  emm,
+  method = list("Addition - Natural" = c(1, -1)),
+  by = c("Compartment", "Area")
+) %>%
+  summary(level = 0.80) |> 
+  as.data.frame()
+
+eff_draws <- as.matrix(as.mcmc(contrast(
+  emm,
+  method = list("Addition - Natural" = c(1, -1)),
+  by = c("Compartment", "Area")
+)))
+eff$prob_positive <- colMeans(eff_draws > 0)
+
+format_effect <- function(compartment, area) {
+  result <- eff |>
+    filter(Compartment == compartment, Area == area)
+  sprintf(
+    "%.2f g (80%% CrI %.2f to %.2f; posterior probability of a positive effect = %.0f%%)",
+    result$estimate, result$lower.HPD, result$upper.HPD,
+    100 * result$prob_positive
+  )
+}
+
+p2 <- ggplot(eff, aes(x = Area, y = estimate)) +
+  geom_hline(yintercept = 0, linetype = "dashed", linewidth = 0.6) +
+  geom_point(size = 3) +
+  geom_errorbar(
+    aes(ymin =lower.HPD, ymax =  upper.HPD),
+    width = 0.12,
+    linewidth = 0.6
+  ) +
+  facet_wrap(
+    ~Compartment, nrow = 1,
+    labeller = labeller(Compartment = c(Above = "Aboveground", Below = "Belowground"))
+  ) +
+  labs(
+    x = "Area",
+    y = "Treatment effect on biomass\n(Treatment - control, g dry weight)"
+  ) +
+  theme_classic(base_size = 13)
+```
+
+```{r}
+#| label: fig-bayesian-treatment-contrasts
+#| fig-cap: "Posterior treatment effects on aboveground and belowground seagrass dry biomass in the stable and unstable meadows. Effects are calculated as the posterior difference between cores receiving *Loripes orbiculatus* and control cores at natural density. Points show posterior medians, bars show 80% highest-posterior-density credible intervals, and the dashed line denotes no treatment effect."
+#| fig-alt: "Posterior treatment contrasts with 80 percent credible intervals for aboveground and belowground biomass in stable and unstable meadows."
+
+p2
+```
+
+In the stable meadow, the estimated treatment effect was `r format_effect("Above", "Stable")` for aboveground biomass and `r format_effect("Below", "Stable")` for belowground biomass. The posterior therefore provided little evidence of a consistent biomass increase following *L. orbiculatus* addition in this meadow. In the unstable meadow, treatment effects were positive for both aboveground biomass (`r format_effect("Above", "Unstable")`) and belowground biomass (`r format_effect("Below", "Unstable")`). These posterior probabilities indicate a directional tendency towards greater biomass following addition in the unstable meadow, although the 80% credible intervals included zero for both compartments. Notably, the posterior median treatment effect was greater for belowground than for aboveground biomass in both meadow areas: the stable meadow showed a small positive belowground response despite a negative aboveground estimate, while the unstable meadow showed a larger positive estimate belowground than aboveground.
+
+The contrast between meadow areas is consistent with a context-dependent response: additional *L. orbiculatus* may be more beneficial where meadow persistence is lower and environmental stress is potentially greater. The comparatively stronger response of belowground biomass is also consistent with the proposed facilitation mechanism. Roots and rhizomes are directly exposed to porewater sulfide [@Frederiksen2008], and sulfide oxidation by lucinid-associated symbionts could therefore benefit belowground tissues most directly [@Lim2019]. However, the posterior uncertainty remains substantial, reflecting the six experimental stations available per treatment and meadow. The biomass results support a possible positive treatment response in the unstable meadow and a potentially stronger response belowground, but the 80% intervals still overlap the null effect. Biomass alone cannot attribute this pattern to sulfide removal; evaluation of the proposed mechanism requires the sediment-sulfide measurements and the final abundance of *L. orbiculatus* within each enclosure.
