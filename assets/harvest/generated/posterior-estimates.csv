@@ -1,0 +1,23 @@
+"Treatment","Area","Estimate","Lower","Upper","Probability_positive","Model","Outcome","Groups"
+"Control","Stable",96.997832423823,74.406421617059,119.750773194612,1,"leaf","Leaf length (mm)",NA
+"Control","Unstable",69.367907220897,52.2604760128539,85.2584099923391,1,"leaf","Leaf length (mm)",NA
+"Treatment","Stable",105.003391056463,79.9245690474674,129.507646038158,1,"leaf","Leaf length (mm)",NA
+"Treatment","Unstable",131.260282667054,98.1983111616312,161.643678713596,1,"leaf","Leaf length (mm)",NA
+"Control","Stable",2.93515978821859,2.46411662130156,3.40897064582146,1,"richness_all","Taxon-group richness: All bivalves",7
+"Control","Unstable",3.30853026830419,2.8435426850014,3.75790365727377,1,"richness_all","Taxon-group richness: All bivalves",7
+"Treatment","Stable",3.21354598300158,2.72911717130289,3.66908766848548,1,"richness_all","Taxon-group richness: All bivalves",7
+"Treatment","Unstable",3.90123202628105,3.34608307846933,4.41755729385443,1,"richness_all","Taxon-group richness: All bivalves",7
+"Control","Stable",0.74151502972145,0.567674494385492,0.919428574031639,1,"shannon_all","Shannon diversity: All bivalves",NA
+"Control","Unstable",0.972375335876003,0.784400317956018,1.14459643634663,1,"shannon_all","Shannon diversity: All bivalves",NA
+"Treatment","Stable",0.711630646794172,0.538242857126336,0.90122917626555,1,"shannon_all","Shannon diversity: All bivalves",NA
+"Treatment","Unstable",0.794537076850546,0.619557841095926,0.9761176163191,1,"shannon_all","Shannon diversity: All bivalves",NA
+"Control","Stable",2.54354094828624,2.15339344698902,2.94155880722101,1,"richness_other","Taxon-group richness: Without Loripes",6
+"Control","Unstable",3.04751883220845,2.6457268655921,3.49438779623824,1,"richness_other","Taxon-group richness: Without Loripes",6
+"Treatment","Stable",2.37827221882433,1.98859945269325,2.81340922283614,1,"richness_other","Taxon-group richness: Without Loripes",6
+"Treatment","Unstable",2.99818454668701,2.50958702369168,3.45230189636849,1,"richness_other","Taxon-group richness: Without Loripes",6
+"Control","Stable",0.632399974671942,0.463534206182115,0.805725266488437,1,"shannon_other","Shannon diversity: Without Loripes",NA
+"Control","Unstable",0.914103069672114,0.73739287868229,1.08027979572327,1,"shannon_other","Shannon diversity: Without Loripes",NA
+"Treatment","Stable",0.505608246271481,0.337122914306524,0.677959098181532,0.999416666666667,"shannon_other","Shannon diversity: Without Loripes",NA
+"Treatment","Unstable",0.863127416762663,0.688611978489069,1.03005416759813,1,"shannon_other","Shannon diversity: Without Loripes",NA
+"Control","Pooled",13.3376591846032,11.4617689503788,15.1249999396009,1,"loripes","Loripes shell length (mm)",NA
+"Treatment","Pooled",8.27499956694528,7.95466007589162,8.5748042907192,1,"loripes","Loripes shell length (mm)",NA

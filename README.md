@@ -62,3 +62,41 @@ processed June–September NDVI orthomosaics. It writes one record per core and 
 to `ndvi-timeseries.csv`, using N as Control and A as Treatment. The results page
 summarizes these 96 observations by meadow and by treatment within meadow in two
 interactive `ggiraph` figures.
+
+## September harvest traits
+
+`R/harvest-traits.R` reads the named `leaf_morphometrics`, `Bivalves_densities`
+and `Lorpies_length` sheets in `Data/Sept_2026/REWRITE_Exp_BB_092026.xlsx`.
+It is sourced by `sampling.qmd` and can be run independently with
+`Rscript R/harvest-traits.R`. Additional dependencies are `readxl`, `dplyr`,
+`tidyr`, `brms`, `rstan`, `posterior` and `coda`, with a working Stan C++ toolchain.
+The existing biomass sections also require `emmeans`, `mgcv` and `ggiraph`.
+
+Lengths are in mm (confirmed by the investigator). Leaf width is excluded.
+Literal `NA` entries in the shell-length sheet represent missing measurements.
+Models include treatment-by-area effects and station-pair intercepts; length
+models also include core intercepts. Richness uses a cumulative-logit ordinal model
+with integer categories from zero through the number of harmonized taxon groups,
+Shannon diversity a Gaussian working model, and lengths lognormal models.
+Mya, Scrobicularia and unresolved Mya/Scrobicularia juveniles are pooled
+consistently; diversity is calculated with and without Loripes.
+
+All recorded lengths are retained. Core 2AS has 16 measured Loripes but only
+11 counted individuals; this unresolved discrepancy is flagged on the page.
+Control lengths occur in only three cores, so size contrasts describe sampled
+size composition and cannot establish growth effects.
+
+Model caches are local to `artifacts/harvest-models/`; `file_refit = "on_change"`
+invalidates them when model data, formula or priors change. Public CSV outputs
+in `assets/harvest/generated/` include contrasts, expected responses, diversity
+indices, coverage, convergence checks, posterior predictive checks and a
+session record with the workbook fingerprint. Verify their agreement with
+source data using `Rscript tests/check-harvest-data.R`.
+Two cached robustness checks in `R/harvest-sensitivity.R` omit the station pair
+containing the largest leaf, or the Loripes measurements from core 2AS,
+respectively. These omissions apply only to the sensitivity analyses.
+
+The installed rstan 2.32.7 and StanHeaders 2.39.1 combination failed compilation.
+`Rscript scripts/setup-harvest-r.R` installs compatible StanHeaders 2.32.10 into
+`artifacts/harvest-r-library/` when needed. The harvest script and sampling page
+prefer this project-local library when present. The user library is unchanged.

@@ -423,42 +423,13 @@
       "source_nodata": 0.0
     },
     {
-      "site": "stable",
-      "period": "2026-09",
-      "kind": "RGB",
-      "label": "September 2026",
-      "image": "assets/drone/generated/stable-2026-09-rgb-5ef707d87329.webp",
-      "source": "Data/MS_DRONE/REWRITE_Jim_08092026_Stable/Stable_092026_RGB.tif",
-      "fingerprint": "5ef707d87329",
-      "bounds": [
-        [
-          46.95904527401928,
-          -2.172653127875247
-        ],
-        [
-          46.96023036620679,
-          -2.1707380056834613
-        ]
-      ],
-      "source_crs": "EPSG:3857",
-      "source_shape": [
-        12042,
-        10918
-      ],
-      "preview_shape": [
-        2048,
-        1857
-      ],
-      "source_nodata": 0.0
-    },
-    {
       "site": "unstable",
       "period": "2026-09",
       "kind": "NDVI",
       "label": "September 2026",
-      "image": "assets/drone/generated/unstable-2026-09-ndvi-1666a4aed7af.webp",
+      "image": "assets/drone/generated/unstable-2026-09-ndvi-226ecbd37ebb.webp",
       "source": "Data/MS_DRONE/REWRITE_Jim_08092026_Unstable/Unstable_092026_NDVI.tif",
-      "fingerprint": "1666a4aed7af",
+      "fingerprint": "226ecbd37ebb",
       "bounds": [
         [
           46.96115419486263,
@@ -473,35 +444,6 @@
       "source_shape": [
         16040,
         8354
-      ],
-      "preview_shape": [
-        2048,
-        1563
-      ],
-      "source_nodata": 0.0
-    },
-    {
-      "site": "unstable",
-      "period": "2026-09",
-      "kind": "RGB",
-      "label": "September 2026",
-      "image": "assets/drone/generated/unstable-2026-09-rgb-61ac51764f2e.webp",
-      "source": "Data/MS_DRONE/REWRITE_Jim_08092026_Unstable/Unstable_092026_RGB.tif",
-      "fingerprint": "61ac51764f2e",
-      "bounds": [
-        [
-          46.96115426688846,
-          -2.1804056892912325
-        ],
-        [
-          46.96217586067554,
-          -2.1784440563127463
-        ]
-      ],
-      "source_crs": "EPSG:4326",
-      "source_shape": [
-        27228,
-        14180
       ],
       "preview_shape": [
         2048,

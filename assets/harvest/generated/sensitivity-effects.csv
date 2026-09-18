@@ -1,0 +1,4 @@
+"Model","Sensitivity","Area","Estimate","Lower","Upper","Probability_positive","Rhat_max","ESS_bulk_min","ESS_tail_min","Divergences"
+"leaf","Exclude pair containing the largest leaf: Unstable_4","Stable",7.82284387434257,-13.2543793665263,29.2413194406434,0.703166666666667,1.00121227075848,2331.7191914715,3108.36273353927,0
+"leaf","Exclude pair containing the largest leaf: Unstable_4","Unstable",64.6465951067841,38.7705445609413,89.4178310273212,0.999166666666667,1.00121227075848,2331.7191914715,3108.36273353927,0
+"loripes","Exclude core 2AS with inconsistent count and length records","Pooled",-4.78974285060508,-6.54366200428373,-2.88741516864195,8.33333333333333e-05,1.00126148694752,2798.23675052247,3687.24370120991,0

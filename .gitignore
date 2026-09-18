@@ -8,3 +8,10 @@ Data/MS_DRONE/*
 /.quarto/
 **/*.quarto_ipynb
 __pycache__/
+/artifacts/harvest-models/
+/artifacts/harvest-analysis.log
+/artifacts/harvest-r-library/
+/artifacts/stan-compile-diagnostic.log
+/artifacts/stanheaders-install.log
+/artifacts/harvest-sensitivity.log
+/artifacts/harvest-render.log

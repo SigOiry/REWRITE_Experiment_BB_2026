@@ -1,15 +1,18 @@
 ---
 title: "Sampling results"
 subtitle: "REWRITE · BB Experiment"
+bibliography: references.bib
+link-citations: true
 execute:
   echo: false
   warning: false
   message: false
-editor_options: 
+editor_options:
   chunk_output_type: console
 ---
 
 ```{r library}
+if (dir.exists("artifacts/harvest-r-library")) .libPaths(c("artifacts/harvest-r-library", .libPaths()))
 library(tidyverse)
 library(readxl)
 library(ggiraph)
@@ -77,7 +80,21 @@ ratio_biomass_plot <- paired_biomass |>
   filter(sample_id != "3NS")
 ```
 
-## Seagrass biomass at the September harvest
+```{r harvest-trait-models}
+source("R/harvest-traits.R")
+```
+
+Use the buttons below to show one set of results at a time.
+
+::: {.panel-tabset}
+
+## Biomass
+
+::: {.callout-note title="Take-home message"}
+In the calmer, stable meadow, adding *Loripes* made little difference to how much seagrass biomass the cores held. In the more disturbed, unstable meadow, cores that received *Loripes* tended to carry more biomass than untreated cores, both above and below the sediment, with the below-ground response the stronger of the two. That said, none of these differences are firmly established: the statistical uncertainty around every comparison is still wide enough to include "no effect at all," so this points to a promising trend in the unstable meadow rather than a confirmed result.
+:::
+
+### Seagrass biomass at the September harvest
 
 Aboveground and belowground dry biomass was recorded separately for each of the 24 inner-core samples, providing six control and six treatment observations in each meadow area.
 
@@ -160,7 +177,7 @@ girafe(
 )
 ```
 
-### Aboveground-to-belowground biomass ratio
+#### Aboveground-to-belowground biomass ratio
 
 The aboveground-to-belowground biomass ratio describes the allocation of dry biomass within each core. A ratio above one indicates that aboveground biomass exceeded belowground biomass, whereas a ratio below one indicates greater belowground biomass. Core 3NS was excluded from this display because its ratio of 5.52 was markedly separated from the remaining observations and compressed their graphical distribution. Among the displayed cores, median ratios were 0.79 and 1.11 in stable control and treatment cores, respectively, compared with 0.68 and 0.99 in unstable control and treatment cores. Aboveground biomass exceeded belowground biomass in three of the six treatment cores in each meadow, two of the five displayed stable control cores, and two of the six unstable control cores.
 
@@ -207,7 +224,7 @@ girafe(
 )
 ```
 
-## Bayesian modelling of the treatment effect
+### Bayesian modelling of the treatment effect
 
 ```{r gams}
 
@@ -216,10 +233,10 @@ library(brms)
 library(tidyverse)
 library(emmeans)
 
-df <- "Data/Sept_2026/REWRITE_Exp_BB_092026.xlsx" |> 
-  readxl::read_xlsx(sheet = 1) |> 
-  rename(Compartment = "Biomass compartment", 
-         Biomass = "Dry_Weight (g)") |> 
+df <- "Data/Sept_2026/REWRITE_Exp_BB_092026.xlsx" |>
+  readxl::read_xlsx(sheet = 1) |>
+  rename(Compartment = "Biomass compartment",
+         Biomass = "Dry_Weight (g)") |>
   mutate(ID = substr(Station, 1, 1),
          ID = factor(ID, levels = as.character(unique(ID))),
          Treatment = factor(Treatment, levels = c("Addition","Natural")),
@@ -328,21 +345,138 @@ p1
 Posterior median aboveground biomass in the stable meadow was `r sprintf("%.2f", predicted_biomass("Treatment", "Above", "Stable"))` g in treatment cores and `r sprintf("%.2f", predicted_biomass("Control", "Above", "Stable"))` g in control cores. Belowground biomass was similar between the two groups (`r sprintf("%.2f", predicted_biomass("Treatment", "Below", "Stable"))` and `r sprintf("%.2f", predicted_biomass("Control", "Below", "Stable"))` g, respectively). In the unstable meadow, posterior medians were higher in treatment cores for both aboveground biomass (`r sprintf("%.2f", predicted_biomass("Treatment", "Above", "Unstable"))` versus `r sprintf("%.2f", predicted_biomass("Control", "Above", "Unstable"))` g) and belowground biomass (`r sprintf("%.2f", predicted_biomass("Treatment", "Below", "Unstable"))` versus `r sprintf("%.2f", predicted_biomass("Control", "Below", "Unstable"))` g). The credible intervals nevertheless overlapped substantially in every comparison.
 
 ```{r}
+library(brms)
+library(tidyverse)
+library(emmeans)
+library(coda)
+library(readxl)
 
-eff <- contrast(
+# ============================================================
+# 1. Import and prepare data
+# ============================================================
+
+df <- "Data/Sept_2026/REWRITE_Exp_BB_092026.xlsx" |>
+  readxl::read_xlsx(sheet = 1) |>
+  rename(
+    Compartment = "Biomass compartment",
+    Biomass = "Dry_Weight (g)"
+  ) |>
+  mutate(
+    ID = substr(Station, 1, 1),
+    ID = factor(ID, levels = as.character(unique(ID))),
+    Treatment = factor(Treatment, levels = c("Addition", "Natural")),
+    Area = factor(Area, levels = c("Stable", "Unstable")),
+    Compartment = factor(Compartment, levels = c("Above", "Below"))
+  )
+
+# ============================================================
+# 2. Priors
+# ============================================================
+
+priors <- c(
+  prior(normal(0, 1), class = "b"),
+  prior(normal(4, 2), class = "Intercept"),
+  prior(exponential(1), class = "sd"),
+  prior(exponential(1), class = "sigma")
+)
+
+# ============================================================
+# 3. Bayesian lognormal mixed-effects model
+# ============================================================
+
+mod <- brm(
+  Biomass ~ Treatment * Compartment * Area +
+    (1 | Station),
+  data = df,
+  family = lognormal(),
+  chains = 4,
+  cores = 4,
+  iter = 4000,
+  warmup = 1000,
+  seed = 123,
+  prior = priors,
+  file = "brms_4000it_Biomass_Treatment_Test"
+)
+
+# Optional model diagnostics
+# summary(mod)
+# pp_check(mod)
+
+# ============================================================
+# 4. Estimated marginal means on the response scale
+# ============================================================
+
+emm <- emmeans(
+  mod,
+  ~ Treatment | Compartment * Area,
+  epred = TRUE,
+  type = "response"
+)
+
+emm80 <- summary(
   emm,
-  method = list("Addition - Natural" = c(1, -1)),
-  by = c("Compartment", "Area")
-) %>%
-  summary(level = 0.80) |> 
+  level = 0.80
+) |>
   as.data.frame()
 
-eff_draws <- as.matrix(as.mcmc(contrast(
+# Make estimate column name consistent
+if ("response" %in% names(emm80)) {
+  emm80 <- emm80 |>
+    rename(Estimate = response)
+} else if ("emmean" %in% names(emm80)) {
+  emm80 <- emm80 |>
+    rename(Estimate = emmean)
+}
+
+# Rename treatment levels for plotting
+emm80 <- emm80 |>
+  mutate(
+    Treatment = factor(
+      recode(
+        as.character(Treatment),
+        Addition = "Treatment",
+        Natural = "Control"
+      ),
+      levels = c("Control", "Treatment")
+    )
+  )
+
+# ============================================================
+# 6. Treatment contrasts: Addition - Natural
+# ============================================================
+
+eff_obj <- contrast(
   emm,
-  method = list("Addition - Natural" = c(1, -1)),
+  method = list(
+    "Addition - Natural" = c(1, -1)
+  ),
   by = c("Compartment", "Area")
-)))
+)
+
+eff <- summary(
+  eff_obj,
+  level = 0.80
+) |>
+  as.data.frame()
+
+# ============================================================
+# 7. Posterior probability of a positive treatment effect
+# ============================================================
+
+eff_draws <- as.matrix(
+  as.mcmc(eff_obj)
+)
+
 eff$prob_positive <- colMeans(eff_draws > 0)
+
+eff <- eff |>
+  mutate(
+    prob_label = paste0(
+      "P(effect > 0) = ",
+      round(prob_positive * 100),
+      "%"
+    )
+  )
 
 format_effect <- function(compartment, area) {
   result <- eff |>
@@ -354,23 +488,56 @@ format_effect <- function(compartment, area) {
   )
 }
 
-p2 <- ggplot(eff, aes(x = Area, y = estimate)) +
-  geom_hline(yintercept = 0, linetype = "dashed", linewidth = 0.6) +
-  geom_point(size = 3) +
-  geom_errorbar(
-    aes(ymin =lower.HPD, ymax =  upper.HPD),
-    width = 0.12,
+# ============================================================
+# 8. Figure 2: Treatment effect
+# ============================================================
+
+p2 <- ggplot(
+  eff,
+  aes(
+    x = Area,
+    y = estimate
+  )
+) +
+  geom_hline(
+    yintercept = 0,
+    linetype = "dashed",
     linewidth = 0.6
   ) +
+  geom_errorbar(
+    aes(
+      ymin = lower.HPD,
+      ymax = upper.HPD
+    ),
+    width = 0.12,
+    linewidth = 0.7
+  ) +
+  geom_point(size = 3) +
+  geom_text(
+    aes(
+      y = upper.HPD,
+      label = prob_label
+    ),
+    vjust = -0.8,
+    size = 3.5
+  ) +
   facet_wrap(
-    ~Compartment, nrow = 1,
-    labeller = labeller(Compartment = c(Above = "Aboveground", Below = "Belowground"))
+    ~ Compartment,
+    nrow = 1,
+    labeller = labeller(
+      Compartment = c(
+        Above = "Aboveground",
+        Below = "Belowground"
+      )
+    )
   ) +
   labs(
     x = "Area",
-    y = "Treatment effect on biomass\n(Treatment - control, g dry weight)"
+    y = "Treatment effect on biomass\n(Addition - Natural, g dry weight)"
   ) +
   theme_classic(base_size = 13)
+
+
 ```
 
 ```{r}
@@ -384,3 +551,108 @@ p2
 In the stable meadow, the estimated treatment effect was `r format_effect("Above", "Stable")` for aboveground biomass and `r format_effect("Below", "Stable")` for belowground biomass. The posterior therefore provided little evidence of a consistent biomass increase following *L. orbiculatus* addition in this meadow. In the unstable meadow, treatment effects were positive for both aboveground biomass (`r format_effect("Above", "Unstable")`) and belowground biomass (`r format_effect("Below", "Unstable")`). These posterior probabilities indicate a directional tendency towards greater biomass following addition in the unstable meadow, although the 80% credible intervals included zero for both compartments. Notably, the posterior median treatment effect was greater for belowground than for aboveground biomass in both meadow areas: the stable meadow showed a small positive belowground response despite a negative aboveground estimate, while the unstable meadow showed a larger positive estimate belowground than aboveground.
 
 The contrast between meadow areas is consistent with a context-dependent response: additional *L. orbiculatus* may be more beneficial where meadow persistence is lower and environmental stress is potentially greater. The comparatively stronger response of belowground biomass is also consistent with the proposed facilitation mechanism. Roots and rhizomes are directly exposed to porewater sulfide [@Frederiksen2008], and sulfide oxidation by lucinid-associated symbionts could therefore benefit belowground tissues most directly [@Lim2019]. However, the posterior uncertainty remains substantial, reflecting the six experimental stations available per treatment and meadow. The biomass results support a possible positive treatment response in the unstable meadow and a potentially stronger response belowground, but the 80% intervals still overlap the null effect. Biomass alone cannot attribute this pattern to sulfide removal; evaluation of the proposed mechanism requires the sediment-sulfide measurements and the final abundance of *L. orbiculatus* within each enclosure.
+
+## Leaf length
+
+::: {.callout-note title="Take-home message"}
+*Loripes* addition made no detectable difference to leaf length in the stable meadow. In the unstable meadow, leaves in treated cores were longer than in untreated cores, and the difference persisted after excluding the single longest leaf.
+:::
+
+Leaf length was modelled with a Bayesian lognormal mixed-effects model, using the same treatment-by-meadow structure, priors and 80% highest-posterior-density (HPD) framework as the biomass model. Random intercepts for station and experimental core accounted for the paired design and the five leaves measured per core, treating individual leaves as subsamples rather than independent replicates. Four chains yielded 12,000 post-warmup draws; treatment-minus-control contrasts were computed from every draw, unadjusted for multiple comparisons.
+
+Five leaves were measured in each of the 24 cores (120 observations). All lengths were retained, including a 154 mm leaf from core 6AU noted as having a soft, discoloured base — the longest recorded (`r sprintf("%.1f", max(leaf_data$Value))` mm). Mean core-level length was `r sprintf("%.1f", mean(leaf_core$Value[leaf_core$Area == "Stable" & leaf_core$Treatment == "Control"]))` mm in stable control cores versus `r sprintf("%.1f", mean(leaf_core$Value[leaf_core$Area == "Stable" & leaf_core$Treatment == "Treatment"]))` mm in stable treatment cores, and `r sprintf("%.1f", mean(leaf_core$Value[leaf_core$Area == "Unstable" & leaf_core$Treatment == "Control"]))` mm versus `r sprintf("%.1f", mean(leaf_core$Value[leaf_core$Area == "Unstable" & leaf_core$Treatment == "Treatment"]))` mm in the unstable meadow.
+
+```{r}
+#| label: fig-leaf-length-raw
+#| fig-cap: "(a) Seagrass leaf lengths at the September harvest. Small translucent points show individual leaves; larger outlined points show core means. Lines connect control and treatment core means at the same station."
+#| fig-alt: "Individual leaf lengths and paired core means in control and treatment cores in each meadow."
+#| fig-width: 7
+#| fig-height: 4
+plot_harvest_lengths(leaf_data, leaf_core, "Leaf length (mm)")
+```
+
+```{r}
+#| label: fig-leaf-length-effects
+#| fig-cap: "(b) Posterior treatment effect on leaf length (treatment minus control). Points show posterior medians, bars show 80% HPD credible intervals, and labels give the posterior probability of a positive effect."
+#| fig-alt: "Leaf-length treatment contrasts and credible intervals in stable and unstable meadows."
+#| fig-width: 7
+#| fig-height: 4
+plot_harvest_effects("leaf")
+```
+
+The treatment contrast was `r harvest_effect_text("leaf", "Stable", " mm")` in the stable meadow and `r harvest_effect_text("leaf", "Unstable", " mm")` in the unstable meadow: leaves were longer in unstable-meadow treatment cores, while the stable-meadow contrast remained uncertain. The unstable-minus-stable difference between these contrasts was `r sprintf("%.1f", harvest_interactions$Estimate[harvest_interactions$Model == "leaf"])` mm (80% CrI `r sprintf("%.1f to %.1f", harvest_interactions$Lower[harvest_interactions$Model == "leaf"], harvest_interactions$Upper[harvest_interactions$Model == "leaf"])` mm), consistent with a stronger response in the unstable meadow, although a difference in within-meadow evidence strength does not by itself establish a treatment-by-meadow interaction. Leaf length at harvest is a morphological endpoint; it does not measure elongation rate or establish a mechanism.
+
+`r harvest_diagnostics_text("leaf")` A sensitivity analysis excluding both cores at unstable station 4, which contained the largest observed leaf, gave an unstable-meadow contrast of `r sprintf("%.1f", harvest_sensitivity$Estimate[harvest_sensitivity$Model == "leaf" & harvest_sensitivity$Area == "Unstable"])` mm (80% CrI `r sprintf("%.1f to %.1f", harvest_sensitivity$Lower[harvest_sensitivity$Model == "leaf" & harvest_sensitivity$Area == "Unstable"], harvest_sensitivity$Upper[harvest_sensitivity$Model == "leaf" & harvest_sensitivity$Area == "Unstable"])` mm), so the positive contrast does not depend on that station. All observations were retained in the primary analysis.
+
+## Bivalve diversity
+
+::: {.callout-note title="Take-home message"}
+*Loripes* addition produced no detectable change in bivalve taxon-group richness or Shannon diversity, whether or not *Loripes* itself is counted in the index. All eight treatment contrasts (two metrics × two scopes × two meadows) had 80% credible intervals spanning zero.
+:::
+
+Bivalve diversity was calculated per core from the abundance counts. Unresolved *Mya*/*Scrobicularia* juveniles were pooled with *M. arenaria* and *S. plana* into one taxon group, giving seven harmonized groups; richness therefore denotes **taxon-group richness** rather than fully resolved species richness. Shannon diversity was calculated as $H' = -\sum_i p_i\ln(p_i)$, where $p_i$ is the proportion of individuals in group $i$ [@VeganDiversity]. Both indices were calculated for all bivalves and again excluding *L. orbiculatus* (six groups), separating diversity of the sampled assemblage from diversity of the remaining community. Indices were not rarefied to equal numbers of individuals, and every core retained at least one bivalve after excluding *Loripes*.
+
+Taxon-group richness was fitted with a Bayesian cumulative-logit ordinal mixed-effects model over all integer counts from zero to the number of groups, with expected richness obtained by weighting each possible count by its posterior probability. Shannon diversity was fitted with a Gaussian working model, including observed zero values; this is only an approximation, since the index is bounded. Both models included treatment, meadow area and their interaction, with a random intercept for station only, since diversity was calculated once per core rather than resampled within cores. Coefficients had normal(0, 1) priors, richness thresholds normal(0, 2) priors on the logit scale, the Shannon intercept a normal(1, 1) prior, and variance components exponential(2) priors (richness has no residual standard deviation). Four chains yielded 12,000 post-warmup draws per model, and treatment-minus-control contrasts were computed from every draw, unadjusted for multiple comparisons.
+
+```{r}
+#| label: fig-bivalve-diversity-effects
+#| fig-cap: "Posterior treatment effects (treatment minus control) on bivalve taxon-group richness and Shannon diversity, calculated with and without *Loripes*, in each meadow. Points show posterior medians and bars show 80% HPD credible intervals; exact posterior probabilities of a positive effect are given in @tbl-bivalve-diversity-effects. All eight intervals span zero."
+#| fig-alt: "Compact forest plot of posterior treatment effects on richness and Shannon diversity, with and without Loripes, for stable and unstable meadows; all intervals overlap zero."
+#| fig-width: 7.5
+#| fig-height: 4.5
+plot_diversity_effects()
+```
+
+```{r}
+#| label: tbl-bivalve-diversity-effects
+#| tbl-cap: "Treatment effects on observed bivalve diversity. Richness contrasts are in taxon groups; Shannon contrasts are dimensionless."
+harvest_effect_table(diversity_models)
+```
+
+*L. orbiculatus* abundance in the count sheet totalled `r sum(bivalve_data$L.orbiculatus[bivalve_data$Treatment == "Treatment"])` individuals in treatment cores versus `r sum(bivalve_data$L.orbiculatus[bivalve_data$Treatment == "Control"])` in controls, so diversity of the complete assemblage is dominated by this difference in representation; the indices excluding *Loripes* are the more direct comparison among the remaining bivalves. Neither metric establishes a mechanism involving sediment sulfide, and the absence of a detectable effect does not establish the absence of one.
+
+`r harvest_diagnostics_text(diversity_models)` Posterior predictive checks placed `r sprintf("%.1f%%", 100 * harvest_ppc$Outside_support[harvest_ppc$Model == "shannon_all"][1])` (with *Loripes*) and `r sprintf("%.1f%%", 100 * harvest_ppc$Outside_support[harvest_ppc$Model == "shannon_other"][1])` (without) of replicated Shannon draws outside the index's valid range, consistent with the Gaussian model being only a working approximation for this bounded index. The ordinal richness models likewise generated slightly more variation than observed (observed SD of 0.95 taxon groups with *Loripes* and 0.87 without, against central 80% posterior-predictive lower bounds of 1.03 and 0.88); richness contrasts should be read with the same caution.
+
+## Loripes length
+
+::: {.callout-note title="Take-home message"}
+*Loripes* individuals recovered from treated cores were smaller, on average, than the few found in untreated cores. Almost no untreated cores contained any *Loripes*, so this rests on very few control individuals and should not be read as a treatment effect on growth. Because the control data are so unevenly spread between meadows, the comparison is reported here as a single, area-pooled estimate rather than one contrast per meadow.
+:::
+
+The shell-length sheet contained `r nrow(loripes_data)` numeric lengths and `r sum(is.na(loripes_slots$Length))` missing entries among 600 measurement slots; missing entries were excluded rather than treated as zero-sized individuals. Measurements comprised `r sum(loripes_data$Treatment == "Treatment")` individuals from all 12 treatment cores, but only `r sum(loripes_data$Treatment == "Control")` individuals from three control cores: four in stable core 2NS, two in stable core 4NS, and a single 17 mm individual in unstable core 4NU. Core 2AS has 16 recorded lengths against 11 counted individuals in the abundance sheet; this discrepancy remains unresolved and all 16 lengths were retained. Measured individuals should not be assumed to constitute a complete or randomly selected sample of each core — at most 25 lengths were recorded per core.
+
+Because only one control individual was measured in the unstable meadow, a meadow-specific (treatment-by-area) contrast is not identifiable from these data: it would reflect the prior far more than the observations. We therefore fitted an area-pooled Bayesian lognormal mixed-effects model (`Value ~ Treatment + (1 | Pair) + (1 | Core)`), retaining the same priors, random-effect structure and 80% HPD framework as the leaf-length model, and report a single treatment-minus-control contrast rather than a meadow-specific one. Given the sparse control data, this contrast remains exploratory.
+
+```{r}
+#| label: fig-loripes-length-raw
+#| fig-cap: "(a) Recorded Loripes shell lengths from inner cores, by meadow. Small translucent points show individual bivalves; larger outlined points show core means. Lines connect stations with measured individuals in both cores. Control data come from two stable-meadow cores and one unstable-meadow core."
+#| fig-alt: "Loripes length observations showing many treatment measurements and sparse control measurements."
+#| fig-width: 7
+#| fig-height: 4
+plot_harvest_lengths(loripes_data, loripes_core, "Loripes shell length (mm)")
+```
+
+```{r}
+#| label: fig-loripes-length-effects
+#| fig-cap: "(b) Posterior treatment effect on Loripes shell length, pooled across meadows. Point shows the posterior median; bar shows the 80% HPD credible interval; the label gives the posterior probability of a positive effect."
+#| fig-alt: "Posterior pooled treatment contrast in Loripes length, conditional on the small number of measured control individuals."
+#| fig-width: 5
+#| fig-height: 4
+plot_harvest_effects("loripes")
+```
+
+The pooled shell-length contrast was `r harvest_effect_text("loripes", "Pooled", " mm")`. This describes the size composition of measured individuals at harvest, not growth: individuals were not followed through time, initial lengths are unavailable, and treatment cores contain an experimentally assembled population. Inference is further limited by the sparse control data, the unresolved 2AS discrepancy, and the undocumented selection of individuals for measurement.
+
+`r harvest_diagnostics_text("loripes")` A sensitivity analysis excluding the inconsistent 2AS records gave a materially unchanged contrast (`r sprintf("%.1f", harvest_sensitivity$Estimate[harvest_sensitivity$Model == "loripes"])` mm, 80% CrI `r sprintf("%.1f to %.1f", harvest_sensitivity$Lower[harvest_sensitivity$Model == "loripes"], harvest_sensitivity$Upper[harvest_sensitivity$Model == "loripes"])` mm), so that discrepancy did not drive the result. All observations were retained in the primary analysis.
+
+::: {.callout-note collapse="true" title="Loripes measurement coverage by core"}
+```{r}
+loripes_coverage |>
+  select(Station, Area, Treatment, Count, Measured) |>
+  knitr::kable(col.names = c("Core", "Meadow", "Treatment", "Counted Loripes", "Measured lengths"))
+```
+:::
+
+:::
+
+[Treatment-effect estimates](assets/harvest/generated/treatment-effects.csv), [derived diversity indices](assets/harvest/generated/bivalve-diversity.csv), [Loripes measurement coverage](assets/harvest/generated/loripes-measurement-coverage.csv), [posterior predictive checks](assets/harvest/generated/posterior-predictive-checks.csv) and [sensitivity estimates](assets/harvest/generated/sensitivity-effects.csv) are available as data tables.

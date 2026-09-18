@@ -109,7 +109,6 @@ Raster values were extracted separately for each polygon on the native grid of e
 build_selection_map(selection)
 ```
 
-
 ```{r}
 #| label: fig-selection-distributions
 #| echo: false
@@ -144,7 +143,7 @@ Mean cover persistence was `r sprintf("%.1f", stability_summary$Mean[stability_s
 Baseline aerial surveys preceded installation and documented the initial meadow condition and intertidal elevation of both study areas. *Loripes orbiculatus* individuals were collected on 18 May 2026 and prepared in the laboratory for addition to the treatment cores. The experiment was installed on 20 May 2026 and terminated by destructive sampling on 10 September 2026, with the final harvest timed to coincide with the seasonal maximum in meadow biomass. Multispectral surveys and sediment sulfide measurements were conducted monthly during the experiment, while sediment and air temperatures were recorded hourly.
 
 | Date or interval | Experimental activity |
-|:--|:--|
+|:-----------------------------------|:-----------------------------------|
 | 16 May 2026 | Baseline multispectral imagery and LiDAR elevation surveys of both meadow areas. |
 | 18 May 2026 | Collection of *L. orbiculatus*, followed by size sorting and preparation of 12 addition groups. |
 | 20 May 2026 | Installation of paired control and treatment enclosures, bivalve additions, GNSS positioning, initial core photographs, and deployment of temperature loggers. |
@@ -187,11 +186,11 @@ Flights were conducted at a nominal height of 20 m, with 80% forward overlap and
 
 ### Multispectral image processing
 
-Overlapping images were processed in DJI Terra[^terra-version] to produce georeferenced multispectral orthomosaics. In the software's multispectral reconstruction workflow, visible-light images support aerotriangulation, which estimates the spatial arrangement of the camera positions and imaged scene. This geometric solution is then used to align the multispectral imagery while accounting for the relative positions of the cameras [@DJITerra2024]. Orthorectification and mosaicking combine the overlapping acquisitions into spatially continuous image layers, providing the basis for mapping meadow condition within each survey.
+Overlapping images were processed in DJI Terra[^1] to produce georeferenced multispectral orthomosaics. In the software's multispectral reconstruction workflow, visible-light images support aerotriangulation, which estimates the spatial arrangement of the camera positions and imaged scene. This geometric solution is then used to align the multispectral imagery while accounting for the relative positions of the cameras [@DJITerra2024]. Orthorectification and mosaicking combine the overlapping acquisitions into spatially continuous image layers, providing the basis for mapping meadow condition within each survey.
+
+[^1]: As of 16 September 2026, the DJI download centre lists v5.3.5 as the latest available Terra release [@DJITerraDownloads2026].
 
 Radiometric correction used incident irradiance recorded by the aircraft's onboard multispectral sunlight sensor to convert the image measurements to reflectance. This procedure accounts for illumination through the relationship between the reflected signal measured by each camera and the incident irradiance measured by the sunlight sensor [@DJIMavic3M2023].
-
-[^terra-version]: As of 16 September 2026, the DJI download centre lists v5.3.5 as the latest available Terra release [@DJITerraDownloads2026].
 
 ### Baseline LiDAR elevation survey
 

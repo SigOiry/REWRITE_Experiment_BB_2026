@@ -1,0 +1,6 @@
+"Estimate","Lower","Upper","Probability_positive","Model","Outcome"
+54.4487066382297,19.5397706699741,91.954071002481,0.969666666666667,"leaf","Leaf length (mm)"
+0.316074015194964,-0.341133152658457,0.91861200455743,0.741833333333333,"richness_all","Taxon-group richness: All bivalves"
+-0.144872964954994,-0.464867246086016,0.198127003364782,0.284583333333333,"shannon_all","Shannon diversity: All bivalves"
+0.112628000038945,-0.415467316635681,0.689637186000362,0.60125,"richness_other","Taxon-group richness: Without Loripes"
+0.0725832250812004,-0.225911548653559,0.389263936191804,0.62375,"shannon_other","Shannon diversity: Without Loripes"
